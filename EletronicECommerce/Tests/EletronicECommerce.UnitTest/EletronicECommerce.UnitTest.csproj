@@ -19,4 +19,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\ApplicationCore\EletronicECommerce.Domain\EletronicECommerce.Domain.csproj" />
+    <ProjectReference Include="..\..\ApplicationCore\EletronicECommerce.UseCase\EletronicECommerce.UseCase.csproj" />
+  </ItemGroup>
+
 </Project>
