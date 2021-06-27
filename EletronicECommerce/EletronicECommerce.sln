@@ -7,6 +7,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApplicationCore", "Applicat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EletronicECommerce.Domain", "ApplicationCore\EletronicECommerce.Domain\EletronicECommerce.Domain.csproj", "{174527DA-4FFA-4EC7-8B76-80B77D3B7D01}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{BEC62B80-86D6-4BCE-9D4E-D0D3FFE0E1CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EletronicECommerce.UnitTest", "Tests\EletronicECommerce.UnitTest\EletronicECommerce.UnitTest.csproj", "{55B65E4B-E305-40DB-A552-076A1EE97E34}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,8 +36,21 @@ Global
 		{174527DA-4FFA-4EC7-8B76-80B77D3B7D01}.Release|x64.Build.0 = Release|Any CPU
 		{174527DA-4FFA-4EC7-8B76-80B77D3B7D01}.Release|x86.ActiveCfg = Release|Any CPU
 		{174527DA-4FFA-4EC7-8B76-80B77D3B7D01}.Release|x86.Build.0 = Release|Any CPU
+		{55B65E4B-E305-40DB-A552-076A1EE97E34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55B65E4B-E305-40DB-A552-076A1EE97E34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55B65E4B-E305-40DB-A552-076A1EE97E34}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{55B65E4B-E305-40DB-A552-076A1EE97E34}.Debug|x64.Build.0 = Debug|Any CPU
+		{55B65E4B-E305-40DB-A552-076A1EE97E34}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{55B65E4B-E305-40DB-A552-076A1EE97E34}.Debug|x86.Build.0 = Debug|Any CPU
+		{55B65E4B-E305-40DB-A552-076A1EE97E34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55B65E4B-E305-40DB-A552-076A1EE97E34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55B65E4B-E305-40DB-A552-076A1EE97E34}.Release|x64.ActiveCfg = Release|Any CPU
+		{55B65E4B-E305-40DB-A552-076A1EE97E34}.Release|x64.Build.0 = Release|Any CPU
+		{55B65E4B-E305-40DB-A552-076A1EE97E34}.Release|x86.ActiveCfg = Release|Any CPU
+		{55B65E4B-E305-40DB-A552-076A1EE97E34}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{174527DA-4FFA-4EC7-8B76-80B77D3B7D01} = {54446889-932F-4D42-B7BC-B4E3178A0CA8}
+		{55B65E4B-E305-40DB-A552-076A1EE97E34} = {BEC62B80-86D6-4BCE-9D4E-D0D3FFE0E1CA}
 	EndGlobalSection
 EndGlobal
