@@ -1,4 +1,4 @@
-namespace EletronicECommerce.Domain.Entities.Vo
+namespace EletronicECommerce.Domain.Entities.ValeuObjects
 {
     public class Address
     {

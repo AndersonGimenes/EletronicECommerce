@@ -1,4 +1,4 @@
-using EletronicECommerce.Domain.Entities.Vo;
+using EletronicECommerce.Domain.Entities.ValeuObjects;
 
 namespace EletronicECommerce.Domain.Entities.Store
 {

@@ -1,6 +1,6 @@
 using EletronicECommerce.Domain.Entities.Enums;
 
-namespace EletronicECommerce.Domain.Entities.Vo
+namespace EletronicECommerce.Domain.Entities.ValeuObjects
 {
     public class Document
     {
