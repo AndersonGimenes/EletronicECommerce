@@ -13,24 +13,18 @@ namespace EletronicECommerce.UnitTest.UseCase
     public class RegisterCategoryUseCaseTest
     {
         private readonly RegisterCategoryUseCase _registerCategoryUseCase;
-        private ISetup<ICategoryRepository, Category> _categoryRepositoryGetByNameMock;
-        
+        private readonly Mock<ICategoryRepository> _categoryRepositoryMock;
+
         public RegisterCategoryUseCaseTest()
         {
-            var categoryRepositoryMock = new Mock<ICategoryRepository>();
+            _categoryRepositoryMock = new Mock<ICategoryRepository>();
 
-            _categoryRepositoryGetByNameMock = categoryRepositoryMock
-                .Setup(x => x.GetByName(It.IsAny<string>()));
-            
-            _registerCategoryUseCase = new RegisterCategoryUseCase(new CreateCategoryBuilder(categoryRepositoryMock.Object));
+            _registerCategoryUseCase = new RegisterCategoryUseCase(new CreateCategoryBuilder(_categoryRepositoryMock.Object));
         }
 
         [Fact]
         public void MustHaveAValidCategoryToBeCreated()
         {
-            _categoryRepositoryGetByNameMock
-                .Returns(() => null);
-
             var category = new Category("Games");
 
             var result = _registerCategoryUseCase.Create(category);
@@ -39,16 +33,17 @@ namespace EletronicECommerce.UnitTest.UseCase
         }
 
         [Fact]
-        public void IfHaveMoreThanOneSameCategoryNameShouldAnUseCaseException()
+        public void IfHaveMoreThanOneSameCategoryNameShouldThrowAnUseCaseException()
         {
-            _categoryRepositoryGetByNameMock
+            _categoryRepositoryMock
+                .Setup(x => x.GetByName(It.IsAny<string>()))
                 .Returns(new Category("Consoles"));
 
             var category = new Category("Consoles");
 
             var ex = Assert.Throws<UseCaseException>(() => _registerCategoryUseCase.Create(category));
 
-            Assert.Equal("The Consoles category already exists.", ex.Message);
+            Assert.Equal("The Consoles category name already exists.", ex.Message);
         }
 
         //[TO-DO] Implements this methods

@@ -15,9 +15,9 @@ namespace EletronicECommerce.UseCase.Implementation.Builders
             _categoryRepository = categoryRepository;
         }
 
-        public Category CallRepository() {
-            //[TO-DO] : Call create methods by repositore here 
-            
+        public Category CallRepository() 
+        {
+            //[TO-DO] : Call create methods by repository here 
             return _category;
         }            
         
@@ -32,7 +32,7 @@ namespace EletronicECommerce.UseCase.Implementation.Builders
             var category = _categoryRepository.GetByName(_category.Name);
             
             if(category != null)
-                throw new UseCaseException($"The {_category.Name} category already exists.");
+                throw new UseCaseException($"The {_category.Name} category name already exists.");
 
             return this;
         }
