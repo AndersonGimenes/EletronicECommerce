@@ -2,7 +2,7 @@ using System.Text;
 using EletronicECommerce.Domain.Entities.Admin;
 using EletronicECommerce.UseCase.Exceptions;
 using EletronicECommerce.UseCase.Interfaces.Builder;
-using EletronicECommerce.UseCase.Interfaces.Repositores;
+using EletronicECommerce.UseCase.Interfaces.Repositories;
 
 namespace EletronicECommerce.UseCase.Implementation.Builders
 {

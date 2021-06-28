@@ -2,10 +2,9 @@ using System;
 using EletronicECommerce.Domain.Entities.Admin;
 using EletronicECommerce.UseCase.Implementation.Builders;
 using EletronicECommerce.UseCase.Implementation.UseCase;
-using EletronicECommerce.UseCase.Interfaces.Repositores;
+using EletronicECommerce.UseCase.Interfaces.Repositories;
 using Xunit;
 using Moq;
-using Moq.Language.Flow;
 using EletronicECommerce.UseCase.Exceptions;
 
 namespace EletronicECommerce.UnitTest.UseCase
