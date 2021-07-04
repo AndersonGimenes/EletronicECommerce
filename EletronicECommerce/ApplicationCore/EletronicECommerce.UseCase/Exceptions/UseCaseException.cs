@@ -21,5 +21,4 @@ namespace EletronicECommerce.UseCase.Exceptions
 
         }
     }
-
 }

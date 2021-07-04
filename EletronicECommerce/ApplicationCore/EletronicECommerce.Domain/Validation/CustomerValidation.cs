@@ -1,12 +1,13 @@
 using EletronicECommerce.Domain.Entities.Store;
+using EletronicECommerce.Domain.Validation.ValueObjectValidation;
 
-namespace EletronicECommerce.Domain.Validatation
+namespace EletronicECommerce.Domain.Validation
 {
     public static class CustomerValidation
     {
         public static void IsValid(this Customer customer)
         {
-            throw new System.Exception("Dont implemented");
+            customer.Document.IsValid();
         }
     }
 }
