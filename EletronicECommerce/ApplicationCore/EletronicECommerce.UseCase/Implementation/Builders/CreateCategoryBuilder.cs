@@ -1,7 +1,7 @@
 using EletronicECommerce.Domain.Entities.Admin;
-using EletronicECommerce.UseCase.Exceptions;
 using EletronicECommerce.UseCase.Interfaces.Builder;
 using EletronicECommerce.UseCase.Interfaces.Repositories;
+using EletronicECommerce.UseCase.Validation;
 
 namespace EletronicECommerce.UseCase.Implementation.Builders
 {
@@ -29,10 +29,7 @@ namespace EletronicECommerce.UseCase.Implementation.Builders
 
         public IBuilder<Category> Validate()
         {
-            var category = _categoryRepository.GetByName(_category.Name);
-            
-            if(category != null)
-                throw new UseCaseException($"The {_category.Name} category name already exists.");
+            new RegisterCategoryUseCaseValidation().IsValid(_category, _categoryRepository);         
 
             return this;
         }

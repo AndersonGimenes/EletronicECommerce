@@ -3,6 +3,7 @@ using EletronicECommerce.Domain.Entities.Admin;
 using EletronicECommerce.UseCase.Exceptions;
 using EletronicECommerce.UseCase.Interfaces.Builder;
 using EletronicECommerce.UseCase.Interfaces.Repositories;
+using EletronicECommerce.UseCase.Validation;
 
 namespace EletronicECommerce.UseCase.Implementation.Builders
 {
@@ -31,24 +32,7 @@ namespace EletronicECommerce.UseCase.Implementation.Builders
 
         public IBuilder<Product> Validate()
         {
-            var stringBuilder = new StringBuilder();
-            
-            var product = _productRepository.GetByName(_product.Name);
-            var category = _categoryRepository.GetByIdentifier(_product.Category);            
-            
-            if(product != null)
-                stringBuilder.Append($"The {_product.Name} product name already exists.");
-
-            product = _productRepository.GetByCode(_product.Code);
-
-            if(product != null)
-                stringBuilder.Append($"The {_product.Code} product code already exists.");
-
-            if(category is null)
-                stringBuilder.Append($"Please select any valid category.");
-
-            if(stringBuilder.Length > 0)
-                throw new UseCaseException(stringBuilder.ToString());
+            new RegisterProductUseCaseValidation().IsValid(_product, _productRepository, _categoryRepository);
 
             return this;
         }
