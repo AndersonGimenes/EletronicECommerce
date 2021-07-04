@@ -4,10 +4,7 @@ using EletronicECommerce.Domain.Entities.Admin;
 
 namespace EletronicECommerce.UseCase.Interfaces.UseCase
 {
-    public interface IRegisterCategoryUseCase
+    public interface IRegisterCategoryUseCase : IRegisterBaseUseCase<Category>
     {
-        IEnumerable<Category> GetAll();
-        Category Create(Category category);
-        void Delete(Guid identifier);
     }
 }

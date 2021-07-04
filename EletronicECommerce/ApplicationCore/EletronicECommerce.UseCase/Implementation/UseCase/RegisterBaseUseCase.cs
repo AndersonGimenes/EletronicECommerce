@@ -15,12 +15,12 @@ namespace EletronicECommerce.UseCase.Implementation.UseCase
         }
         public T Create(T entity)
         {
-            _builder
-                .Set(entity)
-                .Validate()
-                .CallRepository();
+            var entityReady = _builder
+                                .Set(entity)
+                                .Validate()
+                                .CallRepository();
 
-            return entity;
+            return entityReady;
         }
 
         public void Delete(Guid identifier)

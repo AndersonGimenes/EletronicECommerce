@@ -2,10 +2,8 @@ using EletronicECommerce.Domain.Entities.Admin;
 
 namespace EletronicECommerce.UseCase.Interfaces.Repositories
 {
-    public interface IProductRepository
+    public interface IProductRepository : IBaseRepository<Product>
     {
-        Product GetByName(string name);
         Product GetByCode(string code);
-        Product Create(Product product);
     }
 }
