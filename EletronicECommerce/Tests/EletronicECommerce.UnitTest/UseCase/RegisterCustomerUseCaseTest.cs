@@ -19,8 +19,8 @@ namespace EletronicECommerce.UnitTest.UseCase
         public RegisterCustomerUseCaseTest()
         {
             _customerRepository = new Mock<ICustomerRepository>();
-            var createCustomerBuilder = new CreateCustomerBuilder(_customerRepository.Object); 
-            _registerCustomerUseCase = new RegisterCustomerUseCase(createCustomerBuilder);
+
+            _registerCustomerUseCase = new RegisterCustomerUseCase(new CreateCustomerBuilder(_customerRepository.Object));
         }
 
         [Fact]

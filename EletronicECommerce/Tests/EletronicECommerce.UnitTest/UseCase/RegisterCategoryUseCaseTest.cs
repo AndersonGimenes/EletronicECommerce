@@ -6,7 +6,6 @@ using EletronicECommerce.UseCase.Interfaces.Repositories;
 using Xunit;
 using Moq;
 using EletronicECommerce.UseCase.Exceptions;
-using Moq.Language.Flow;
 
 namespace EletronicECommerce.UnitTest.UseCase
 {
