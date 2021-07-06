@@ -2,7 +2,13 @@ namespace EletronicECommerce.Domain.Entities.Shared
 {
     public class User : EntityBase
     {
-        public string Email { get; set; }
-        public string PassWord { get; set; }             
+        public User(string email, string passWord)
+        {
+            Email = email;
+            PassWord = passWord;
+        }
+
+        public string Email { get; private set; }
+        public string PassWord { get; private set; }             
     }
 }
