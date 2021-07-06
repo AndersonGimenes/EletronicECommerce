@@ -43,8 +43,8 @@ namespace EletronicECommerce.UnitTest.UseCase
         }
         
         [Theory]
-        [InlineData("my_secret_password", "Invalid password. Please type any special character.")]
-        [InlineData("my_secret_p@ssword", "Invalid password. Please type at least a number.")]
+        [InlineData("my_secret_Password1234", "Invalid password. Please type any special character.")]
+        [InlineData("my_secret_P@ssword", "Invalid password. Please type at least a number.")]
         [InlineData("my_secret_p@ssword#1234", "Invalid password. Please type at least a upperCase letter.")]
         public void IfThePasswordIsNotValidShouldThrowADomainException(string password, string result)
         {

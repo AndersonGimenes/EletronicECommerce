@@ -6,7 +6,8 @@ namespace EletronicECommerce.UseCase.Implementation.UseCase
 {
     public class RegisterUserUseCase : RegisterBaseUseCase<User>, IRegisterUserUseCase
     {
-        public RegisterUserUseCase(ICreateUserBuilder createUserBuilder) : base(createUserBuilder)
+        public RegisterUserUseCase(ICreateUserBuilder createUserBuilder) 
+            : base(createUserBuilder)
         {
         }
     }

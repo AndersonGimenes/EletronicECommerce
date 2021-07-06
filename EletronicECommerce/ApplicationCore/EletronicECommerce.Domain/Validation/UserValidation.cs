@@ -1,3 +1,4 @@
+using System.Text;
 using System.Text.RegularExpressions;
 using EletronicECommerce.Domain.Entities.Shared;
 using EletronicECommerce.Domain.Exceptions;
@@ -8,17 +9,22 @@ namespace EletronicECommerce.Domain.Validation
     {
         public static void IsValid(this User user)
         {
+            var stringBuilder = new StringBuilder();
+
             if(!user.Email.Contains("@"))
-                throw new DomainException("Invalid email. Please type @ character.");
+                stringBuilder.Append("Invalid email. Please type @ character.");
 
             if(!HasSymbol(user.PassWord))
-                throw new DomainException("Invalid password. Please type any special character.");
+                stringBuilder.Append("Invalid password. Please type any special character.");
 
             if(!HasDigit(user.PassWord))
-                throw new DomainException("Invalid password. Please type at least a number.");
+                stringBuilder.Append("Invalid password. Please type at least a number.");
             
             if(!HasLetter(user.PassWord))
-                throw new DomainException("Invalid password. Please type at least a upperCase letter.");
+                stringBuilder.Append("Invalid password. Please type at least a upperCase letter.");
+
+            if(stringBuilder.Length > 0)
+                throw new DomainException(stringBuilder.ToString());
         }
 
         private static bool HasLetter(string str)
