@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -9,33 +10,23 @@ namespace EletronicECommerce.Infrastructure.Security
         // When saving call this method to encrypt the password.
         public static string EncryptPassword(string password)
         {
-            var objMD5CryptoService = new MD5CryptoServiceProvider();
-            var objTripleDESCryptoService = new TripleDESCryptoServiceProvider();
-
-            var toEncryptedArray = UTF8Encoding.UTF8.GetBytes(password);
-
-            var securityKeyArray = objMD5CryptoService.ComputeHash(UTF8Encoding.UTF8.GetBytes(Config.Config.SecurityPasswordKey));
-            objMD5CryptoService.Clear();
-            
-            objTripleDESCryptoService.Key = securityKeyArray;            
-            objTripleDESCryptoService.Mode = CipherMode.ECB;
-            objTripleDESCryptoService.Padding = PaddingMode.PKCS7;
-
-            var objCrytpoTransform = objTripleDESCryptoService.CreateEncryptor();
-            
-            var resultArray = objCrytpoTransform.TransformFinalBlock(toEncryptedArray, 0, toEncryptedArray.Length);
-            objTripleDESCryptoService.Clear();
-
+            var resultArray = CreateMD5Object(password, "CreateEncryptor", () => UTF8Encoding.UTF8.GetBytes(password));
             return Convert.ToBase64String(resultArray, 0, resultArray.Length);
         }
 
         // When validating the password use this method to decrypt one.
         public static string DecryptPassword(string password)
         {
+            var resultArray = CreateMD5Object(password, "CreateDecryptor", () => Convert.FromBase64String(password));            
+            return UTF8Encoding.UTF8.GetString(resultArray);
+        }
+
+        private static byte[] CreateMD5Object(string password, string methodName, Func<dynamic> action)
+        {
             var objMD5CryptoService = new MD5CryptoServiceProvider();
             var objTripleDESCryptoService = new TripleDESCryptoServiceProvider();            
 
-            var toEncryptArray = Convert.FromBase64String(password);            
+            var toEncryptArray = action.Invoke();            
 
             var securityKeyArray = objMD5CryptoService.ComputeHash(UTF8Encoding.UTF8.GetBytes(Config.Config.SecurityPasswordKey));
             objMD5CryptoService.Clear();
@@ -44,12 +35,15 @@ namespace EletronicECommerce.Infrastructure.Security
             objTripleDESCryptoService.Mode = CipherMode.ECB;
             objTripleDESCryptoService.Padding = PaddingMode.PKCS7;
 
-            var objCrytpoTransform = objTripleDESCryptoService.CreateDecryptor();
-            
-            var resultArray = objCrytpoTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
-            objTripleDESCryptoService.Clear();
+            var objCrytpoTransform = objTripleDESCryptoService
+                                            .GetType()
+                                            .GetMethods()
+                                            .First(x => x.Name == methodName)
+                                            .Invoke(objTripleDESCryptoService, null) as ICryptoTransform;
 
-            return UTF8Encoding.UTF8.GetString(resultArray);
+            objTripleDESCryptoService.Clear();
+                                                
+            return objCrytpoTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
         }
     }
 }
