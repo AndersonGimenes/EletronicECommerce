@@ -1,5 +1,5 @@
 using System.Text;
-using EletronicECommerce.Api.DependencyInjection;
+using EletronicECommerce.Api.Mapping;
 using EletronicECommerce.Infrastructure.Config;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using DI = EletronicECommerce.DependencyInjection;
 
 namespace EletronicECommerce.Api
 {
@@ -34,8 +35,7 @@ namespace EletronicECommerce.Api
                 };
             }); 
 
-            new ConfigureDependencyInjection(services);
-            
+            new DI.DependencyInjection(services, new MappingProfileApi());
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
