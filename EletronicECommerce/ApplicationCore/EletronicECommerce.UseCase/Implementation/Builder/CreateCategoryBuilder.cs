@@ -3,7 +3,7 @@ using EletronicECommerce.UseCase.Interfaces.Builder;
 using EletronicECommerce.UseCase.Interfaces.Repositories;
 using EletronicECommerce.UseCase.Validation;
 
-namespace EletronicECommerce.UseCase.Implementation.Builders
+namespace EletronicECommerce.UseCase.Implementation.Builder
 {
     public class CreateCategoryBuilder : ICreateCategoryBuilder
     {

@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using EletronicECommerce.Infrastructure.Config;
 
 namespace EletronicECommerce.Infrastructure.Security
 {
@@ -28,7 +29,7 @@ namespace EletronicECommerce.Infrastructure.Security
 
             var toEncryptArray = action.Invoke();            
 
-            var securityKeyArray = objMD5CryptoService.ComputeHash(UTF8Encoding.UTF8.GetBytes(Config.Config.SecurityPasswordKey));
+            var securityKeyArray = objMD5CryptoService.ComputeHash(UTF8Encoding.UTF8.GetBytes(Settings.SecurityPasswordKey));
             objMD5CryptoService.Clear();
 
             objTripleDESCryptoService.Key = securityKeyArray;

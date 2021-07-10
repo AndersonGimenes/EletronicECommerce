@@ -3,7 +3,7 @@ using EletronicECommerce.Domain.Entities.Store;
 using EletronicECommerce.Domain.Entities.ValeuObjects;
 using EletronicECommerce.Domain.Exceptions;
 using EletronicECommerce.UseCase.Exceptions;
-using EletronicECommerce.UseCase.Implementation.Builders;
+using EletronicECommerce.UseCase.Implementation.Builder;
 using EletronicECommerce.UseCase.Implementation.UseCase;
 using EletronicECommerce.UseCase.Interfaces.Repositories;
 using Moq;

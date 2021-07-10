@@ -4,4 +4,16 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EletronicECommerce.Infrastructure\EletronicECommerce.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\ApplicationCore\EletronicECommerce.UseCase\EletronicECommerce.UseCase.csproj" />
+    <ProjectReference Include="..\EletronicECommerce.Repository\EletronicECommerce.Repository.csproj" />
+  </ItemGroup>
+
 </Project>

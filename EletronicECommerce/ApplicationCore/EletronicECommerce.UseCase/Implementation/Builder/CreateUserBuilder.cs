@@ -4,7 +4,7 @@ using EletronicECommerce.UseCase.Interfaces.Repositories;
 using EletronicECommerce.Domain.Validation;
 using EletronicECommerce.UseCase.Validation;
 
-namespace EletronicECommerce.UseCase.Implementation.Builders
+namespace EletronicECommerce.UseCase.Implementation.Builder
 {
     public class CreateUserBuilder : ICreateUserBuilder
     {

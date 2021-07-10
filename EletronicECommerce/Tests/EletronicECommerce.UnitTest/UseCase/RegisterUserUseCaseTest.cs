@@ -2,7 +2,7 @@ using System;
 using EletronicECommerce.Domain.Entities.Shared;
 using EletronicECommerce.Domain.Exceptions;
 using EletronicECommerce.UseCase.Exceptions;
-using EletronicECommerce.UseCase.Implementation.Builders;
+using EletronicECommerce.UseCase.Implementation.Builder;
 using EletronicECommerce.UseCase.Implementation.UseCase;
 using EletronicECommerce.UseCase.Interfaces.Repositories;
 using Moq;
@@ -19,7 +19,7 @@ namespace EletronicECommerce.UnitTest.UseCase
         {
             _userRepository = new Mock<IUserRepository>();
             
-            _registerUserUseCase = new RegisterUserUseCase(new CreateUserBuilder(_userRepository.Object));
+            _registerUserUseCase = new RegisterUserUseCase(new CreateUserBuilder(_userRepository.Object), _userRepository.Object);
         }
 
         [Fact]
