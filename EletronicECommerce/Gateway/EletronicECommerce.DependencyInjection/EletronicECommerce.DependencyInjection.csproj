@@ -3,6 +3,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\ApplicationCore\EletronicECommerce.UseCase\EletronicECommerce.UseCase.csproj" />
     <ProjectReference Include="..\EletronicECommerce.Repository\EletronicECommerce.Repository.csproj" />
+    <ProjectReference Include="..\EletronicECommerce.Infrastructure\EletronicECommerce.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

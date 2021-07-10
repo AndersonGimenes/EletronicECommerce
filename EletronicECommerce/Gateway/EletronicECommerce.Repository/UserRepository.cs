@@ -9,7 +9,7 @@ namespace EletronicECommerce.Repository
         public User CheckUser(User user)
         {
             //[TO-DO] Implements the method
-            if(user.Email == "test@test.com" && user.PassWord == "1234")
+            if(user.Email == "test@test.com" && user.Password == "1234")
                 return user;
 
             return null;

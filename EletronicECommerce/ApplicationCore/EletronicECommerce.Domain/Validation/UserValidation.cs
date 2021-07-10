@@ -14,13 +14,13 @@ namespace EletronicECommerce.Domain.Validation
             if(!user.Email.Contains("@"))
                 stringBuilder.Append("Invalid email. Please type @ character.");
 
-            if(!HasSymbol(user.PassWord))
+            if(!HasSymbol(user.Password))
                 stringBuilder.Append("Invalid password. Please type any special character.");
 
-            if(!HasDigit(user.PassWord))
+            if(!HasDigit(user.Password))
                 stringBuilder.Append("Invalid password. Please type at least a number.");
             
-            if(!HasLetter(user.PassWord))
+            if(!HasLetter(user.Password))
                 stringBuilder.Append("Invalid password. Please type at least a upperCase letter.");
 
             if(stringBuilder.Length > 0)
