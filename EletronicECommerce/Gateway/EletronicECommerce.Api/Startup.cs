@@ -1,13 +1,6 @@
 using System.Text;
-using AutoMapper;
-using EletronicECommerce.Api.Mapping;
+using EletronicECommerce.Api.DependencyInjection;
 using EletronicECommerce.Infrastructure.Config;
-using EletronicECommerce.Repository;
-using EletronicECommerce.UseCase.Implementation.Builder;
-using EletronicECommerce.UseCase.Implementation.UseCase;
-using EletronicECommerce.UseCase.Interfaces.Builder;
-using EletronicECommerce.UseCase.Interfaces.Repositories;
-using EletronicECommerce.UseCase.Interfaces.UseCase;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -41,20 +34,8 @@ namespace EletronicECommerce.Api
                 };
             }); 
 
-            #region [ Use Case ]            
-            services.AddTransient<ICreateUserBuilder, CreateUserBuilder>();
-            services.AddTransient<IRegisterUserUseCase, RegisterUserUseCase>();
-            #endregion
-
-            #region [ Repository ]
-            services.AddScoped<IUserRepository, UserRepository>();
-            #endregion
-
-
-            var cfg = new MapperConfiguration(opts =>{
-                opts.AddProfile(new MappingProfileApi());
-            });
-            services.AddSingleton(cfg.CreateMapper());         
+            new ConfigureDependencyInjection(services);
+            
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
