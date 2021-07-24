@@ -2,6 +2,7 @@ using System;
 using AutoMapper;
 using EletronicECommerce.Api.Models.User;
 using EletronicECommerce.Domain.Entities.Shared;
+using EletronicECommerce.Infrastructure.Config;
 using EletronicECommerce.Infrastructure.Security;
 using EletronicECommerce.UseCase.Interfaces.UseCase;
 using Microsoft.AspNetCore.Authorization;
@@ -42,6 +43,23 @@ namespace EletronicECommerce.Api.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpGet(nameof(CreateAdminUser))]
+        public IActionResult CreateAdminUser()
+        {
+            try
+            {
+                var user = new User(Settings.AdminUser, Settings.AdminPassword);
+                _registerUserUseCase.Create(user);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
 
         [HttpGet]

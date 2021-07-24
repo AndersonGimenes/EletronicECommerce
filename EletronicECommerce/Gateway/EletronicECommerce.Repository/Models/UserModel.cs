@@ -1,8 +1,13 @@
 namespace EletronicECommerce.Repository.Models
 {
-    internal class UserModel : BaseModel
+    public class UserModel : BaseModel
     {
-        internal string Email { get; private set; }
-        internal string Password { get; private set; }
+        public string Email { get; private set; }
+        public string Password { get; private set; }
+
+        public void SetPassword(string password)
+        {
+            Password = password;
+        }
     }
 }

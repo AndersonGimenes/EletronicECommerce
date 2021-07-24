@@ -3,6 +3,7 @@ using EletronicECommerce.DependencyInjection.Repository;
 using EletronicECommerce.DependencyInjection.UseCase;
 using EletronicECommerce.Infrastructure.Config;
 using EletronicECommerce.Repository.Context;
+using EletronicECommerce.Repository.Mapping;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -27,6 +28,7 @@ namespace EletronicECommerce.DependencyInjection
         {
             var cfg = new MapperConfiguration(opts =>{
                 opts.AddProfile(profile);
+                opts.AddProfile(new MappingProfileRepository());
             });
             _services.AddSingleton(cfg.CreateMapper());         
         }
