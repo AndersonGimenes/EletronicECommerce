@@ -12,6 +12,9 @@ namespace EletronicECommerce.DependencyInjection.UseCase
         {
             services.AddTransient<ICreateUserBuilder, CreateUserBuilder>();
             services.AddTransient<IRegisterUserUseCase, RegisterUserUseCase>();
+
+            services.AddTransient<ICreateCategoryBuilder, CreateCategoryBuilder>();
+            services.AddTransient<IRegisterCategoryUseCase, RegisterCategoryUseCase>();
         }
     }
 }

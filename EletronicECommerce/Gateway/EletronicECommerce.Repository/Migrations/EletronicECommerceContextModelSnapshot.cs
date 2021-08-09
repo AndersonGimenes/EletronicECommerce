@@ -17,6 +17,25 @@ namespace EletronicECommerce.Repository.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
                 .HasAnnotation("ProductVersion", "5.0.0");
 
+            modelBuilder.Entity("EletronicECommerce.Repository.Models.CategoryModel", b =>
+                {
+                    b.Property<byte[]>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("varbinary(16)");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.HasKey("Id")
+                        .HasName("Pk_Category");
+
+                    b.ToTable("Category");
+                });
+
             modelBuilder.Entity("EletronicECommerce.Repository.Models.UserModel", b =>
                 {
                     b.Property<byte[]>("Id")

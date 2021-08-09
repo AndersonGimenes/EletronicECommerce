@@ -27,6 +27,10 @@ namespace EletronicECommerce.UnitTest.UseCase
         {
             var user = new User("nd@nd.com", "my_Secret_P@ssword#1234");
 
+            _userRepository
+                .Setup(x => x.Create(It.IsAny<User>()))
+                .Returns(user);
+
             var result = _registerUserUseCase.Create(user);
 
             Assert.True(result.Identifier != Guid.Empty);

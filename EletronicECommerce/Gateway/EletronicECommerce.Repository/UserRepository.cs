@@ -26,20 +26,14 @@ namespace EletronicECommerce.Repository
             
             var userModel = _mapper.Map<UserModel>(user);
             userModel
-                .SetPassword(
-                    PasswordHandler
-                    .EncryptPassword(userModel.Password)
-                );
+                .SetPassword(PasswordHandler.EncryptPassword(userModel.Password));
             
             var userDto = _context.Users.FirstOrDefault(x => x.Email == userModel.Email && x.Password == userModel.Password);
             
             if(userDto != null)
             {
                 userDto
-                    .SetPassword(
-                        PasswordHandler
-                        .DecryptPassword(userModel.Password)
-                    );
+                    .SetPassword(PasswordHandler.DecryptPassword(userModel.Password));
 
                 userResponse = _mapper.Map<User>(userDto);
             }
@@ -51,10 +45,8 @@ namespace EletronicECommerce.Repository
         {       
             var userModel = _mapper.Map<UserModel>(user);
             userModel
-                .SetPassword(
-                    PasswordHandler
-                    .EncryptPassword(userModel.Password)
-                );
+                .SetPassword(PasswordHandler.EncryptPassword(userModel.Password))
+                .SetCreateDate();
 
             _context.Users.Add(userModel);
 

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EletronicECommerce.Repository.Migrations
 {
     [DbContext(typeof(EletronicECommerceContext))]
-    [Migration("20210724024842_InitialCreate")]
+    [Migration("20210809010802_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -18,6 +18,25 @@ namespace EletronicECommerce.Repository.Migrations
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
                 .HasAnnotation("ProductVersion", "5.0.0");
+
+            modelBuilder.Entity("EletronicECommerce.Repository.Models.CategoryModel", b =>
+                {
+                    b.Property<byte[]>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("varbinary(16)");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.HasKey("Id")
+                        .HasName("Pk_Category");
+
+                    b.ToTable("Category");
+                });
 
             modelBuilder.Entity("EletronicECommerce.Repository.Models.UserModel", b =>
                 {

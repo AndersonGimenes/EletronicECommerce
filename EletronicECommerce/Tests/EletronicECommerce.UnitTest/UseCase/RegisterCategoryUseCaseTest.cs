@@ -26,6 +26,10 @@ namespace EletronicECommerce.UnitTest.UseCase
         {
             var category = new Category("Games");
 
+            _categoryRepositoryMock
+                .Setup(x => x.Create(It.IsAny<Category>()))
+                .Returns(category);
+
             var result = _registerCategoryUseCase.Create(category);
 
             Assert.True(result.Identifier != Guid.Empty);

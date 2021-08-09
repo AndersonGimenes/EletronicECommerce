@@ -15,11 +15,7 @@ namespace EletronicECommerce.UseCase.Implementation.Builder
             _categoryRepository = categoryRepository;
         }
 
-        public Category CallRepository() 
-        {
-            //[TO-DO] : Call create methods by repository here 
-            return _category;
-        }            
+        public Category CallRepository() => _categoryRepository.Create(_category);
         
         public IBuilder<Category> Set(Category category)
         {

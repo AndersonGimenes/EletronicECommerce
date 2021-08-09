@@ -6,5 +6,10 @@ namespace EletronicECommerce.Repository.Models
     {
         public Guid Id { get; private set; }
         public DateTime CreateDate { get; private set; }
+
+        internal void SetCreateDate()
+        {
+            CreateDate = DateTime.Now;
+        }
     }
 }

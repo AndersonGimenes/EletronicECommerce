@@ -9,6 +9,7 @@ namespace EletronicECommerce.DependencyInjection.Repository
         public RepositoryDependencyInjection(IServiceCollection services)
         {
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
         }
     }
 }
