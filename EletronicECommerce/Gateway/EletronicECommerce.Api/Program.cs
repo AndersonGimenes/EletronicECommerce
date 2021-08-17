@@ -1,3 +1,5 @@
+using EletronicECommerce.Api.Mapping;
+using EletronicECommerce.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
@@ -15,6 +17,8 @@ namespace EletronicECommerce.Api
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                });
+                })
+                .ConfigureServices(service => 
+                    service.DependencyInjectionConfiguration(new MappingProfileApi()));
     }
 }

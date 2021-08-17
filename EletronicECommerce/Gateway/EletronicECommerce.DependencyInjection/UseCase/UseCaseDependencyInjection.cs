@@ -6,9 +6,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace EletronicECommerce.DependencyInjection.UseCase
 {
-    public class UseCaseDependencyInjection
+    internal static class UseCaseDependencyInjection
     {
-        public UseCaseDependencyInjection(IServiceCollection services)
+        internal static void UseCaseDI(this IServiceCollection services)
         {
             services.AddTransient<ICreateUserBuilder, CreateUserBuilder>();
             services.AddTransient<IRegisterUserUseCase, RegisterUserUseCase>();

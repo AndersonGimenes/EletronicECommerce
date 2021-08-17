@@ -9,34 +9,32 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace EletronicECommerce.DependencyInjection
 {
-    public class DependencyInjection
+    public static class DependencyInjection
     {
-        private readonly IServiceCollection _services;
-
-        public DependencyInjection(IServiceCollection services, Profile profile)
+        public static void DependencyInjectionConfiguration(this IServiceCollection services, Profile profile)
         {
-            _services = services;
-
-            new UseCaseDependencyInjection(services);
-            new RepositoryDependencyInjection(services);
-
-            DataBaseDI();
-            AutoMapperDI(profile);            
+            services.UseCaseDI();
+            services.RepositoryDI();
+            
+            services.DataBaseDI();
+            services.AutoMapperDI(profile);  
         }
 
-        private void AutoMapperDI(Profile profile)
+        #region [ Private Methods ]
+        private static void AutoMapperDI(this IServiceCollection services, Profile profile)
         {
             var cfg = new MapperConfiguration(opts =>{
                 opts.AddProfile(profile);
                 opts.AddProfile(new MappingProfileRepository());
             });
-            _services.AddSingleton(cfg.CreateMapper());         
+            services.AddSingleton(cfg.CreateMapper());         
         }
 
-        private void DataBaseDI()
+        private static void DataBaseDI(this IServiceCollection services)
         {
-            _services.AddDbContext<EletronicECommerceContext>(options =>
+            services.AddDbContext<EletronicECommerceContext>(options =>
                 options.UseMySQL(Settings.ConnectionString));
         }
+        #endregion
     }
 }

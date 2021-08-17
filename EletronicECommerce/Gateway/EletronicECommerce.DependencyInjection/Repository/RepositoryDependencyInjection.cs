@@ -4,9 +4,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace EletronicECommerce.DependencyInjection.Repository
 {
-    internal class RepositoryDependencyInjection
+    internal static class RepositoryDependencyInjection
     {
-        public RepositoryDependencyInjection(IServiceCollection services)
+        internal static void RepositoryDI(this IServiceCollection services)
         {
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
