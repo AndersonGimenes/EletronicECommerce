@@ -7,14 +7,15 @@ using EletronicECommerce.Repository.Context;
 using EletronicECommerce.Repository.Models;
 using EletronicECommerce.UseCase.Interfaces.Repositories;
 
-namespace EletronicECommerce.Repository
+namespace EletronicECommerce.Repository.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : RepositoryBase<UserModel>, IUserRepository
     {
         private readonly EletronicECommerceContext _context;
         private readonly IMapper _mapper;
 
         public UserRepository(EletronicECommerceContext context, IMapper mapper)
+            : base(context)
         {
             _context = context;
             _mapper = mapper;
@@ -25,15 +26,14 @@ namespace EletronicECommerce.Repository
             User userResponse = null;
             
             var userModel = _mapper.Map<UserModel>(user);
-            userModel
-                .SetPassword(PasswordHandler.EncryptPassword(userModel.Password));
+            
+            userModel.SetPassword(PasswordHandler.EncryptPassword(userModel.Password));
             
             var userDto = _context.Users.FirstOrDefault(x => x.Email == userModel.Email && x.Password == userModel.Password);
             
             if(userDto != null)
             {
-                userDto
-                    .SetPassword(PasswordHandler.DecryptPassword(userModel.Password));
+                userDto.SetPassword(PasswordHandler.DecryptPassword(userModel.Password));
 
                 userResponse = _mapper.Map<User>(userDto);
             }
@@ -44,13 +44,12 @@ namespace EletronicECommerce.Repository
         public User Create(User user)
         {       
             var userModel = _mapper.Map<UserModel>(user);
-            userModel
-                .SetPassword(PasswordHandler.EncryptPassword(userModel.Password))
-                .SetCreateDate();
-
+            
+            userModel.SetPassword(PasswordHandler.EncryptPassword(userModel.Password));
+                
             _context.Users.Add(userModel);
 
-            _context.SaveChanges();
+            base.Create(userModel);
 
             return user;
         }

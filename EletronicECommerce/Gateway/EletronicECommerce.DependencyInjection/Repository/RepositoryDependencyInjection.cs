@@ -1,4 +1,4 @@
-using EletronicECommerce.Repository;
+using EletronicECommerce.Repository.Repositories;
 using EletronicECommerce.UseCase.Interfaces.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
