@@ -1,0 +1,21 @@
+using EletronicECommerce.Domain.Entities.ValeuObjects;
+
+namespace EletronicECommerce.Domain.Entities.Store
+{
+    public class Customer : EntityBase
+    {
+        public Customer(Name fullName, Document document, Address billingAddress, Address deliveryAddess)
+        {
+            FullName = fullName;
+            Document = document;
+            BillingAddress = billingAddress;
+            DeliveryAddess = deliveryAddess;
+        }
+        
+        public Name FullName { get; private set; }
+        public Document Document { get; private set; }
+        public Address BillingAddress { get; private set; }
+        public Address DeliveryAddess { get; private set; }
+
+    }
+}

@@ -1,11 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using EletronicECommerce.Api.Mapping;
+using EletronicECommerce.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace EletronicECommerce.Api
 {
@@ -21,6 +17,8 @@ namespace EletronicECommerce.Api
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                });
+                })
+                .ConfigureServices(service => 
+                    service.DependencyInjectionConfiguration(new MappingProfileApi()));
     }
 }
