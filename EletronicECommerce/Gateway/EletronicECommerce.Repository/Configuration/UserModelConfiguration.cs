@@ -16,6 +16,10 @@ namespace EletronicECommerce.Repository.Configuration
                 .HasName("Pk_User");
 
             builder
+                .Property(x => x.Id)
+                .HasColumnType("char(36)");
+
+            builder
                 .Property(x => x.Email)
                 .HasColumnType("varchar(200)")
                 .IsRequired();

@@ -16,12 +16,9 @@ namespace EletronicECommerce.UseCase.Implementation.Builder
             _productRepository = productRepository;
             _categoryRepository = categoryRepository;
         }
-        public Product CallRepository()
-        {
-            //[TO-DO] : Call create methods by repository here 
-            return _product;
-        }
-
+        public Product CallRepository() =>
+            _productRepository.Create(_product);
+            
         public IBuilder<Product> Set(Product product)
         {
             _product = product;

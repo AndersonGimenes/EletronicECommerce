@@ -22,7 +22,8 @@ namespace EletronicECommerce.Repository.Repositories
 
         public Category GetByIdentifier(Guid identifier)
         {
-            throw new NotImplementedException();
+            var categoryDto = _context.Categories.FirstOrDefault(x => x.Id == identifier);
+            return _mapper.Map<Category>(categoryDto);
         }
 
         public Category GetByName(string name)

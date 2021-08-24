@@ -19,9 +19,9 @@ namespace EletronicECommerce.Repository.Migrations
 
             modelBuilder.Entity("EletronicECommerce.Repository.Models.CategoryModel", b =>
                 {
-                    b.Property<byte[]>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("varbinary(16)");
+                        .HasColumnType("char(36)");
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime");
@@ -36,11 +36,47 @@ namespace EletronicECommerce.Repository.Migrations
                     b.ToTable("Category");
                 });
 
+            modelBuilder.Entity("EletronicECommerce.Repository.Models.ProductModel", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("varchar(10)");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<decimal>("PurchasePrice")
+                        .HasColumnType("decimal(15,2)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("SalePrice")
+                        .HasColumnType("decimal(15,2)");
+
+                    b.HasKey("Id")
+                        .HasName("Pk_Product");
+
+                    b.ToTable("Product");
+                });
+
             modelBuilder.Entity("EletronicECommerce.Repository.Models.UserModel", b =>
                 {
-                    b.Property<byte[]>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("varbinary(16)");
+                        .HasColumnType("char(36)");
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime");

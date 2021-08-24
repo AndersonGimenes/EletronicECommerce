@@ -14,6 +14,7 @@ namespace EletronicECommerce.Repository.Context
         
         public DbSet<UserModel> Users { get; set; }
         public DbSet<CategoryModel> Categories { get; set; }
+        public DbSet<ProductModel> Products { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

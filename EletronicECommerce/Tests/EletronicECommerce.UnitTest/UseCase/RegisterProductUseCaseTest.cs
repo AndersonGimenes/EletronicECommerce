@@ -23,6 +23,10 @@ namespace EletronicECommerce.UnitTest.UseCase
             _categoryRepositoryMock
                 .Setup(x => x.GetByIdentifier(It.IsAny<Guid>()))
                 .Returns(new Category("Consoles"));
+
+            _productRepositoryMock
+                .Setup(x => x.Create(It.IsAny<Product>()))
+                .Returns(CreateNewProduct());
             
             _registerProductUseCase = new RegisterProductUseCase(new CreateProductBuilder(_productRepositoryMock.Object, _categoryRepositoryMock.Object));
         }
@@ -30,10 +34,6 @@ namespace EletronicECommerce.UnitTest.UseCase
         [Fact]
         public void MustHaveAValidProductToBeCreated()
         {
-            _categoryRepositoryMock
-                .Setup(x => x.GetByIdentifier(It.IsAny<Guid>()))
-                .Returns(new Category("Consoles"));
-
             var product = CreateNewProduct();
 
             var result = _registerProductUseCase.Create(product);
