@@ -1,5 +1,6 @@
 using System;
 using AutoMapper;
+using EletronicECommerce.Api.Models.Token;
 using EletronicECommerce.Api.Models.User;
 using EletronicECommerce.Domain.Entities.Shared;
 using EletronicECommerce.Infrastructure.Config;
@@ -37,7 +38,7 @@ namespace EletronicECommerce.Api.Controllers
 
                 var token = TokenHandler.GenerateToken(user);
 
-                return Ok(new UserResponse(token));
+                return Ok(new TokenResponse(token));
             }
             catch(Exception ex)
             {
