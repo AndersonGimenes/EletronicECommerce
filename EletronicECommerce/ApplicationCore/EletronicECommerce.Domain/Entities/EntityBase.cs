@@ -8,6 +8,6 @@ namespace EletronicECommerce.Domain.Entities
         {
             Identifier = guid == Guid.Empty ? Guid.NewGuid() : guid;
         }
-        public Guid Identifier { get; }
+        public Guid Identifier { get; private set; }
     }
 }
