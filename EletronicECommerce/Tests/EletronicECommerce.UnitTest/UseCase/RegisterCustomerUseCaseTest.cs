@@ -8,7 +8,6 @@ using EletronicECommerce.UseCase.Implementation.Builder;
 using EletronicECommerce.UseCase.Implementation.UseCase;
 using EletronicECommerce.UseCase.Interfaces.Repositories;
 using Moq;
-using Moq.Language.Flow;
 using Xunit;
 
 namespace EletronicECommerce.UnitTest.UseCase
@@ -90,6 +89,7 @@ namespace EletronicECommerce.UnitTest.UseCase
             Assert.Equal("There is already a record linked to this user.", ex.Message);
         }
 
+        [Fact]
         public void IfThereIsNotAUserShouldThrowAnUseCaseException()
         {
             var userGuid = Guid.NewGuid();
