@@ -9,13 +9,13 @@ using EletronicECommerce.UseCase.Interfaces.Repositories;
 
 namespace EletronicECommerce.Repository.Repositories
 {
-    public class UserRepository : RepositoryBase<UserModel>, IUserRepository
+    public class UserRepository : RepositoryBase<User, UserModel>, IUserRepository
     {
         private readonly EletronicECommerceContext _context;
         private readonly IMapper _mapper;
 
         public UserRepository(EletronicECommerceContext context, IMapper mapper)
-            : base(context)
+            : base(context, mapper)
         {
             _context = context;
             _mapper = mapper; 
@@ -41,15 +41,12 @@ namespace EletronicECommerce.Repository.Repositories
             return userResponse;
         }
         
-        public User Create(User user)
+        public override User Create(User user)
         {       
-            var userModel = _mapper.Map<UserModel>(user);
-            
-            userModel.SetPassword(PasswordHandler.EncryptPassword(userModel.Password));
-                
-            _context.Users.Add(userModel);
+            var model = _mapper.Map<UserModel>(user);
+            model.SetPassword(PasswordHandler.EncryptPassword(model.Password));
 
-            base.Create(userModel);
+            base.Create(model);
 
             return user;
         }
@@ -57,15 +54,10 @@ namespace EletronicECommerce.Repository.Repositories
         public User GetByEmail(string email) => 
             _mapper.Map<User>(_context.Users.FirstOrDefault(x => x.Email == email));
 
-        public User GetByIdentifier(Guid identifier)
-        {
-            // implements this method to use by customer
-            throw new NotImplementedException();
-        }
-
         public User GetByName(string name)
         {
             throw new NotImplementedException();
         }
+
     }
 }

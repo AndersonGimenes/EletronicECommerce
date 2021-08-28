@@ -13,7 +13,7 @@ namespace EletronicECommerce.UseCase.Validation
             if(userCustomer != null)
                 throw new UseCaseException($"There is already a record linked to this user.");
 
-            var user = userRepository.GetByIdentifier(customer.User);
+            var user = userRepository.GetByIdentifier(customer.User, "Users");
 
             if(user is null)
                 throw new UseCaseException($"Must enter a valid user.");

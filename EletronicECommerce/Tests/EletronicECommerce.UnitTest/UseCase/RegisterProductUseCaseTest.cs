@@ -21,7 +21,7 @@ namespace EletronicECommerce.UnitTest.UseCase
             _categoryRepositoryMock = new Mock<ICategoryRepository>();
 
             _categoryRepositoryMock
-                .Setup(x => x.GetByIdentifier(It.IsAny<Guid>()))
+                .Setup(x => x.GetByIdentifier(It.IsAny<Guid>(), It.IsAny<string>()))
                 .Returns(new Category("Consoles", Guid.Empty));
 
             _productRepositoryMock
@@ -75,7 +75,7 @@ namespace EletronicECommerce.UnitTest.UseCase
         public void IfDoesNotHaveAnyValidCategoriesShouldThrowAnUseCaseException()
         {
             _categoryRepositoryMock
-                .Setup(x => x.GetByIdentifier(It.IsAny<Guid>()))
+                .Setup(x => x.GetByIdentifier(It.IsAny<Guid>(), It.IsAny<string>()))
                 .Returns(() => null);
 
             var product = CreateNewProduct(); 
@@ -100,7 +100,7 @@ namespace EletronicECommerce.UnitTest.UseCase
                 .Returns(CreateNewProduct());
 
             _categoryRepositoryMock
-                .Setup(x => x.GetByIdentifier(It.IsAny<Guid>()))
+                .Setup(x => x.GetByIdentifier(It.IsAny<Guid>(), It.IsAny<string>()))
                 .Returns(() => null);
 
             var ex = Assert.Throws<UseCaseException>(() => _registerProductUseCase.Create(product));

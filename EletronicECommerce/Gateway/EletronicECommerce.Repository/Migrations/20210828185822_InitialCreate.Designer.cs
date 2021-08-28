@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EletronicECommerce.Repository.Migrations
 {
     [DbContext(typeof(EletronicECommerceContext))]
-    [Migration("20210824014228_InitialCreate")]
+    [Migration("20210828185822_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

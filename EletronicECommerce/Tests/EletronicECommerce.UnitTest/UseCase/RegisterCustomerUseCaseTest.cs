@@ -32,7 +32,7 @@ namespace EletronicECommerce.UnitTest.UseCase
             var userGuid = Guid.NewGuid();
 
             _userRepository
-                .Setup(x => x.GetByIdentifier(It.IsAny<Guid>()))
+                .Setup(x => x.GetByIdentifier(It.IsAny<Guid>(), It.IsAny<string>()))
                 .Returns(new User("teste@teste.com", "Abc123@", userGuid));
 
             var customer = CreateNewCustomer("11122244455", userGuid);
@@ -63,7 +63,7 @@ namespace EletronicECommerce.UnitTest.UseCase
                 .Returns(CreateNewCustomer("11111111111", Guid.NewGuid()));
 
             _userRepository
-                .Setup(x => x.GetByIdentifier(It.IsAny<Guid>()))
+                .Setup(x => x.GetByIdentifier(It.IsAny<Guid>(), It.IsAny<string>()))
                 .Returns(new User("teste@teste.com", "Abc123@", userGuid));
 
             var customer = CreateNewCustomer("11111111111", userGuid);

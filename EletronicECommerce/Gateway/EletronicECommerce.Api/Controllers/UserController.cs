@@ -24,7 +24,7 @@ namespace EletronicECommerce.Api.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public IActionResult Create(UserRequest userRequest)
+        public IActionResult Create([FromBody] UserRequest userRequest)
         {
             try
             {
