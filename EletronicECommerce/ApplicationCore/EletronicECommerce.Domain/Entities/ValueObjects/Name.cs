@@ -8,7 +8,7 @@ namespace EletronicECommerce.Domain.Entities.ValeuObjects
             Surname = surname;
         }
 
-        public string FirstName { get; private set; }
-        public string Surname { get; private set; }
+        public string FirstName { get; }
+        public string Surname { get; }
     }
 }

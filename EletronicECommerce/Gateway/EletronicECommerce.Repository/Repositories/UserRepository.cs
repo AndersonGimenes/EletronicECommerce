@@ -18,7 +18,7 @@ namespace EletronicECommerce.Repository.Repositories
             : base(context)
         {
             _context = context;
-            _mapper = mapper;
+            _mapper = mapper; 
         }
 
         public User CheckUser(User user)
@@ -59,6 +59,7 @@ namespace EletronicECommerce.Repository.Repositories
 
         public User GetByIdentifier(Guid identifier)
         {
+            // implements this method to use by customer
             throw new NotImplementedException();
         }
 

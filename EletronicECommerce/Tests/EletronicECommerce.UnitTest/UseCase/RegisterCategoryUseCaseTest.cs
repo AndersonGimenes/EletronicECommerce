@@ -24,7 +24,7 @@ namespace EletronicECommerce.UnitTest.UseCase
         [Fact]
         public void MustHaveAValidCategoryToBeCreated()
         {
-            var category = new Category("Games");
+            var category = new Category("Games", Guid.Empty);
 
             _categoryRepositoryMock
                 .Setup(x => x.Create(It.IsAny<Category>()))
@@ -40,9 +40,9 @@ namespace EletronicECommerce.UnitTest.UseCase
         {
             _categoryRepositoryMock
                 .Setup(x => x.GetByName(It.IsAny<string>()))
-                .Returns(new Category("Consoles"));
+                .Returns(new Category("Consoles", Guid.Empty));
 
-            var category = new Category("Consoles");
+            var category = new Category("Consoles", Guid.Empty);
 
             var ex = Assert.Throws<UseCaseException>(() => _registerCategoryUseCase.Create(category));
 

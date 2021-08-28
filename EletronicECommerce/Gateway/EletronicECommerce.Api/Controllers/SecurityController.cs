@@ -51,7 +51,7 @@ namespace EletronicECommerce.Api.Controllers
         {
             try
             {
-                var user = new User(Settings.AdminUser, Settings.AdminPassword);
+                var user = new User(Settings.AdminUser, Settings.AdminPassword, Guid.Empty);
                 _registerUserUseCase.Create(user);
 
                 return Ok();

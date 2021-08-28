@@ -10,8 +10,8 @@ namespace EletronicECommerce.Domain.Entities.ValeuObjects
             DocumentType = documentType;
         }
         
-        public string Number { get; private set; }
-        public DocumentType DocumentType { get; private set; }
+        public string Number { get; }
+        public DocumentType DocumentType { get; }
         
     }
 }

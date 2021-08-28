@@ -22,7 +22,7 @@ namespace EletronicECommerce.UnitTest.UseCase
 
             _categoryRepositoryMock
                 .Setup(x => x.GetByIdentifier(It.IsAny<Guid>()))
-                .Returns(new Category("Consoles"));
+                .Returns(new Category("Consoles", Guid.Empty));
 
             _productRepositoryMock
                 .Setup(x => x.Create(It.IsAny<Product>()))
@@ -110,6 +110,6 @@ namespace EletronicECommerce.UnitTest.UseCase
         }
 
         private Product CreateNewProduct() =>
-            new Product("Playstation 5", "PS5", 300, 499.99m, 5, Guid.NewGuid());
+            new Product("Playstation 5", "PS5", 300, 499.99m, 5, Guid.NewGuid(), Guid.Empty);
     }
 }

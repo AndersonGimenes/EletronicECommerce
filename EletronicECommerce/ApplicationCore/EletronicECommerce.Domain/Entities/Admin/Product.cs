@@ -4,7 +4,8 @@ namespace EletronicECommerce.Domain.Entities.Admin
 {
     public class Product : EntityBase
     {
-        public Product(string name, string code, decimal purchasePrice, decimal salePrice, int quantity, Guid category)
+        public Product(string name, string code, decimal purchasePrice, decimal salePrice, int quantity, Guid category, Guid guid)
+            : base(guid)
         {
             Name = name;
             Code = code;
@@ -14,11 +15,11 @@ namespace EletronicECommerce.Domain.Entities.Admin
             Category = category;
         }
 
-        public string Name { get; private set; }
-        public string Code { get; private set; }
-        public decimal PurchasePrice { get; private set; }
-        public decimal SalePrice { get; private set; }
-        public int Quantity { get; private set; }
-        public Guid Category { get; private set; }
+        public string Name { get; }
+        public string Code { get; }
+        public decimal PurchasePrice { get; }
+        public decimal SalePrice { get; }
+        public int Quantity { get; }
+        public Guid Category { get; }
     }
 }
