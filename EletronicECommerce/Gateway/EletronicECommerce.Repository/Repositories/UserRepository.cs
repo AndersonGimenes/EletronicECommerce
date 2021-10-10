@@ -46,7 +46,7 @@ namespace EletronicECommerce.Repository.Repositories
             var model = _mapper.Map<UserModel>(user);
             model.SetPassword(PasswordHandler.EncryptPassword(model.Password));
 
-            base.Create(model);
+            base.Create(model, action: null);
 
             return user;
         }

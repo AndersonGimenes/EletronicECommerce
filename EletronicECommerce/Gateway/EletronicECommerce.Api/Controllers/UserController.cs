@@ -1,5 +1,6 @@
 using System;
 using AutoMapper;
+using EletronicECommerce.Api.Models;
 using EletronicECommerce.Api.Models.User;
 using EletronicECommerce.Domain.Entities.Shared;
 using EletronicECommerce.UseCase.Interfaces.UseCase;
@@ -32,11 +33,11 @@ namespace EletronicECommerce.Api.Controllers
                 
                 _registerUserUseCase.Create(user);
 
-                return Ok(new UserResponse(user.Email));
+                return Ok(new GenericResponse(result: true, errorMessage: string.Empty, new UserResponse(user.Email), nameof(User)));
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new GenericResponse(result: false, ex.Message, null, string.Empty));
             }
             
         }

@@ -1,5 +1,6 @@
 using System;
 using AutoMapper;
+using EletronicECommerce.Api.Models;
 using EletronicECommerce.Api.Models.Token;
 using EletronicECommerce.Api.Models.User;
 using EletronicECommerce.Domain.Entities.Shared;
@@ -38,15 +39,16 @@ namespace EletronicECommerce.Api.Controllers
 
                 var token = TokenHandler.GenerateToken(user);
 
-                return Ok(new TokenResponse(token));
+                return Ok(new GenericResponse(result: true, errorMessage: string.Empty, token, "Token"));
             }
             catch(Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new GenericResponse(result: false, ex.Message, null, string.Empty));
             }
         }
 
         [HttpGet(nameof(CreateAdminUser))]
+        [AllowAnonymous]
         public IActionResult CreateAdminUser()
         {
             try
@@ -58,7 +60,7 @@ namespace EletronicECommerce.Api.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new GenericResponse(result: false, ex.Message, null, string.Empty));
             }
             
         }

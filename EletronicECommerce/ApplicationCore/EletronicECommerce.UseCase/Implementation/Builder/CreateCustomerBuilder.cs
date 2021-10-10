@@ -17,12 +17,8 @@ namespace EletronicECommerce.UseCase.Implementation.Builder
             _customerRepository = customerRepository;
             _userRepository = userRepository;
         }
-        public Customer CallRepository()
-        {
-            //[TO-DO] : Call create methods by repository here 
-            return _customer;
-        }
-
+        public Customer CallRepository() => _customerRepository.Create(_customer);
+    
         public IBuilder<Customer> Set(Customer customer)
         {
             _customer = customer;

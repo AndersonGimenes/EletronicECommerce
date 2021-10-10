@@ -1,5 +1,6 @@
 using System;
 using AutoMapper;
+using EletronicECommerce.Api.Models;
 using EletronicECommerce.Api.Models.Product;
 using EletronicECommerce.Domain.Entities.Admin;
 using EletronicECommerce.UseCase.Interfaces.UseCase;
@@ -31,12 +32,12 @@ namespace EletronicECommerce.Api.Controllers
 
                 var productResponse = _mapper.Map<ProductResponse>(_registerProductUseCase.Create(product));
 
-                return Ok(productResponse);
-               
+                return Ok(new GenericResponse(result: true, errorMessage: string.Empty, productResponse, nameof(Product)));
+                               
             }
             catch(Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new GenericResponse(result: false, ex.Message, null, string.Empty));
             }
         }
     }

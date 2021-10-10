@@ -1,7 +1,10 @@
 using AutoMapper;
 using EletronicECommerce.Domain.Entities.Admin;
 using EletronicECommerce.Domain.Entities.Shared;
+using EletronicECommerce.Domain.Entities.Store;
+using EletronicECommerce.Domain.Entities.ValeuObjects;
 using EletronicECommerce.Repository.Models;
+using EletronicECommerce.Repository.Models.SubModels;
 
 namespace EletronicECommerce.Repository.Mapping
 {
@@ -17,7 +20,23 @@ namespace EletronicECommerce.Repository.Mapping
                 .ForMember(dest => dest.Identifier, opts => opts.MapFrom(x => x.Id)); 
 
             CreateMap<ProductModel, Product>()
-                .ForMember(dest => dest.Identifier, opts => opts.MapFrom(x => x.Id));               
+                .ForMember(dest => dest.Identifier, opts => opts.MapFrom(x => x.Id)); 
+
+            CreateMap<AddressModel, Address>(); 
+
+            CreateMap<CustomerModel, Name>()
+                .ForMember(dest => dest.FirstName, opts => opts.MapFrom(x => x.FirstName))
+                .ForMember(dest => dest.Surname, opts => opts.MapFrom(x => x.Surname));
+
+            CreateMap<CustomerModel, Document>()
+                .ForMember(dest => dest.Number, opts => opts.MapFrom(x => x.DocumentNumber))
+                .ForMember(dest => dest.DocumentType, opts => opts.MapFrom(x => x.DocumentType));
+
+            CreateMap<CustomerModel, Customer>()
+                .ForMember(dest => dest.Identifier, opts => opts.MapFrom(x => x.Id))
+                .ForPath(dest => dest.BillingAddress, opts => opts.MapFrom(x => x.BillingAddress))
+                .ForPath(dest => dest.DeliveryAddess, opts => opts.MapFrom(x => x.DeliveryAddess));      
+
             #endregion
 
             #region [Domain To Model]
@@ -29,6 +48,18 @@ namespace EletronicECommerce.Repository.Mapping
 
             CreateMap<Product, ProductModel>()
                 .ForMember(dest => dest.Id, opts => opts.MapFrom(x => x.Identifier)); 
+
+            CreateMap<Address, AddressModel>(); 
+
+            CreateMap<Customer, CustomerModel>()
+                .ForMember(dest => dest.Id, opts => opts.MapFrom(x => x.Identifier))
+                .ForMember(dest => dest.FirstName, opts => opts.MapFrom(x => x.FullName.FirstName))
+                .ForMember(dest => dest.Surname, opts => opts.MapFrom(x => x.FullName.Surname))
+                .ForMember(dest => dest.DocumentNumber, opts => opts.MapFrom(x => x.Document.Number))
+                .ForMember(dest => dest.DocumentType, opts => opts.MapFrom(x => x.Document.DocumentType))
+                .ForPath(dest => dest.BillingAddress, opts => opts.MapFrom(x => x.BillingAddress))
+                .ForPath(dest => dest.DeliveryAddess, opts => opts.MapFrom(x => x.DeliveryAddess));
+
             #endregion
         }
     }

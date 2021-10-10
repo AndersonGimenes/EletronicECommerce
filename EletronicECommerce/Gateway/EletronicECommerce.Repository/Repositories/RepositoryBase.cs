@@ -32,8 +32,11 @@ namespace EletronicECommerce.Repository.Repositories
             return entity;
         }
 
-        public void Create(TModel model)
+        public void Create(TModel model, Action action)
         {
+            if(action != null)
+                action.Invoke();
+                
             _context.Add(model);
 
             model.SetCreateDate();

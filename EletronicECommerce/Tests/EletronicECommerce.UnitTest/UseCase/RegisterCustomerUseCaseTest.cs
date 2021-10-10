@@ -30,12 +30,16 @@ namespace EletronicECommerce.UnitTest.UseCase
         public void MustHaveAValidCustomerToBeCreated()
         {
             var userGuid = Guid.NewGuid();
+            var customer = CreateNewCustomer("11122244455", userGuid);
 
             _userRepository
                 .Setup(x => x.GetByIdentifier(It.IsAny<Guid>(), It.IsAny<string>()))
                 .Returns(new User("teste@teste.com", "Abc123@", userGuid));
 
-            var customer = CreateNewCustomer("11122244455", userGuid);
+            _customerRepository
+                .Setup(x => x.Create(It.IsAny<Customer>()))
+                .Returns(customer);
+
             var result = _registerCustomerUseCase.Create(customer);
 
             Assert.True(result.Identifier != Guid.Empty);

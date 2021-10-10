@@ -1,5 +1,6 @@
 using System;
 using AutoMapper;
+using EletronicECommerce.Api.Models;
 using EletronicECommerce.Api.Models.Customer;
 using EletronicECommerce.Domain.Entities.Store;
 using EletronicECommerce.UseCase.Interfaces.UseCase;
@@ -27,6 +28,7 @@ namespace EletronicECommerce.Api.Controllers
         {
             try
             {
+                //[Adjust response]
                 var customer = _mapper.Map<Customer>(customerRequest);
                 
                 _registerCustomerUseCase.Create(customer);
@@ -35,7 +37,7 @@ namespace EletronicECommerce.Api.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new GenericResponse(result: false, ex.Message, null, string.Empty));
             }
             
         }
