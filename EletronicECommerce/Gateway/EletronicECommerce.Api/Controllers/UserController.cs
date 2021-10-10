@@ -1,6 +1,5 @@
-using System;
 using AutoMapper;
-using EletronicECommerce.Api.Models;
+using EletronicECommerce.Api.Controllers.Base;
 using EletronicECommerce.Api.Models.User;
 using EletronicECommerce.Domain.Entities.Shared;
 using EletronicECommerce.UseCase.Interfaces.UseCase;
@@ -12,7 +11,7 @@ namespace EletronicECommerce.Api.Controllers
     [ApiController]
     [Route("v1/api/[controller]")]  
     [Authorize]
-    public class UserController : ControllerBase
+    public class UserController : GenericControllerBase
     {
         private readonly IRegisterUserUseCase _registerUserUseCase;
         private readonly IMapper _mapper;
@@ -27,19 +26,14 @@ namespace EletronicECommerce.Api.Controllers
         [AllowAnonymous]
         public IActionResult Create([FromBody] UserRequest userRequest)
         {
-            try
+            return base.Execute(() => 
             {
-                var user = _mapper.Map<User>(userRequest);
-                
+                var user = _mapper.Map<User>(userRequest);                
                 _registerUserUseCase.Create(user);
 
-                return Ok(new GenericResponse(result: true, errorMessage: string.Empty, new UserResponse(user.Email), nameof(User)));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new GenericResponse(result: false, ex.Message, null, string.Empty));
-            }
-            
-        }
+                return new UserResponse(user.Email);
+
+            }, nameof(User));
+        }   
     }
 }

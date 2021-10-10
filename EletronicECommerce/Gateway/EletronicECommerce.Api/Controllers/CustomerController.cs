@@ -1,6 +1,5 @@
-using System;
 using AutoMapper;
-using EletronicECommerce.Api.Models;
+using EletronicECommerce.Api.Controllers.Base;
 using EletronicECommerce.Api.Models.Customer;
 using EletronicECommerce.Domain.Entities.Store;
 using EletronicECommerce.UseCase.Interfaces.UseCase;
@@ -12,7 +11,7 @@ namespace EletronicECommerce.Api.Controllers
     [ApiController]
     [Route("v1/api/[controller]")]  
     [Authorize]
-    public class CustomerController : ControllerBase
+    public class CustomerController : GenericControllerBase
     {
         private readonly IRegisterCustomerUseCase _registerCustomerUseCase;
         private readonly IMapper _mapper;
@@ -26,20 +25,13 @@ namespace EletronicECommerce.Api.Controllers
         [HttpPost]
         public IActionResult Create([FromBody] CustomerRequest customerRequest)
         {
-            try
+            //[TODO] : Adjust mapper to response
+            return base.Execute(() => 
             {
-                //[Adjust response]
-                var customer = _mapper.Map<Customer>(customerRequest);
-                
-                _registerCustomerUseCase.Create(customer);
+                var customer = _mapper.Map<Customer>(customerRequest);                
+                return _registerCustomerUseCase.Create(customer);
 
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new GenericResponse(result: false, ex.Message, null, string.Empty));
-            }
-            
+            }, nameof(Customer));
         }
         
     }

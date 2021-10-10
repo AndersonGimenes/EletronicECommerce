@@ -1,6 +1,5 @@
-using System;
 using AutoMapper;
-using EletronicECommerce.Api.Models;
+using EletronicECommerce.Api.Controllers.Base;
 using EletronicECommerce.Api.Models.Category;
 using EletronicECommerce.Domain.Entities.Admin;
 using EletronicECommerce.UseCase.Interfaces.UseCase;
@@ -12,7 +11,7 @@ namespace EletronicECommerce.Api.Controllers
     [ApiController]
     [Route("v1/api/[controller]")]  
     [Authorize]
-    public class CategoryController : ControllerBase
+    public class CategoryController : GenericControllerBase
     {
         private readonly IRegisterCategoryUseCase _registerCategoryUseCase;
         private IMapper _mapper;
@@ -25,20 +24,13 @@ namespace EletronicECommerce.Api.Controllers
         
         [HttpPost]
         public IActionResult Create([FromBody] CategoryRequest CategoryRequest)
-        { 
-            try
+        {             
+            return base.Execute(() => 
             {
                 var category = _mapper.Map<Category>(CategoryRequest);
+                return _mapper.Map<CategoryResponse>(_registerCategoryUseCase.Create(category));
 
-                var categoryResponse = _mapper.Map<CategoryResponse>(_registerCategoryUseCase.Create(category));
-
-                return Ok(new GenericResponse(result: true, errorMessage: string.Empty, categoryResponse, nameof(Category)));
-               
-            }
-            catch(Exception ex)
-            {
-                return BadRequest(new GenericResponse(result: false, ex.Message, null, string.Empty));
-            }
+            }, nameof(Category));
         }
     }
 }
