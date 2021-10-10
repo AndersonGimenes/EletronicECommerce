@@ -1,5 +1,6 @@
 using System;
 using AutoMapper;
+using EletronicECommerce.Api.Controllers.Base;
 using EletronicECommerce.Api.Models.User;
 using EletronicECommerce.Domain.Entities.Shared;
 using EletronicECommerce.Infrastructure.Config;
@@ -13,7 +14,7 @@ namespace EletronicECommerce.Api.Controllers
     [ApiController]
     [Route("v1/api/[controller]")]  
     [Authorize]
-    public class SecurityController : ControllerBase
+    public class SecurityController : GenericControllerBase
     {
         private readonly IRegisterUserUseCase _registerUserUseCase;
         private IMapper _mapper;
@@ -27,54 +28,42 @@ namespace EletronicECommerce.Api.Controllers
         [HttpPost]
         [AllowAnonymous]
         public IActionResult Authenticate([FromBody] UserRequest userRequest)
-        { 
-            try
+        {             
+            return base.Execute(() => 
             {
                 var user = _registerUserUseCase.CheckUser(_mapper.Map<User>(userRequest));
+                if(user is null)
+                    throw new UnauthorizedAccessException("Unauthorized Access");
 
-                if(user is null)    
-                    return Unauthorized();
+                return TokenHandler.GenerateToken(user);
 
-                var token = TokenHandler.GenerateToken(user);
-
-                return Ok(new UserResponse(token));
-            }
-            catch(Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            }, "Token");
         }
 
         [HttpGet(nameof(CreateAdminUser))]
         public IActionResult CreateAdminUser()
         {
-            try
+            return base.Execute(() => 
             {
-                var user = new User(Settings.AdminUser, Settings.AdminPassword);
+                var user = new User(Settings.AdminUser, Settings.AdminPassword, Guid.Empty);
                 _registerUserUseCase.Create(user);
 
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            
+                return null;
+
+            }, string.Empty);
         }
 
         [HttpGet]
         public IActionResult GetTestValidateToken()
         { 
-            try
+            return base.Execute(() => 
             {
-                return Ok("Authorized!!");
-            }
-            catch(Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+                var user = new User(Settings.AdminUser, Settings.AdminPassword, Guid.Empty);
+                _registerUserUseCase.Create(user);
 
-        
+                return "Authorized!!";
+
+            }, string.Empty);
+        }    
     }
 }

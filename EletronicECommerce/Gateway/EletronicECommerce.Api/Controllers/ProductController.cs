@@ -1,5 +1,5 @@
-using System;
 using AutoMapper;
+using EletronicECommerce.Api.Controllers.Base;
 using EletronicECommerce.Api.Models.Product;
 using EletronicECommerce.Domain.Entities.Admin;
 using EletronicECommerce.UseCase.Interfaces.UseCase;
@@ -11,7 +11,7 @@ namespace EletronicECommerce.Api.Controllers
     [ApiController]
     [Route("v1/api/[controller]")]  
     [Authorize]
-    public class ProductController : ControllerBase
+    public class ProductController : GenericControllerBase
     {
         private readonly IRegisterProductUseCase _registerProductUseCase;
         private IMapper _mapper;
@@ -24,20 +24,13 @@ namespace EletronicECommerce.Api.Controllers
         
         [HttpPost]
         public IActionResult Create([FromBody] ProductRequest ProductRequest)
-        { 
-            try
+        {                
+            return base.Execute(() => 
             {
                 var product = _mapper.Map<Product>(ProductRequest);
+                return _mapper.Map<ProductResponse>(_registerProductUseCase.Create(product));
 
-                var productResponse = _mapper.Map<ProductResponse>(_registerProductUseCase.Create(product));
-
-                return Ok(productResponse);
-               
-            }
-            catch(Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            }, nameof(Product));
         }
     }
 }

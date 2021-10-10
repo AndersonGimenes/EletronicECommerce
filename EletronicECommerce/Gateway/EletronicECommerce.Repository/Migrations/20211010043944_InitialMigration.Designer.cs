@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EletronicECommerce.Repository.Migrations
 {
     [DbContext(typeof(EletronicECommerceContext))]
-    [Migration("20210824014228_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20211010043944_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -36,6 +36,40 @@ namespace EletronicECommerce.Repository.Migrations
                         .HasName("Pk_Category");
 
                     b.ToTable("Category");
+                });
+
+            modelBuilder.Entity("EletronicECommerce.Repository.Models.CustomerModel", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("DocumentNumber")
+                        .IsRequired()
+                        .HasColumnType("varchar(14)");
+
+                    b.Property<int>("DocumentType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("Surname")
+                        .IsRequired()
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("User")
+                        .IsRequired()
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("Id")
+                        .HasName("Pk_User");
+
+                    b.ToTable("Customer");
                 });
 
             modelBuilder.Entity("EletronicECommerce.Repository.Models.ProductModel", b =>
@@ -72,6 +106,50 @@ namespace EletronicECommerce.Repository.Migrations
                         .HasName("Pk_Product");
 
                     b.ToTable("Product");
+                });
+
+            modelBuilder.Entity("EletronicECommerce.Repository.Models.SubModels.AddressModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("AddressType")
+                        .IsRequired()
+                        .HasColumnType("varchar(20)");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("Customer")
+                        .IsRequired()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Neighborhood")
+                        .IsRequired()
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("Number")
+                        .HasColumnType("varchar(10)")
+                        .HasDefaultValue("S/N");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("varchar(2)");
+
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasColumnType("varchar(500)");
+
+                    b.HasKey("Id")
+                        .HasName("Pk_Address");
+
+                    b.ToTable("Address");
                 });
 
             modelBuilder.Entity("EletronicECommerce.Repository.Models.UserModel", b =>

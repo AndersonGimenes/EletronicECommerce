@@ -25,7 +25,7 @@ namespace EletronicECommerce.UnitTest.UseCase
         [Fact]
         public void MustHaveAValidUserToBeCreated()
         {
-            var user = new User("nd@nd.com", "my_Secret_P@ssword#1234");
+            var user = new User("nd@nd.com", "my_Secret_P@ssword#1234", Guid.Empty);
 
             _userRepository
                 .Setup(x => x.Create(It.IsAny<User>()))
@@ -39,7 +39,7 @@ namespace EletronicECommerce.UnitTest.UseCase
         [Fact]
         public void IfTheEmailDoesNotHaveASpecialChacacterShouldThrowADomainException()
         {
-            var user = new User("testtest.com", "my_Secret_P@ssword#1234");
+            var user = new User("testtest.com", "my_Secret_P@ssword#1234", Guid.Empty);
 
             var ex = Assert.Throws<DomainException>(() => _registerUserUseCase.Create(user));
 
@@ -52,7 +52,7 @@ namespace EletronicECommerce.UnitTest.UseCase
         [InlineData("my_secret_p@ssword#1234", "Invalid password. Please type at least a upperCase letter.")]
         public void IfThePasswordIsNotValidShouldThrowADomainException(string password, string result)
         {
-            var user = new User("nd@test.com", password);
+            var user = new User("nd@test.com", password, Guid.Empty);
 
             var ex = Assert.Throws<DomainException>(() => _registerUserUseCase.Create(user));
 
@@ -64,9 +64,9 @@ namespace EletronicECommerce.UnitTest.UseCase
         {
             _userRepository
                 .Setup(x => x.GetByEmail(It.IsAny<string>()))
-                .Returns(() => new User("test@test.com", "my_Secret_P@ssword#1234"));
+                .Returns(() => new User("test@test.com", "my_Secret_P@ssword#1234", Guid.Empty));
 
-            var user = new User("test@test.com", "my_Secret_P@ssword#1234");
+            var user = new User("test@test.com", "my_Secret_P@ssword#1234", Guid.Empty);
 
             var ex = Assert.Throws<UseCaseException>(() => _registerUserUseCase.Create(user));
 

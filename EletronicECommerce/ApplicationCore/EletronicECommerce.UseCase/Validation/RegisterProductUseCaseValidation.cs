@@ -12,7 +12,7 @@ namespace EletronicECommerce.UseCase.Validation
             var stringBuilder = new StringBuilder();
             
             var productDto = productRepository.GetByName(product.Name);
-            var categoryDto = categoryRepository.GetByIdentifier(product.Category);            
+            var categoryDto = categoryRepository.GetByIdentifier(product.Category, "Categories");            
             
             if(productDto != null)
                 stringBuilder.Append($"The {product.Name} product name already exists.");

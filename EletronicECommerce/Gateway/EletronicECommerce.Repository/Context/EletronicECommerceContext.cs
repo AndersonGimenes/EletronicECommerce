@@ -1,5 +1,6 @@
 using System.Reflection;
 using EletronicECommerce.Repository.Models;
+using EletronicECommerce.Repository.Models.SubModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace EletronicECommerce.Repository.Context
@@ -15,6 +16,8 @@ namespace EletronicECommerce.Repository.Context
         public DbSet<UserModel> Users { get; set; }
         public DbSet<CategoryModel> Categories { get; set; }
         public DbSet<ProductModel> Products { get; set; }
+        public DbSet<AddressModel> Addresses { get; set; }
+        public DbSet<CustomerModel> Customers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

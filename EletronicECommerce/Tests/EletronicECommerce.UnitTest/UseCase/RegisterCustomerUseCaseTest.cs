@@ -1,4 +1,5 @@
 using System;
+using EletronicECommerce.Domain.Entities.Shared;
 using EletronicECommerce.Domain.Entities.Store;
 using EletronicECommerce.Domain.Entities.ValeuObjects;
 using EletronicECommerce.Domain.Exceptions;
@@ -15,18 +16,29 @@ namespace EletronicECommerce.UnitTest.UseCase
     {
         private readonly RegisterCustomerUseCase _registerCustomerUseCase;
         private readonly Mock<ICustomerRepository> _customerRepository;
+        private readonly Mock<IUserRepository> _userRepository;
 
         public RegisterCustomerUseCaseTest()
         {
             _customerRepository = new Mock<ICustomerRepository>();
+            _userRepository = new Mock<IUserRepository>();
 
-            _registerCustomerUseCase = new RegisterCustomerUseCase(new CreateCustomerBuilder(_customerRepository.Object));
+            _registerCustomerUseCase = new RegisterCustomerUseCase(new CreateCustomerBuilder(_customerRepository.Object, _userRepository.Object));
         }
 
         [Fact]
         public void MustHaveAValidCustomerToBeCreated()
         {
-            var customer = CreateNewCustomer("11122244455");
+            var userGuid = Guid.NewGuid();
+            var customer = CreateNewCustomer("11122244455", userGuid);
+
+            _userRepository
+                .Setup(x => x.GetByIdentifier(It.IsAny<Guid>(), It.IsAny<string>()))
+                .Returns(new User("teste@teste.com", "Abc123@", userGuid));
+
+            _customerRepository
+                .Setup(x => x.Create(It.IsAny<Customer>()))
+                .Returns(customer);
 
             var result = _registerCustomerUseCase.Create(customer);
 
@@ -38,7 +50,7 @@ namespace EletronicECommerce.UnitTest.UseCase
         [InlineData("111222444555777")]
         public void IfDocumentNumberIsNotBetweenElevenAndFourteenCharactersShouldThrowADomainException(string number)
         {   
-            var customer = CreateNewCustomer(number);
+            var customer = CreateNewCustomer(number, Guid.NewGuid());
 
             var ex = Assert.Throws<DomainException>(() => _registerCustomerUseCase.Create(customer));
 
@@ -48,24 +60,59 @@ namespace EletronicECommerce.UnitTest.UseCase
         [Fact]
         public void IfThereIsADocumentNumberRegisteredShouldThrowAnUseCaseException()
         {
+            var userGuid = Guid.NewGuid();
+
             _customerRepository
                 .Setup(x => x.GetByDocumentNumber(It.IsAny<string>()))
-                .Returns(CreateNewCustomer("11111111111"));
+                .Returns(CreateNewCustomer("11111111111", Guid.NewGuid()));
 
-            var customer = CreateNewCustomer("11111111111");
+            _userRepository
+                .Setup(x => x.GetByIdentifier(It.IsAny<Guid>(), It.IsAny<string>()))
+                .Returns(new User("teste@teste.com", "Abc123@", userGuid));
+
+            var customer = CreateNewCustomer("11111111111", userGuid);
 
             var ex = Assert.Throws<UseCaseException>(() => _registerCustomerUseCase.Create(customer));
 
             Assert.Equal("This document number 11111111111 is registered.", ex.Message);
         }
 
-        private Customer CreateNewCustomer(string document) => 
+        [Fact]
+        public void IfThereIsAUserLinkedWithAnotherCustomerShouldThrowAnUseCaseException()
+        {
+            var userGuid = Guid.NewGuid();
+
+            _customerRepository
+                .Setup(x => x.GetByUserIdentifier(It.IsAny<Guid>()))
+                .Returns(CreateNewCustomer("11111111111", userGuid));
+
+            var customer = CreateNewCustomer("11111111111", userGuid);
+
+            var ex = Assert.Throws<UseCaseException>(() => _registerCustomerUseCase.Create(customer));
+
+            Assert.Equal("There is already a record linked to this user.", ex.Message);
+        }
+
+        [Fact]
+        public void IfThereIsNotAUserShouldThrowAnUseCaseException()
+        {
+            var userGuid = Guid.NewGuid();
+
+            var customer = CreateNewCustomer("11111111111", userGuid);
+
+            var ex = Assert.Throws<UseCaseException>(() => _registerCustomerUseCase.Create(customer));
+
+            Assert.Equal("Must enter a valid user.", ex.Message);
+        }
+
+        private Customer CreateNewCustomer(string document, Guid user) => 
             new Customer(
                 new Name("Robert", "DelValle"),
                 new Document(document, Domain.Entities.Enums.DocumentType.CPF),
                 new Address("Jhon boyd dunlop street", "123", "new life", "Campinas", "SP", "Brazil"),
-                new Address("Jhon boyd dunlop street", "123", "new life", "Campinas", "SP", "Brazil")
-            );
-                     
+                new Address("Jhon boyd dunlop street", "123", "new life", "Campinas", "SP", "Brazil"),
+                user,
+                Guid.Empty
+            );         
     }
 }

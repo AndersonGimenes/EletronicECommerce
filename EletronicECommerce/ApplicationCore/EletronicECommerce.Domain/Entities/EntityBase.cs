@@ -4,9 +4,9 @@ namespace EletronicECommerce.Domain.Entities
 {
     public abstract class EntityBase
     {
-        public EntityBase()
+        public EntityBase(Guid guid)
         {
-            Identifier = Guid.NewGuid();
+            Identifier = guid == Guid.Empty ? Guid.NewGuid() : guid;
         }
         public Guid Identifier { get; private set; }
     }

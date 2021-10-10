@@ -8,27 +8,16 @@ using EletronicECommerce.UseCase.Interfaces.Repositories;
 
 namespace EletronicECommerce.Repository.Repositories
 {
-    public class ProductRepository : RepositoryBase<ProductModel>,  IProductRepository
+    public class ProductRepository : RepositoryBase<Product, ProductModel>,  IProductRepository
     {
         private readonly EletronicECommerceContext _context;
         private readonly IMapper _mapper;
 
         public ProductRepository(EletronicECommerceContext context, IMapper mapper)
-            : base(context)
+            : base(context, mapper)
         {
             _context = context;
             _mapper = mapper;
-        }
-
-        public Product Create(Product product)
-        {
-            var productModel = _mapper.Map<ProductModel>(product);
-
-            _context.Products.Add(productModel);
-
-            base.Create(productModel);
-
-            return product;
         }
 
         public Product GetByCode(string code)
@@ -36,11 +25,6 @@ namespace EletronicECommerce.Repository.Repositories
             var productDto = _context.Products.FirstOrDefault(x => x.Code == code);
 
             return _mapper.Map<Product>(productDto);
-        }
-
-        public Product GetByIdentifier(Guid identifier)
-        {
-            throw new NotImplementedException();
         }
 
         public Product GetByName(string name)

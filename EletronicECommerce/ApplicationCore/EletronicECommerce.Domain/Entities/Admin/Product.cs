@@ -4,7 +4,17 @@ namespace EletronicECommerce.Domain.Entities.Admin
 {
     public class Product : EntityBase
     {
-        public Product(string name, string code, decimal purchasePrice, decimal salePrice, int quantity, Guid category)
+        // Constructor used for automapper
+        // TODO : Refactor for update
+        public Product()
+            : base(Guid.Empty)
+        {
+            
+        }
+
+        // Constructor used for testing
+        public Product(string name, string code, decimal purchasePrice, decimal salePrice, int quantity, Guid category, Guid guid)
+            : base(guid)
         {
             Name = name;
             Code = code;

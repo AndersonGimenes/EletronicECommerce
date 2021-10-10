@@ -4,7 +4,5 @@ namespace EletronicECommerce.Api.Models.User
     {
         public string Email { get; set; }
         public string Password { get; set; }
-
-        // [TO-DO]: Apply validation first fail
     }
 }

@@ -2,6 +2,7 @@ namespace EletronicECommerce.Domain.Entities.ValeuObjects
 {
     public class Name
     {
+        // Constructor used for testing
         public Name(string firstName, string surname)
         {
             FirstName = firstName;
