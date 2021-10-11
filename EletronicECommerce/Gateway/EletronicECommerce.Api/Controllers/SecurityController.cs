@@ -58,9 +58,6 @@ namespace EletronicECommerce.Api.Controllers
         { 
             return base.Execute(() => 
             {
-                var user = new User(Settings.AdminUser, Settings.AdminPassword, Guid.Empty);
-                _registerUserUseCase.Create(user);
-
                 return "Authorized!!";
 
             }, string.Empty);
