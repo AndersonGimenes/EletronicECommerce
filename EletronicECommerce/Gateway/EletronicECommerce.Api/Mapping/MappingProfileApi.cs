@@ -39,6 +39,17 @@ namespace EletronicECommerce.Api.Mapping
             CreateMap<Category, CategoryResponse>();
             CreateMap<Product, ProductResponse>();
 
+            CreateMap<VO.Name, Name>();
+            CreateMap<VO.Address, Address>();
+            CreateMap<VO.Document, Document>()
+                .ForMember(dest => dest.DocumentType, opts => opts.MapFrom(x => x.Number.Length == 11 ? DocumentType.CPF.ToString() : DocumentType.CNPJ.ToString()));
+
+            CreateMap<Customer, CustomerResponse>()
+                .ForPath(dest => dest.FullName, opts => opts.MapFrom(x => x.FullName))
+                .ForPath(dest => dest.Document, opts => opts.MapFrom(x => x.Document))
+                .ForPath(dest => dest.BillingAddress, opts => opts.MapFrom(x => x.BillingAddress))
+                .ForPath(dest => dest.DeliveryAddess, opts => opts.MapFrom(x => x.DeliveryAddess));
+
             #endregion
         }
     }

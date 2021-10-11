@@ -30,7 +30,7 @@ namespace EletronicECommerce.Api.Controllers
                 var product = _mapper.Map<Product>(ProductRequest);
                 return _mapper.Map<ProductResponse>(_registerProductUseCase.Create(product));
 
-            }, nameof(Product));
+            }, nameof(ProductResponse));
         }
     }
 }

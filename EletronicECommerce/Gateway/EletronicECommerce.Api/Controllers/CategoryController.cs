@@ -30,7 +30,7 @@ namespace EletronicECommerce.Api.Controllers
                 var category = _mapper.Map<Category>(CategoryRequest);
                 return _mapper.Map<CategoryResponse>(_registerCategoryUseCase.Create(category));
 
-            }, nameof(Category));
+            }, nameof(CategoryResponse));
         }
     }
 }

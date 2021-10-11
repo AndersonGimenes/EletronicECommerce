@@ -25,13 +25,12 @@ namespace EletronicECommerce.Api.Controllers
         [HttpPost]
         public IActionResult Create([FromBody] CustomerRequest customerRequest)
         {
-            //[TODO] : Adjust mapper to response
             return base.Execute(() => 
             {
                 var customer = _mapper.Map<Customer>(customerRequest);                
-                return _registerCustomerUseCase.Create(customer);
+                return _mapper.Map<CustomerResponse>(_registerCustomerUseCase.Create(customer));
 
-            }, nameof(Customer));
+            }, nameof(CustomerResponse));
         }
         
     }

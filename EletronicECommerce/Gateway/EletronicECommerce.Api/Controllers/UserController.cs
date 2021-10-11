@@ -31,9 +31,9 @@ namespace EletronicECommerce.Api.Controllers
                 var user = _mapper.Map<User>(userRequest);                
                 _registerUserUseCase.Create(user);
 
-                return new UserResponse(user.Email);
+                return new UserResponse(user.Identifier, user.Email);
 
-            }, nameof(User));
+            }, nameof(UserResponse));
         }   
     }
 }
