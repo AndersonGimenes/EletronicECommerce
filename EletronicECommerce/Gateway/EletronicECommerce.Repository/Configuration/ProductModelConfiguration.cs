@@ -30,18 +30,9 @@ namespace EletronicECommerce.Repository.Configuration
                 .IsRequired();
 
             builder
-                .Property(x => x.PurchasePrice)
-                .HasColumnType("decimal(15,2)")
-                .IsRequired();
-            
-            builder
                 .Property(x => x.SalePrice)
                 .HasColumnType("decimal(15,2)")
                 .IsRequired();
-
-            builder
-                .Property(x => x.Quantity)
-                .HasColumnType("int");            
 
             builder
                 .Property(x => x.Category)

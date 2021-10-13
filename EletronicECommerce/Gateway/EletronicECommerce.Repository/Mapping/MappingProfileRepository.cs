@@ -19,8 +19,11 @@ namespace EletronicECommerce.Repository.Mapping
             CreateMap<CategoryModel, Category>()
                 .ForMember(dest => dest.Identifier, opts => opts.MapFrom(x => x.Id)); 
 
+            CreateMap<StockModel, Stock>();
+
             CreateMap<ProductModel, Product>()
-                .ForMember(dest => dest.Identifier, opts => opts.MapFrom(x => x.Id)); 
+                .ForMember(dest => dest.Identifier, opts => opts.MapFrom(x => x.Id))
+                .ForPath(dest => dest.Stock, opts => opts.MapFrom(x => x.Stock));
 
             CreateMap<AddressModel, Address>(); 
 
@@ -46,8 +49,11 @@ namespace EletronicECommerce.Repository.Mapping
             CreateMap<Category, CategoryModel>()
                 .ForMember(dest => dest.Id, opts => opts.MapFrom(x => x.Identifier));
 
+            CreateMap<Stock, StockModel>();
+
             CreateMap<Product, ProductModel>()
-                .ForMember(dest => dest.Id, opts => opts.MapFrom(x => x.Identifier)); 
+                .ForMember(dest => dest.Id, opts => opts.MapFrom(x => x.Identifier))
+                .ForPath(dest => dest.Stock, opts => opts.MapFrom(x => x.Stock));
 
             CreateMap<Address, AddressModel>(); 
 

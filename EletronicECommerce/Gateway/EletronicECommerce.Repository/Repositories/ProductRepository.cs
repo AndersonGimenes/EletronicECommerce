@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using AutoMapper;
 using EletronicECommerce.Domain.Entities.Admin;
@@ -18,6 +17,23 @@ namespace EletronicECommerce.Repository.Repositories
         {
             _context = context;
             _mapper = mapper;
+        }
+        public override Product Create(Product product)
+        {       
+            var model = _mapper.Map<ProductModel>(product).CompleteMapper();
+           
+            if(model.Stock != null)
+            {
+                base.Create(model, () => 
+                    _context.Stocks.Add(model.Stock)
+                );
+
+                return product;
+            }
+
+            base.Create(model);
+            
+            return product;
         }
 
         public Product GetByCode(string code)

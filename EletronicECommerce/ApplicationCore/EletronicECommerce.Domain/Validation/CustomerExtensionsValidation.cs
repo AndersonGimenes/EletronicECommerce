@@ -3,7 +3,7 @@ using EletronicECommerce.Domain.Validation.ValueObjectValidation;
 
 namespace EletronicECommerce.Domain.Validation
 {
-    public static class CustomerValidation
+    public static class CustomerExtensionsValidation
     {
         public static void IsValid(this Customer customer)
         {

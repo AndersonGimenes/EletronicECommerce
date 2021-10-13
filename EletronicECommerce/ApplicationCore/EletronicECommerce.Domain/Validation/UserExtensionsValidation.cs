@@ -5,7 +5,7 @@ using EletronicECommerce.Domain.Exceptions;
 
 namespace EletronicECommerce.Domain.Validation
 {
-    public static class UserValidation
+    public static class UserExtensionsValidation
     {
         public static void IsValid(this User user)
         {

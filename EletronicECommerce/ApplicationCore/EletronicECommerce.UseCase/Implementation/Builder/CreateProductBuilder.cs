@@ -1,4 +1,5 @@
 using EletronicECommerce.Domain.Entities.Admin;
+using EletronicECommerce.Domain.Validation;
 using EletronicECommerce.UseCase.Interfaces.Builder;
 using EletronicECommerce.UseCase.Interfaces.Repositories;
 using EletronicECommerce.UseCase.Validation;
@@ -27,6 +28,7 @@ namespace EletronicECommerce.UseCase.Implementation.Builder
 
         public IBuilder<Product> Validate()
         {
+            _product.IsValid();
             new RegisterProductUseCaseValidation().IsValid(_product, _productRepository, _categoryRepository);
 
             return this;

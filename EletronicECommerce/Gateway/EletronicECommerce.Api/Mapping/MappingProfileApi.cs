@@ -19,8 +19,11 @@ namespace EletronicECommerce.Api.Mapping
             
             CreateMap<UserRequest, User>();
             CreateMap<CategoryRequest, Category>();
-            CreateMap<ProductRequest, Product>();
 
+            CreateMap<Stock, VO.Stock>();
+            CreateMap<ProductRequest, Product>()
+                .ForPath(dest => dest.Stock, opts => opts.MapFrom(x => x.Stock));
+     
             CreateMap<Name, VO.Name>();
             CreateMap<Address, VO.Address>();
             CreateMap<Document, VO.Document>()
@@ -37,7 +40,10 @@ namespace EletronicECommerce.Api.Mapping
             #region [Domain to Api]
 
             CreateMap<Category, CategoryResponse>();
-            CreateMap<Product, ProductResponse>();
+
+            CreateMap<VO.Stock, Stock>();
+            CreateMap<Product, ProductResponse>()
+                .ForPath(dest => dest.Stock, opts => opts.MapFrom(x => x.Stock));
 
             CreateMap<VO.Name, Name>();
             CreateMap<VO.Address, Address>();
