@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EletronicECommerce.Repository.Migrations
 {
     [DbContext(typeof(EletronicECommerceContext))]
-    [Migration("20211010043944_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20211013011600_InicialMigrations")]
+    partial class InicialMigrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -93,12 +93,6 @@ namespace EletronicECommerce.Repository.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(100)");
 
-                    b.Property<decimal>("PurchasePrice")
-                        .HasColumnType("decimal(15,2)");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("SalePrice")
                         .HasColumnType("decimal(15,2)");
 
@@ -150,6 +144,28 @@ namespace EletronicECommerce.Repository.Migrations
                         .HasName("Pk_Address");
 
                     b.ToTable("Address");
+                });
+
+            modelBuilder.Entity("EletronicECommerce.Repository.Models.SubModels.StockModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Product")
+                        .IsRequired()
+                        .HasColumnType("char(36)");
+
+                    b.Property<decimal>("PurchasePrice")
+                        .HasColumnType("decimal(15,2)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id")
+                        .HasName("Pk_Stock");
+
+                    b.ToTable("ProductStock");
                 });
 
             modelBuilder.Entity("EletronicECommerce.Repository.Models.UserModel", b =>
