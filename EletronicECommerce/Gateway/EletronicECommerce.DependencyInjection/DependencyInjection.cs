@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using EletronicECommerce.DependencyInjection.Proxies;
 using EletronicECommerce.DependencyInjection.Repository;
 using EletronicECommerce.DependencyInjection.UseCase;
 using EletronicECommerce.Infrastructure.Config;
+using EletronicECommerce.Proxy.Mapping;
 using EletronicECommerce.Repository.Context;
 using EletronicECommerce.Repository.Mapping;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +19,9 @@ namespace EletronicECommerce.DependencyInjection
             services.RepositoryDI();
             
             services.DataBaseDI();
-            services.AutoMapperDI(profile);  
+            services.AutoMapperDI(profile); 
+
+            services.ProxyDI(); 
         }
 
         #region [ Private Methods ]
@@ -26,6 +30,7 @@ namespace EletronicECommerce.DependencyInjection
             var cfg = new MapperConfiguration(opts =>{
                 opts.AddProfile(profile);
                 opts.AddProfile(new MappingProfileRepository());
+                opts.AddProfile(new MappingProfileProxy());
             });
             services.AddSingleton(cfg.CreateMapper());         
         }
