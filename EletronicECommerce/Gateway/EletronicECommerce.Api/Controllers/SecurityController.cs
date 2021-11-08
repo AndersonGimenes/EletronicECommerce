@@ -39,7 +39,6 @@ namespace EletronicECommerce.Api.Controllers
         }
 
         [HttpGet(nameof(CreateAdminUser))]
-        [AllowAnonymous]
         public IActionResult CreateAdminUser()
         {
             return base.Execute(() => 
