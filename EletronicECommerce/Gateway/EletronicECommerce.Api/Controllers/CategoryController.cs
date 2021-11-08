@@ -2,7 +2,6 @@ using AutoMapper;
 using EletronicECommerce.Api.Controllers.Base;
 using EletronicECommerce.Api.Models.Category;
 using EletronicECommerce.Domain.Entities.Admin;
-using EletronicECommerce.Domain.Entities.Enums;
 using EletronicECommerce.UseCase.Interfaces.UseCase;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

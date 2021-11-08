@@ -12,9 +12,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EletronicECommerce.Api.Controllers
 {
-    [ApiController]
-    [Route("v1/api/[controller]")]  
-    [Authorize]
     public class SecurityController : GenericControllerBase
     {
         private readonly IRegisterUserUseCase _registerUserUseCase;
@@ -42,6 +39,7 @@ namespace EletronicECommerce.Api.Controllers
         }
 
         [HttpGet(nameof(CreateAdminUser))]
+        [AllowAnonymous]
         public IActionResult CreateAdminUser()
         {
             return base.Execute(() => 

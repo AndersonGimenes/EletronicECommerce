@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EletronicECommerce.Reposito
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EletronicECommerce.DependencyInjection", "Gateway\EletronicECommerce.DependencyInjection\EletronicECommerce.DependencyInjection.csproj", "{EDA4C6AD-7E7C-4B07-8A56-625BCEA24229}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EletronicECommerce.Proxy", "Gateway\EletronicECommerce.Proxy\EletronicECommerce.Proxy.csproj", "{2E4FB2B8-12A6-4DD3-AA9E-7DCE8FDA9AD8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -120,6 +122,18 @@ Global
 		{EDA4C6AD-7E7C-4B07-8A56-625BCEA24229}.Release|x64.Build.0 = Release|Any CPU
 		{EDA4C6AD-7E7C-4B07-8A56-625BCEA24229}.Release|x86.ActiveCfg = Release|Any CPU
 		{EDA4C6AD-7E7C-4B07-8A56-625BCEA24229}.Release|x86.Build.0 = Release|Any CPU
+		{2E4FB2B8-12A6-4DD3-AA9E-7DCE8FDA9AD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E4FB2B8-12A6-4DD3-AA9E-7DCE8FDA9AD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E4FB2B8-12A6-4DD3-AA9E-7DCE8FDA9AD8}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2E4FB2B8-12A6-4DD3-AA9E-7DCE8FDA9AD8}.Debug|x64.Build.0 = Debug|Any CPU
+		{2E4FB2B8-12A6-4DD3-AA9E-7DCE8FDA9AD8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2E4FB2B8-12A6-4DD3-AA9E-7DCE8FDA9AD8}.Debug|x86.Build.0 = Debug|Any CPU
+		{2E4FB2B8-12A6-4DD3-AA9E-7DCE8FDA9AD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E4FB2B8-12A6-4DD3-AA9E-7DCE8FDA9AD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E4FB2B8-12A6-4DD3-AA9E-7DCE8FDA9AD8}.Release|x64.ActiveCfg = Release|Any CPU
+		{2E4FB2B8-12A6-4DD3-AA9E-7DCE8FDA9AD8}.Release|x64.Build.0 = Release|Any CPU
+		{2E4FB2B8-12A6-4DD3-AA9E-7DCE8FDA9AD8}.Release|x86.ActiveCfg = Release|Any CPU
+		{2E4FB2B8-12A6-4DD3-AA9E-7DCE8FDA9AD8}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{174527DA-4FFA-4EC7-8B76-80B77D3B7D01} = {54446889-932F-4D42-B7BC-B4E3178A0CA8}
@@ -129,5 +143,6 @@ Global
 		{F774558C-097C-4143-B02D-AC99A46D5D6F} = {E808237B-79D4-41E4-AECE-96C87CB49BC3}
 		{D746060B-4159-49BF-B8E9-9AF6703D798D} = {E808237B-79D4-41E4-AECE-96C87CB49BC3}
 		{EDA4C6AD-7E7C-4B07-8A56-625BCEA24229} = {E808237B-79D4-41E4-AECE-96C87CB49BC3}
+		{2E4FB2B8-12A6-4DD3-AA9E-7DCE8FDA9AD8} = {E808237B-79D4-41E4-AECE-96C87CB49BC3}
 	EndGlobalSection
 EndGlobal

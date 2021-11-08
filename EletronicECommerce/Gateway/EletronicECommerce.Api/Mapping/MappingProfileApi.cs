@@ -1,9 +1,11 @@
 using AutoMapper;
 using EletronicECommerce.Api.Models.Category;
 using EletronicECommerce.Api.Models.Customer;
+using EletronicECommerce.Api.Models.Payment;
 using EletronicECommerce.Api.Models.Product;
 using EletronicECommerce.Api.Models.User;
 using EletronicECommerce.Domain.Entities.Admin;
+using EletronicECommerce.Domain.DTOs;
 using EletronicECommerce.Domain.Entities.Enums;
 using EletronicECommerce.Domain.Entities.Shared;
 using EletronicECommerce.Domain.Entities.Store;
@@ -36,6 +38,8 @@ namespace EletronicECommerce.Api.Mapping
                 .ForPath(dest => dest.Document, opts => opts.MapFrom(x => x.Document))
                 .ForPath(dest => dest.BillingAddress, opts => opts.MapFrom(x => x.BillingAddress))
                 .ForPath(dest => dest.DeliveryAddess, opts => opts.MapFrom(x => x.DeliveryAddess));
+
+            CreateMap<PaymentRequest, Payment>();
 
             #endregion
 

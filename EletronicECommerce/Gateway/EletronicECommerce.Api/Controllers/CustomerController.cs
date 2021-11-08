@@ -3,7 +3,6 @@ using EletronicECommerce.Api.Controllers.Base;
 using EletronicECommerce.Api.Models.Customer;
 using EletronicECommerce.Domain.Entities.Store;
 using EletronicECommerce.UseCase.Interfaces.UseCase;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EletronicECommerce.Api.Controllers
