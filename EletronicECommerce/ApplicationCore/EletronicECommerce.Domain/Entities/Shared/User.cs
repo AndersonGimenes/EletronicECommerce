@@ -1,4 +1,5 @@
 using System;
+using EletronicECommerce.Domain.Entities.Enums;
 
 namespace EletronicECommerce.Domain.Entities.Shared
 {
@@ -13,14 +14,16 @@ namespace EletronicECommerce.Domain.Entities.Shared
         }
 
         // Constructor used for testing
-        public User(string email, string password, Guid guid)
+        public User(string email, string password, Guid guid, RoleType role)
             : base(guid)
         {
             Email = email;
             Password = password;
+            Role = role;
         }
 
         public string Email { get; private set; }
-        public string Password { get; private set; }             
+        public string Password { get; private set; } 
+        public RoleType Role { get; private set; }            
     }
 }

@@ -17,7 +17,9 @@ namespace EletronicECommerce.Api.Mapping
         {
             #region [Api to Domain]
             
-            CreateMap<UserRequest, User>();
+            CreateMap<UserRequest, User>()
+                .ForMember(dest => dest.Role, opts => opts.MapFrom(x => RoleType.CommonUser));
+                
             CreateMap<CategoryRequest, Category>();
 
             CreateMap<Stock, VO.Stock>();

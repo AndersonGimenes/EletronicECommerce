@@ -4,7 +4,7 @@ using MySql.EntityFrameworkCore.Metadata;
 
 namespace EletronicECommerce.Repository.Migrations
 {
-    public partial class InicialMigrations : Migration
+    public partial class FirstCommit : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -96,6 +96,7 @@ namespace EletronicECommerce.Repository.Migrations
                     Id = table.Column<string>(type: "char(36)", nullable: false),
                     Email = table.Column<string>(type: "varchar(200)", nullable: false),
                     Password = table.Column<string>(type: "varchar(200)", nullable: false),
+                    Role = table.Column<string>(type: "varchar(20)", nullable: false),
                     CreateDate = table.Column<DateTime>(type: "datetime", nullable: false)
                 },
                 constraints: table =>

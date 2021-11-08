@@ -17,7 +17,8 @@ namespace EletronicECommerce.Infrastructure.Security
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.Sub, user.Identifier.ToString())
+                new Claim(JwtRegisteredClaimNames.Sub, user.Identifier.ToString()),
+                new Claim(ClaimTypes.Role, user.Role.ToString())
             };
 
             var token = new JwtSecurityToken(expires: expiry, signingCredentials: credentials, claims: claims, issuer: Settings.Issuer);

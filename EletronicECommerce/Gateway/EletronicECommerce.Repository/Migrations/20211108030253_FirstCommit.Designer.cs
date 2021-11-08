@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EletronicECommerce.Repository.Migrations
 {
     [DbContext(typeof(EletronicECommerceContext))]
-    [Migration("20211013011600_InicialMigrations")]
-    partial class InicialMigrations
+    [Migration("20211108030253_FirstCommit")]
+    partial class FirstCommit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -184,6 +184,10 @@ namespace EletronicECommerce.Repository.Migrations
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("varchar(200)");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("varchar(20)");
 
                     b.HasKey("Id")
                         .HasName("Pk_User");

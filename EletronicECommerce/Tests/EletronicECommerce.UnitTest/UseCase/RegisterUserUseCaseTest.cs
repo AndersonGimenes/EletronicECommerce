@@ -1,4 +1,5 @@
 using System;
+using EletronicECommerce.Domain.Entities.Enums;
 using EletronicECommerce.Domain.Entities.Shared;
 using EletronicECommerce.Domain.Exceptions;
 using EletronicECommerce.UseCase.Exceptions;
@@ -25,7 +26,7 @@ namespace EletronicECommerce.UnitTest.UseCase
         [Fact]
         public void MustHaveAValidUserToBeCreated()
         {
-            var user = new User("nd@nd.com", "my_Secret_P@ssword#1234", Guid.Empty);
+            var user = new User("nd@nd.com", "my_Secret_P@ssword#1234", Guid.Empty, RoleType.CommonUser);
 
             _userRepository
                 .Setup(x => x.Create(It.IsAny<User>()))
@@ -39,7 +40,7 @@ namespace EletronicECommerce.UnitTest.UseCase
         [Fact]
         public void IfTheEmailDoesNotHaveASpecialChacacterShouldThrowADomainException()
         {
-            var user = new User("testtest.com", "my_Secret_P@ssword#1234", Guid.Empty);
+            var user = new User("testtest.com", "my_Secret_P@ssword#1234", Guid.Empty, RoleType.CommonUser);
 
             var ex = Assert.Throws<DomainException>(() => _registerUserUseCase.Create(user));
 
@@ -52,7 +53,7 @@ namespace EletronicECommerce.UnitTest.UseCase
         [InlineData("my_secret_p@ssword#1234", "Invalid password. Please type at least a upperCase letter.")]
         public void IfThePasswordIsNotValidShouldThrowADomainException(string password, string result)
         {
-            var user = new User("nd@test.com", password, Guid.Empty);
+            var user = new User("nd@test.com", password, Guid.Empty, RoleType.CommonUser);
 
             var ex = Assert.Throws<DomainException>(() => _registerUserUseCase.Create(user));
 
@@ -64,9 +65,9 @@ namespace EletronicECommerce.UnitTest.UseCase
         {
             _userRepository
                 .Setup(x => x.GetByEmail(It.IsAny<string>()))
-                .Returns(() => new User("test@test.com", "my_Secret_P@ssword#1234", Guid.Empty));
+                .Returns(() => new User("test@test.com", "my_Secret_P@ssword#1234", Guid.Empty, RoleType.CommonUser));
 
-            var user = new User("test@test.com", "my_Secret_P@ssword#1234", Guid.Empty);
+            var user = new User("test@test.com", "my_Secret_P@ssword#1234", Guid.Empty, RoleType.CommonUser);
 
             var ex = Assert.Throws<UseCaseException>(() => _registerUserUseCase.Create(user));
 

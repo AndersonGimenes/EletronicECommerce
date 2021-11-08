@@ -183,6 +183,10 @@ namespace EletronicECommerce.Repository.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(200)");
 
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("varchar(20)");
+
                     b.HasKey("Id")
                         .HasName("Pk_User");
 

@@ -1,4 +1,5 @@
 using System;
+using EletronicECommerce.Domain.Entities.Enums;
 using EletronicECommerce.Domain.Entities.Shared;
 using EletronicECommerce.Domain.Entities.Store;
 using EletronicECommerce.Domain.Entities.ValeuObjects;
@@ -34,7 +35,7 @@ namespace EletronicECommerce.UnitTest.UseCase
 
             _userRepository
                 .Setup(x => x.GetByIdentifier(It.IsAny<Guid>(), It.IsAny<string>()))
-                .Returns(new User("teste@teste.com", "Abc123@", userGuid));
+                .Returns(new User("teste@teste.com", "Abc123@", userGuid, RoleType.CommonUser));
 
             _customerRepository
                 .Setup(x => x.Create(It.IsAny<Customer>()))
@@ -68,7 +69,7 @@ namespace EletronicECommerce.UnitTest.UseCase
 
             _userRepository
                 .Setup(x => x.GetByIdentifier(It.IsAny<Guid>(), It.IsAny<string>()))
-                .Returns(new User("teste@teste.com", "Abc123@", userGuid));
+                .Returns(new User("teste@teste.com", "Abc123@", userGuid, RoleType.CommonUser));
 
             var customer = CreateNewCustomer("11111111111", userGuid);
 

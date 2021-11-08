@@ -1,9 +1,13 @@
 using System;
 using EletronicECommerce.Api.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EletronicECommerce.Api.Controllers.Base
 {
+    [ApiController]
+    [Route("v1/api/[controller]")]  
+    [Authorize]  
     public abstract class GenericControllerBase : ControllerBase
     {
         public IActionResult Execute(Func<object> function, string objectName)

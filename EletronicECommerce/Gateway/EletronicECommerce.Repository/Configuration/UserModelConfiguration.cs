@@ -30,6 +30,11 @@ namespace EletronicECommerce.Repository.Configuration
                 .IsRequired();
 
             builder
+                .Property(x => x.Role)
+                .HasColumnType("varchar(20)")
+                .IsRequired();
+
+            builder
                 .Property(x => x.CreateDate)
                 .HasColumnType("datetime")
                 .IsRequired();

@@ -2,6 +2,7 @@ using System;
 using AutoMapper;
 using EletronicECommerce.Api.Controllers.Base;
 using EletronicECommerce.Api.Models.User;
+using EletronicECommerce.Domain.Entities.Enums;
 using EletronicECommerce.Domain.Entities.Shared;
 using EletronicECommerce.Infrastructure.Config;
 using EletronicECommerce.Infrastructure.Security;
@@ -45,7 +46,7 @@ namespace EletronicECommerce.Api.Controllers
         {
             return base.Execute(() => 
             {
-                var user = new User(Settings.AdminUser, Settings.AdminPassword, Guid.Empty);
+                var user = new User(Settings.AdminUser, Settings.AdminPassword, Guid.Empty, RoleType.MasterUser);
                 _registerUserUseCase.Create(user);
 
                 return null;

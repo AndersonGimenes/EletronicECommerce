@@ -8,9 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EletronicECommerce.Api.Controllers
 {
-    [ApiController]
-    [Route("v1/api/[controller]")]  
-    [Authorize]
+    [Authorize(Roles = "MasterUser")]
     public class ProductController : GenericControllerBase
     {
         private readonly IRegisterProductUseCase _registerProductUseCase;
