@@ -3,14 +3,10 @@ using EletronicECommerce.Api.Controllers.Base;
 using EletronicECommerce.Api.Models.Payment;
 using EletronicECommerce.Domain.DTOs;
 using EletronicECommerce.UseCase.Interfaces.UseCase;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EletronicECommerce.Api.Controllers
 {
-    [ApiController]
-    [Route("v1/api/[controller]")]  
-    [Authorize]
     public class OrderController : GenericControllerBase
     {
         private readonly IRegisterPaymentUseCase _registerPaymentUseCase;
