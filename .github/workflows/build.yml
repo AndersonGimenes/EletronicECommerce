@@ -3,18 +3,22 @@ on:
   push:
     branches:
       - main
-  pull_request:
-    types: [opened, synchronize, reopened]
 jobs:
   build:
-    name: Build
-    runs-on: windows-latest
+ 
+    runs-on: ubuntu-latest
+ 
     steps:
-      - name: Build and analyze
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        shell: powershell
-        run: dotnet build
-        working-directory: .\EletronicECommerce
+    - uses: actions/checkout@v2
+ 
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v1.7.2
+      with:
+        dotnet-version: 5.0.x
+ 
+    - name: Restore
+      run: dotnet restore
+ 
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
       
