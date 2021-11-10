@@ -19,6 +19,10 @@ jobs:
     - name: Restore
       run: dotnet restore
       working-directory: ./EletronicECommerce
+      
+    - name: Clean
+      run: dotnet clean
+      working-directory: ./EletronicECommerce
  
     - name: Build
       run: dotnet build --configuration Release --no-restore
