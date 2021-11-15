@@ -26,4 +26,8 @@
     <ProjectReference Include="..\..\Gateway\EletronicECommerce.Infrastructure\EletronicECommerce.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+    <None Update="appsettings.test.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
 </Project>
