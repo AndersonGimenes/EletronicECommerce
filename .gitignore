@@ -17,6 +17,8 @@
 appsettings.Development.json
 appsettings.json
 
+.sonarqube
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
