@@ -7,7 +7,7 @@ namespace EletronicECommerce.Domain.Validation
 {
     public static class UserExtensionsValidation
     {
-        public static void IsValid(this User user)
+        public static void Validate(this User user)
         {
             var stringBuilder = new StringBuilder();
 

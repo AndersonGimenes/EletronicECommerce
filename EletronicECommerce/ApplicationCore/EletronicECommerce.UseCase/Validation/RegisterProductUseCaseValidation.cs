@@ -5,9 +5,9 @@ using EletronicECommerce.UseCase.Interfaces.Repositories;
 
 namespace EletronicECommerce.UseCase.Validation
 {
-    internal class RegisterProductUseCaseValidation
+    internal static class RegisterProductUseCaseValidation
     {
-        internal void IsValid(Product product, IProductRepository productRepository, ICategoryRepository categoryRepository)
+        internal static void Validate(Product product, IProductRepository productRepository, ICategoryRepository categoryRepository)
         {
             var stringBuilder = new StringBuilder();
             

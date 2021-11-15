@@ -25,7 +25,7 @@ namespace EletronicECommerce.UseCase.Implementation.Builder
 
         public IBuilder<Category> Validate()
         {
-            new RegisterCategoryUseCaseValidation().IsValid(_category, _categoryRepository);         
+            RegisterCategoryUseCaseValidation.Validate(_category, _categoryRepository);         
 
             return this;
         }

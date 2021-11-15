@@ -5,9 +5,9 @@ namespace EletronicECommerce.Domain.Validation
 {
     public static class CustomerExtensionsValidation
     {
-        public static void IsValid(this Customer customer)
+        public static void Validate(this Customer customer)
         {
-            customer.Document.IsValid();
+            customer.Document.Validate();
         }
     }
 }

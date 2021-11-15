@@ -6,12 +6,9 @@ namespace EletronicECommerce.UseCase.Implementation.UseCase
 {
     public class RegisterCategoryUseCase : RegisterBaseUseCase<Category>,  IRegisterCategoryUseCase
     {
-        private readonly ICreateCategoryBuilder _createCategoryBuilder;
-
         public RegisterCategoryUseCase(ICreateCategoryBuilder createCategoryBuilder)
             : base(createCategoryBuilder)
         {
-            _createCategoryBuilder = createCategoryBuilder;
         }
     }
 }

@@ -11,18 +11,18 @@ namespace EletronicECommerce.Infrastructure.Security
         // When saving call this method to encrypt the password.
         public static string EncryptPassword(string password)
         {
-            var resultArray = CreateMD5Object(password, "CreateEncryptor", () => UTF8Encoding.UTF8.GetBytes(password));
+            var resultArray = CreateMD5Object("CreateEncryptor", () => UTF8Encoding.UTF8.GetBytes(password));
             return Convert.ToBase64String(resultArray, 0, resultArray.Length);
         }
 
         // When validating the password use this method to decrypt one.
         public static string DecryptPassword(string password)
         {
-            var resultArray = CreateMD5Object(password, "CreateDecryptor", () => Convert.FromBase64String(password));            
+            var resultArray = CreateMD5Object("CreateDecryptor", () => Convert.FromBase64String(password));            
             return UTF8Encoding.UTF8.GetString(resultArray);
         }
 
-        private static byte[] CreateMD5Object(string password, string methodName, Func<dynamic> action)
+        private static byte[] CreateMD5Object(string methodName, Func<dynamic> action)
         {
             var objMD5CryptoService = new MD5CryptoServiceProvider();
             var objTripleDESCryptoService = new TripleDESCryptoServiceProvider();            

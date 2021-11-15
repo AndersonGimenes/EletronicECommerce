@@ -1,24 +1,27 @@
 using System;
+using System.Runtime.Serialization;
 
 namespace EletronicECommerce.UseCase.Exceptions
 {
+    [Serializable]
     public class UseCaseException : Exception
     {
-        public UseCaseException()
-        {
-
-        }
-
         public UseCaseException(string message)
             : base(message)
         {
 
         }
 
-        public UseCaseException(string message, Exception innerException)
+        protected UseCaseException(string message, Exception innerException)
             : base(message, innerException)
         {
 
+        }
+
+        protected UseCaseException(SerializationInfo serializationInfo, StreamingContext streamingContext) 
+            : base(serializationInfo, streamingContext)
+        {
+            
         }
     }
 }

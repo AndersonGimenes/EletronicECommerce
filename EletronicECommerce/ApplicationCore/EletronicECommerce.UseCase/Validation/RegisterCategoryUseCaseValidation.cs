@@ -4,9 +4,9 @@ using EletronicECommerce.UseCase.Interfaces.Repositories;
 
 namespace EletronicECommerce.UseCase.Validation
 {
-    internal class RegisterCategoryUseCaseValidation
+    internal static class RegisterCategoryUseCaseValidation
     {
-        internal void IsValid(Category category, ICategoryRepository categoryRepository)
+        internal static void Validate(Category category, ICategoryRepository categoryRepository)
         {
             var categoryDto = categoryRepository.GetByName(category.Name);
             

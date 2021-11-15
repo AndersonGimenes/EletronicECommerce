@@ -7,12 +7,9 @@ namespace EletronicECommerce.UseCase.Implementation.UseCase
 {
     public class RegisterProductUseCase : RegisterBaseUseCase<Product>, IRegisterProductUseCase
     {
-        private readonly ICreateProductBuilder _createProductBuilder;
-
         public RegisterProductUseCase(ICreateProductBuilder createProductBuilder)
             : base(createProductBuilder)
         {
-            _createProductBuilder = createProductBuilder;
         }
 
         public void Update(Product product)

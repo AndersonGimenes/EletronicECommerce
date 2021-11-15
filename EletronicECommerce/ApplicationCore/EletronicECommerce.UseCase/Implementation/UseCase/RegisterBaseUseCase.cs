@@ -9,7 +9,7 @@ namespace EletronicECommerce.UseCase.Implementation.UseCase
     {
         private readonly IBuilder<T> _builder;
 
-        public RegisterBaseUseCase(IBuilder<T> builder) 
+        protected RegisterBaseUseCase(IBuilder<T> builder) 
         {
             _builder = builder;
         }

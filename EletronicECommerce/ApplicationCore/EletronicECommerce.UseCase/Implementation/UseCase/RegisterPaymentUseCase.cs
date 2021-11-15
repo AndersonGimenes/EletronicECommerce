@@ -20,7 +20,7 @@ namespace EletronicECommerce.UseCase.Implementation.UseCase
         }
         public object SendPayment(Payment payment)
         {
-            payment.IsValid();
+            payment.Validate();
             CustomMapper(payment);
 
             var result = Task.Run( () => _paymentEngineProxy.SendPayment(payment)).Result;
@@ -31,7 +31,7 @@ namespace EletronicECommerce.UseCase.Implementation.UseCase
         private void CustomMapper(Payment payment)
         {
             var customer = _customerRepository.GetByUserIdentifier(payment.CustomerId);
-            new RegisterPaymentUseCaseValidation().IsValid(customer);
+            RegisterPaymentUseCaseValidation.Validate(customer);
             
             payment.SetCustomer(customer.FullName);
         }

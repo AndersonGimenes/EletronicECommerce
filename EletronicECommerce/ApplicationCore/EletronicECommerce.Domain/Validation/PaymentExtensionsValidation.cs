@@ -6,7 +6,7 @@ namespace EletronicECommerce.Domain.Validation
 {
     public static class PaymentExtensionsValidation
     {
-        public static void IsValid(this Payment payment)
+        public static void Validate(this Payment payment)
         {
             var stringBuilder = new StringBuilder();
 
@@ -24,12 +24,10 @@ namespace EletronicECommerce.Domain.Validation
 
         private static void ValidateField(dynamic value, string field, StringBuilder stringBuilder)
         {            
-            if(value.GetType() == typeof(string))
-                if(string.IsNullOrEmpty(value))
+            if(value.GetType() == typeof(string) && string.IsNullOrEmpty(value))
                     stringBuilder.Append($"Please fill the field {field}.");
 
-            if(value.GetType() == typeof(int))
-                if((int)value == default)
+            if(value.GetType() == typeof(int) && (int)value == default)
                     stringBuilder.Append($"Please fill the field {field}.");
         }
 

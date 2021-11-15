@@ -6,19 +6,6 @@ namespace EletronicECommerce.Domain.DTOs
 {
     public class Payment
     {
-        public Payment(string merchantOrderId, string cardNumber, string holder, string expirationDate, string securityCode, string brand, int amount, int installments, Guid customerId)
-        {
-            MerchantOrderId = merchantOrderId;
-            CardNumber = cardNumber;
-            Holder = holder;
-            ExpirationDate = expirationDate;
-            SecurityCode = securityCode;
-            Brand = brand;
-            Amount = amount;
-            Installments = installments;
-            CustomerId = customerId;
-        }
-
         public string MerchantOrderId { get; private set; }
         public string CardNumber { get; private set; }
         public string Holder { get; private set; }
@@ -34,6 +21,6 @@ namespace EletronicECommerce.Domain.DTOs
         public void SetCustomer(Name customer)
         {
             Customer = customer;
-        }	
+        }
     }
 }

@@ -1,8 +1,5 @@
 using System;
-using EletronicECommerce.Domain.Entities.Enums;
-using EletronicECommerce.Domain.Entities.Shared;
 using EletronicECommerce.Domain.Entities.Store;
-using EletronicECommerce.Domain.Entities.ValeuObjects;
 using EletronicECommerce.Domain.Exceptions;
 using EletronicECommerce.UseCase.Exceptions;
 using EletronicECommerce.UseCase.Implementation.Builder;
@@ -10,8 +7,9 @@ using EletronicECommerce.UseCase.Implementation.UseCase;
 using EletronicECommerce.UseCase.Interfaces.Repositories;
 using Moq;
 using Xunit;
+using Mock = EletronicECommerce.UnitTest.UseCase.MockObjects.MockObjects;
 
-namespace EletronicECommerce.UnitTest.UseCase
+namespace EletronicECommerce.UnitTest.UseCase.Tests
 {
     public class RegisterCustomerUseCaseTest
     {
@@ -30,12 +28,12 @@ namespace EletronicECommerce.UnitTest.UseCase
         [Fact]
         public void MustHaveAValidCustomerToBeCreated()
         {
-            var userGuid = Guid.NewGuid();
-            var customer = CreateNewCustomer("11122244455", userGuid);
+            var user = Mock.NewUserInstance("teste@teste.com",  "Abc123@");
+            var customer = Mock.NewCustomerInstance("11122244455", user.Identifier);
 
             _userRepository
                 .Setup(x => x.GetByIdentifier(It.IsAny<Guid>(), It.IsAny<string>()))
-                .Returns(new User("teste@teste.com", "Abc123@", userGuid, RoleType.CommonUser));
+                .Returns(user);
 
             _customerRepository
                 .Setup(x => x.Create(It.IsAny<Customer>()))
@@ -51,7 +49,7 @@ namespace EletronicECommerce.UnitTest.UseCase
         [InlineData("111222444555777")]
         public void IfDocumentNumberIsNotBetweenElevenAndFourteenCharactersShouldThrowADomainException(string number)
         {   
-            var customer = CreateNewCustomer(number, Guid.NewGuid());
+            var customer = Mock.NewCustomerInstance(number, Guid.NewGuid());
 
             var ex = Assert.Throws<DomainException>(() => _registerCustomerUseCase.Create(customer));
 
@@ -61,17 +59,16 @@ namespace EletronicECommerce.UnitTest.UseCase
         [Fact]
         public void IfThereIsADocumentNumberRegisteredShouldThrowAnUseCaseException()
         {
-            var userGuid = Guid.NewGuid();
+            var user = Mock.NewUserInstance("teste@teste.com",  "Abc123@");
+            var customer = Mock.NewCustomerInstance("11111111111", user.Identifier);
 
             _customerRepository
                 .Setup(x => x.GetByDocumentNumber(It.IsAny<string>()))
-                .Returns(CreateNewCustomer("11111111111", Guid.NewGuid()));
+                .Returns(customer);
 
             _userRepository
                 .Setup(x => x.GetByIdentifier(It.IsAny<Guid>(), It.IsAny<string>()))
-                .Returns(new User("teste@teste.com", "Abc123@", userGuid, RoleType.CommonUser));
-
-            var customer = CreateNewCustomer("11111111111", userGuid);
+                .Returns(user);            
 
             var ex = Assert.Throws<UseCaseException>(() => _registerCustomerUseCase.Create(customer));
 
@@ -82,12 +79,11 @@ namespace EletronicECommerce.UnitTest.UseCase
         public void IfThereIsAUserLinkedWithAnotherCustomerShouldThrowAnUseCaseException()
         {
             var userGuid = Guid.NewGuid();
+            var customer = Mock.NewCustomerInstance("11111111111", userGuid);
 
             _customerRepository
                 .Setup(x => x.GetByUserIdentifier(It.IsAny<Guid>()))
-                .Returns(CreateNewCustomer("11111111111", userGuid));
-
-            var customer = CreateNewCustomer("11111111111", userGuid);
+                .Returns(customer);          
 
             var ex = Assert.Throws<UseCaseException>(() => _registerCustomerUseCase.Create(customer));
 
@@ -98,22 +94,11 @@ namespace EletronicECommerce.UnitTest.UseCase
         public void IfThereIsNotAUserShouldThrowAnUseCaseException()
         {
             var userGuid = Guid.NewGuid();
-
-            var customer = CreateNewCustomer("11111111111", userGuid);
+            var customer = Mock.NewCustomerInstance("11111111111", userGuid);
 
             var ex = Assert.Throws<UseCaseException>(() => _registerCustomerUseCase.Create(customer));
 
             Assert.Equal("Must enter a valid user.", ex.Message);
         }
-
-        private Customer CreateNewCustomer(string document, Guid user) => 
-            new Customer(
-                new Name("Robert", "DelValle"),
-                new Document(document, Domain.Entities.Enums.DocumentType.CPF),
-                new Address("Jhon boyd dunlop street", "123", "new life", "Campinas", "SP", "Brazil"),
-                new Address("Jhon boyd dunlop street", "123", "new life", "Campinas", "SP", "Brazil"),
-                user,
-                Guid.Empty
-            );         
     }
 }

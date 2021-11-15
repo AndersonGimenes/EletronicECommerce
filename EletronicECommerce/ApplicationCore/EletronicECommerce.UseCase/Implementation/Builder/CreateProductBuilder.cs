@@ -28,8 +28,8 @@ namespace EletronicECommerce.UseCase.Implementation.Builder
 
         public IBuilder<Product> Validate()
         {
-            _product.IsValid();
-            new RegisterProductUseCaseValidation().IsValid(_product, _productRepository, _categoryRepository);
+            _product.Validate();
+            RegisterProductUseCaseValidation.Validate(_product, _productRepository, _categoryRepository);
 
             return this;
         }

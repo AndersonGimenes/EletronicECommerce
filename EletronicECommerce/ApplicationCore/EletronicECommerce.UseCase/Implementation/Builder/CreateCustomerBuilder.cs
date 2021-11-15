@@ -27,8 +27,8 @@ namespace EletronicECommerce.UseCase.Implementation.Builder
 
         public IBuilder<Customer> Validate()
         {
-            _customer.IsValid();
-            new RegisterCustomerUseCaseValidation().IsValid(_customer, _customerRepository, _userRepository);
+            _customer.Validate();
+            RegisterCustomerUseCaseValidation.Validate(_customer, _customerRepository, _userRepository);
 
             return this;
         }

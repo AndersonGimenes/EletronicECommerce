@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using EletronicECommerce.Domain.DTOs;
 using EletronicECommerce.Infrastructure.Config;
+using EletronicECommerce.Proxy.Exceptions;
 using EletronicECommerce.Proxy.Model.Cielo;
 using EletronicECommerce.UseCase.Interfaces.Proxies;
 using Newtonsoft.Json;
@@ -37,7 +38,7 @@ namespace EletronicECommerce.Proxy.PaymentEngine
                 var response = await client.PostAsync("1/sales", data);
 
                 if(response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.Created)
-                    throw new Exception("The payment could not be process!");
+                    throw new ProxyException("The payment could not be process!");
                     
                 result = await response.Content.ReadAsStringAsync();
             }

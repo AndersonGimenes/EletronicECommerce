@@ -13,7 +13,7 @@ namespace EletronicECommerce.Api.Controllers
     public class SecurityController : GenericControllerBase
     {
         private readonly IRegisterUserUseCase _registerUserUseCase;
-        private IMapper _mapper;
+        private readonly IMapper _mapper;
 
         public SecurityController(IMapper mapper, IRegisterUserUseCase registerUserUseCase)
         {

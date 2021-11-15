@@ -12,7 +12,7 @@ namespace EletronicECommerce.Api.Controllers
     public class ProductController : GenericControllerBase
     {
         private readonly IRegisterProductUseCase _registerProductUseCase;
-        private IMapper _mapper;
+        private readonly IMapper _mapper;
 
         public ProductController(IMapper mapper, IRegisterProductUseCase registerProductUseCase)
         {

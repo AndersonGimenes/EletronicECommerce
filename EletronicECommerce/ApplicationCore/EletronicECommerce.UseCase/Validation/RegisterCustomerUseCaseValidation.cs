@@ -4,9 +4,9 @@ using EletronicECommerce.UseCase.Interfaces.Repositories;
 
 namespace EletronicECommerce.UseCase.Validation
 {
-    internal class RegisterCustomerUseCaseValidation
+    internal static class RegisterCustomerUseCaseValidation
     {
-        internal void IsValid(Customer customer, ICustomerRepository customerRepository, IUserRepository userRepository)
+        internal static void Validate(Customer customer, ICustomerRepository customerRepository, IUserRepository userRepository)
         {
             var userCustomer = customerRepository.GetByUserIdentifier(customer.User);
 

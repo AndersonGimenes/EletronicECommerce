@@ -13,7 +13,7 @@ namespace EletronicECommerce.Repository.Repositories
         private readonly EletronicECommerceContext _context;
         private readonly IMapper _mapper;
 
-        public RepositoryBase(EletronicECommerceContext context, IMapper mapper)
+        protected RepositoryBase(EletronicECommerceContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

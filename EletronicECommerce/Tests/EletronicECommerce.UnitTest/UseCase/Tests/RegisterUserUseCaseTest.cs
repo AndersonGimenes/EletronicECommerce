@@ -1,5 +1,4 @@
 using System;
-using EletronicECommerce.Domain.Entities.Enums;
 using EletronicECommerce.Domain.Entities.Shared;
 using EletronicECommerce.Domain.Exceptions;
 using EletronicECommerce.UseCase.Exceptions;
@@ -8,8 +7,9 @@ using EletronicECommerce.UseCase.Implementation.UseCase;
 using EletronicECommerce.UseCase.Interfaces.Repositories;
 using Moq;
 using Xunit;
+using Mock = EletronicECommerce.UnitTest.UseCase.MockObjects.MockObjects;
 
-namespace EletronicECommerce.UnitTest.UseCase
+namespace EletronicECommerce.UnitTest.UseCase.Tests
 {
     public class RegisterUserUseCaseTest
     {
@@ -26,7 +26,7 @@ namespace EletronicECommerce.UnitTest.UseCase
         [Fact]
         public void MustHaveAValidUserToBeCreated()
         {
-            var user = new User("nd@nd.com", "my_Secret_P@ssword#1234", Guid.Empty, RoleType.CommonUser);
+            var user = Mock.NewUserInstance("teste@teste.com",  "Abc123@");
 
             _userRepository
                 .Setup(x => x.Create(It.IsAny<User>()))
@@ -40,7 +40,7 @@ namespace EletronicECommerce.UnitTest.UseCase
         [Fact]
         public void IfTheEmailDoesNotHaveASpecialChacacterShouldThrowADomainException()
         {
-            var user = new User("testtest.com", "my_Secret_P@ssword#1234", Guid.Empty, RoleType.CommonUser);
+            var user = Mock.NewUserInstance("testtest.com", "my_Secret_P@ssword#1234");
 
             var ex = Assert.Throws<DomainException>(() => _registerUserUseCase.Create(user));
 
@@ -53,7 +53,7 @@ namespace EletronicECommerce.UnitTest.UseCase
         [InlineData("my_secret_p@ssword#1234", "Invalid password. Please type at least a upperCase letter.")]
         public void IfThePasswordIsNotValidShouldThrowADomainException(string password, string result)
         {
-            var user = new User("nd@test.com", password, Guid.Empty, RoleType.CommonUser);
+            var user = Mock.NewUserInstance("nd@test.com", password);
 
             var ex = Assert.Throws<DomainException>(() => _registerUserUseCase.Create(user));
 
@@ -63,11 +63,11 @@ namespace EletronicECommerce.UnitTest.UseCase
         [Fact]
         public void IfHaveMoreThanOneSameUserShouldThrowAnUseCaseException()
         {
+            var user = Mock.NewUserInstance("test@test.com", "my_Secret_P@ssword#1234");
+
             _userRepository
                 .Setup(x => x.GetByEmail(It.IsAny<string>()))
-                .Returns(() => new User("test@test.com", "my_Secret_P@ssword#1234", Guid.Empty, RoleType.CommonUser));
-
-            var user = new User("test@test.com", "my_Secret_P@ssword#1234", Guid.Empty, RoleType.CommonUser);
+                .Returns(() => user);
 
             var ex = Assert.Throws<UseCaseException>(() => _registerUserUseCase.Create(user));
 

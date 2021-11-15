@@ -3,9 +3,9 @@ using EletronicECommerce.UseCase.Exceptions;
 
 namespace EletronicECommerce.UseCase.Validation
 {
-    internal class RegisterPaymentUseCaseValidation
+    internal static class RegisterPaymentUseCaseValidation
     {
-        public void IsValid(Customer customer)
+        internal static void Validate(Customer customer)
         {
             if(customer is null)
                 throw new UseCaseException("Invalid customer");

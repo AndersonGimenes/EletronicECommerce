@@ -6,8 +6,9 @@ using EletronicECommerce.UseCase.Interfaces.Repositories;
 using Xunit;
 using Moq;
 using EletronicECommerce.UseCase.Exceptions;
+using Mock = EletronicECommerce.UnitTest.UseCase.MockObjects.MockObjects;
 
-namespace EletronicECommerce.UnitTest.UseCase
+namespace EletronicECommerce.UnitTest.UseCase.Tests
 {
     public class RegisterCategoryUseCaseTest
     {
@@ -24,7 +25,7 @@ namespace EletronicECommerce.UnitTest.UseCase
         [Fact]
         public void MustHaveAValidCategoryToBeCreated()
         {
-            var category = new Category("Games", Guid.Empty);
+            var category = Mock.NewCategoryInstance("Games");
 
             _categoryRepositoryMock
                 .Setup(x => x.Create(It.IsAny<Category>()))
@@ -38,11 +39,11 @@ namespace EletronicECommerce.UnitTest.UseCase
         [Fact]
         public void IfHaveMoreThanOneSameCategoryNameShouldThrowAnUseCaseException()
         {
+            var category = Mock.NewCategoryInstance("Consoles");
+
             _categoryRepositoryMock
                 .Setup(x => x.GetByName(It.IsAny<string>()))
-                .Returns(new Category("Consoles", Guid.Empty));
-
-            var category = new Category("Consoles", Guid.Empty);
+                .Returns(category);
 
             var ex = Assert.Throws<UseCaseException>(() => _registerCategoryUseCase.Create(category));
 

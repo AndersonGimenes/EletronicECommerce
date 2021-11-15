@@ -6,10 +6,10 @@ using EletronicECommerce.UseCase.Interfaces.Repositories;
 using Xunit;
 using Moq;
 using EletronicECommerce.UseCase.Exceptions;
-using EletronicECommerce.Domain.Entities.ValeuObjects;
 using EletronicECommerce.Domain.Exceptions;
+using Mock = EletronicECommerce.UnitTest.UseCase.MockObjects.MockObjects;
 
-namespace EletronicECommerce.UnitTest.UseCase
+namespace EletronicECommerce.UnitTest.UseCase.Tests
 {
     public class RegisterProductUseCaseTest
     {
@@ -24,11 +24,11 @@ namespace EletronicECommerce.UnitTest.UseCase
 
             _categoryRepositoryMock
                 .Setup(x => x.GetByIdentifier(It.IsAny<Guid>(), It.IsAny<string>()))
-                .Returns(new Category("Consoles", Guid.Empty));
+                .Returns(Mock.NewCategoryInstance("Games"));
 
             _productRepositoryMock
                 .Setup(x => x.Create(It.IsAny<Product>()))
-                .Returns(CreateNewProduct(null,499.99m));
+                .Returns(Mock.NewProductObject(null,499.99m));
             
             _registerProductUseCase = new RegisterProductUseCase(new CreateProductBuilder(_productRepositoryMock.Object, _categoryRepositoryMock.Object));
         }
@@ -36,7 +36,7 @@ namespace EletronicECommerce.UnitTest.UseCase
         [Fact]
         public void MustHaveAValidProductToBeCreated()
         {
-            var product = CreateNewProduct(null,499.99m);
+            var product = Mock.NewProductObject(null,499.99m);
 
             var result = _registerProductUseCase.Create(product);
 
@@ -46,11 +46,11 @@ namespace EletronicECommerce.UnitTest.UseCase
         [Fact]
         public void IfHaveMoreThanOneSameProductNameShouldThrowAnUseCaseException()
         {
-            var product = CreateNewProduct(null,499.99m); 
+            var product = Mock.NewProductObject(null,499.99m); 
 
             _productRepositoryMock
                 .Setup(x => x.GetByName(It.IsAny<string>()))
-                .Returns(CreateNewProduct(null,499.99m));
+                .Returns(product);
 
             var ex = Assert.Throws<UseCaseException>(() => _registerProductUseCase.Create(product));
 
@@ -61,11 +61,11 @@ namespace EletronicECommerce.UnitTest.UseCase
 	    [Fact]
         public void IfHaveMoreThanOneSameProductCodeShouldThrowAnUseCaseException()
         {
-            var product = CreateNewProduct(null,499.99m); 
+            var product = Mock.NewProductObject(null,499.99m); 
             
             _productRepositoryMock
                 .Setup(x => x.GetByCode(It.IsAny<string>()))
-                .Returns(CreateNewProduct(null, 499.99m));
+                .Returns(product);
 
             var ex = Assert.Throws<UseCaseException>(() => _registerProductUseCase.Create(product));
 
@@ -80,7 +80,7 @@ namespace EletronicECommerce.UnitTest.UseCase
                 .Setup(x => x.GetByIdentifier(It.IsAny<Guid>(), It.IsAny<string>()))
                 .Returns(() => null);
 
-            var product = CreateNewProduct(null, 499.99m); 
+            var product = Mock.NewProductObject(null,499.99m); 
             
             var ex = Assert.Throws<UseCaseException>(() => _registerProductUseCase.Create(product));
 
@@ -91,7 +91,7 @@ namespace EletronicECommerce.UnitTest.UseCase
         [Fact]
         public void MustHaveAValueBiggerThanZeroForSalePrice()
         {
-            var product = CreateNewProduct(null, 0); 
+            var product = Mock.NewProductObject(null,0);
             
             var ex = Assert.Throws<DomainException>(() => _registerProductUseCase.Create(product));
 
@@ -101,9 +101,7 @@ namespace EletronicECommerce.UnitTest.UseCase
         [Fact]
         public void WhenCreatedANewRegisterTheQuantityMustBeBiggerThanZero()
         {
-            var stock = new Stock(100.00m, 0);
-
-            var product = CreateNewProduct(stock, 499.99m); 
+            var product = Mock.NewProductObject(Mock.NewStokObject(100.00m, 0),499.99m); 
             
             var ex = Assert.Throws<DomainException>(() => _registerProductUseCase.Create(product));
 
@@ -113,16 +111,11 @@ namespace EletronicECommerce.UnitTest.UseCase
         [Fact]
         public void WhenCreatedANewRegisterThePurchasePriceMustBeBiggerOrEqualThanZero()
         {
-            var stock = new Stock(-2, 10);
-
-            var product = CreateNewProduct(stock, 499.99m); 
+            var product = Mock.NewProductObject(Mock.NewStokObject(-2, 10),499.99m); 
             
             var ex = Assert.Throws<DomainException>(() => _registerProductUseCase.Create(product));
 
             Assert.Equal("The PurchasePrice must be bigger or equal than zero.", ex.Message);
         }
-
-        private Product CreateNewProduct(Stock stock, decimal salePrice) =>
-            new Product("Playstation 5", "PS5", salePrice, Guid.NewGuid(), stock, Guid.Empty);
     }
 }

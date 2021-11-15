@@ -4,7 +4,7 @@ namespace EletronicECommerce.Domain.Entities
 {
     public abstract class EntityBase
     {
-        public EntityBase(Guid guid)
+        protected EntityBase(Guid guid)
         {
             Identifier = guid == Guid.Empty ? Guid.NewGuid() : guid;
         }
