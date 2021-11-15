@@ -1,0 +1,32 @@
+name: Build
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  build:
+  
+    runs-on: ubuntu-latest
+ 
+    steps:
+    - uses: actions/checkout@v2
+ 
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v1.7.2
+      with:
+        dotnet-version: 5.0.x
+       
+    - name: Clean
+      run: dotnet clean
+      working-directory: ./EletronicECommerce
+ 
+    - name: Build
+      run: dotnet build
+      working-directory: ./EletronicECommerce
+      
+    - name: Test
+      run: dotnet test --no-restore --verbosity normal
+      working-directory: ./EletronicECommerce
