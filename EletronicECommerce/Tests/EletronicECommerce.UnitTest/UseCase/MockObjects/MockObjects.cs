@@ -160,5 +160,22 @@ namespace EletronicECommerce.UnitTest.UseCase.MockObjects
 
             return stock;
         }
+
+        internal static Order NewOrderObject(params Guid[] productIds)
+        {
+            var order = new Order();
+
+            order.SetValuesProperties
+            (
+                new Dictionary<string, dynamic>
+                {
+                    {nameof(order.Products), productIds},
+                    {nameof(order.StatusOrder), StatusOrder.Selected},
+                    {nameof(order.TypePayment), TypePayment.CreditCard}                    
+                }
+            );
+
+            return order;
+        }
     }
 }

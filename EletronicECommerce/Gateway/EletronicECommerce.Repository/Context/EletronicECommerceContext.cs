@@ -19,6 +19,7 @@ namespace EletronicECommerce.Repository.Context
         public DbSet<AddressModel> Addresses { get; set; }
         public DbSet<CustomerModel> Customers { get; set; }
         public DbSet<StockModel> Stocks { get; set; }
+        public DbSet<OrderModel> Orders { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

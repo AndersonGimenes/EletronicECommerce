@@ -23,6 +23,9 @@ namespace EletronicECommerce.DependencyInjection.UseCase
             services.AddTransient<IRegisterCustomerUseCase, RegisterCustomerUseCase>();   
 
             services.AddTransient<IRegisterPaymentUseCase, RegisterPaymentUseCase>();
+
+            services.AddTransient<ICreateOrderBuilder, CreateOrderBuilder>();
+            services.AddTransient<IRegisterOrderUseCase, RegisterOrderUseCase>();
         }
     }
 }
