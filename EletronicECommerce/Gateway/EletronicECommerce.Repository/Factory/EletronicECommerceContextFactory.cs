@@ -9,8 +9,9 @@ namespace EletronicECommerce.Repository.Factory
     {
         public EletronicECommerceContext CreateDbContext(string[] args)
         {
+            // When use migrations, put connection string here
             var optionsBuilder = new DbContextOptionsBuilder<EletronicECommerceContext>();
-            optionsBuilder.UseMySQL(Settings.ConnectionString);
+            optionsBuilder.UseMySQL("");
 
             return new EletronicECommerceContext(optionsBuilder.Options);
         }

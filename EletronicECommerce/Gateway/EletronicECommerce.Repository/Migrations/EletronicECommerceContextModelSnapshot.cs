@@ -70,6 +70,20 @@ namespace EletronicECommerce.Repository.Migrations
                     b.ToTable("Customer");
                 });
 
+            modelBuilder.Entity("EletronicECommerce.Repository.Models.OrderModel", b =>
+                {
+                    b.Property<byte[]>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("varbinary(16)");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Orders");
+                });
+
             modelBuilder.Entity("EletronicECommerce.Repository.Models.ProductModel", b =>
                 {
                     b.Property<string>("Id")

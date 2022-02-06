@@ -2,13 +2,14 @@ using AutoMapper;
 using EletronicECommerce.Api.Controllers.Base;
 using EletronicECommerce.Api.Models.Product;
 using EletronicECommerce.Domain.Entities.Admin;
+using EletronicECommerce.Domain.Entities.Enums;
 using EletronicECommerce.UseCase.Interfaces.UseCase;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EletronicECommerce.Api.Controllers
 {
-    [Authorize(Roles = "MasterUser")]
+    [Authorize(Roles = nameof(RoleType.MasterUser))]
     public class ProductController : GenericControllerBase
     {
         private readonly IRegisterProductUseCase _registerProductUseCase;

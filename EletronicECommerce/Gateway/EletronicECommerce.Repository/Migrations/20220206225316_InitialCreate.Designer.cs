@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EletronicECommerce.Repository.Migrations
 {
     [DbContext(typeof(EletronicECommerceContext))]
-    [Migration("20211108030253_FirstCommit")]
-    partial class FirstCommit
+    [Migration("20220206225316_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -70,6 +70,20 @@ namespace EletronicECommerce.Repository.Migrations
                         .HasName("Pk_User");
 
                     b.ToTable("Customer");
+                });
+
+            modelBuilder.Entity("EletronicECommerce.Repository.Models.OrderModel", b =>
+                {
+                    b.Property<byte[]>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("varbinary(16)");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("EletronicECommerce.Repository.Models.ProductModel", b =>
