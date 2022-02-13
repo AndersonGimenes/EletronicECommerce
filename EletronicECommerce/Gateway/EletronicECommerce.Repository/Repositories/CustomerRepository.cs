@@ -28,6 +28,8 @@ namespace EletronicECommerce.Repository.Repositories
                 _context.Addresses.AddRange(new AddressModel[]{model.BillingAddress, model.DeliveryAddess})
             );
 
+            base.SaveChanges();
+            
             return customer;
         }
 

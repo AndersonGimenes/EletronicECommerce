@@ -31,10 +31,14 @@ namespace EletronicECommerce.Repository.Repositories
                     _context.Stocks.Add(model.Stock)
                 );
 
+                base.SaveChanges();
+
                 return product;
             }
 
             base.Create(model);
+
+            base.SaveChanges();
             
             return product;
         }
@@ -55,7 +59,14 @@ namespace EletronicECommerce.Repository.Repositories
 
         public IEnumerable<Product> GetProductsByIds(IEnumerable<Guid> guids)
         {
-            var products = _context.Products.AsNoTracking().Where(x => guids.Contains(x.Id)).Include(x => x.Stock);
+            var products = _context.Products.AsNoTracking().Where(x => guids.Contains(x.Id)).ToList();
+            var stocks = _context.Stocks.AsNoTracking().Where(x => guids.Contains(x.Product)).ToList();
+
+            if(stocks.Any()) 
+                foreach(var product in products)
+                {
+                    product.SetStock(stocks.FirstOrDefault(x => product.Id == x.Product));
+                }
 
             return _mapper.Map<IEnumerable<Product>>(products);
         }

@@ -38,7 +38,10 @@ namespace EletronicECommerce.Repository.Mapping
             CreateMap<CustomerModel, Customer>()
                 .ForMember(dest => dest.Identifier, opts => opts.MapFrom(x => x.Id))
                 .ForPath(dest => dest.BillingAddress, opts => opts.MapFrom(x => x.BillingAddress))
-                .ForPath(dest => dest.DeliveryAddess, opts => opts.MapFrom(x => x.DeliveryAddess));      
+                .ForPath(dest => dest.DeliveryAddess, opts => opts.MapFrom(x => x.DeliveryAddess));   
+
+            CreateMap<OrderModel, Order>()
+                .ForMember(dest => dest.Identifier, opts => opts.MapFrom(x => x.Id));   
 
             #endregion
 
@@ -65,6 +68,9 @@ namespace EletronicECommerce.Repository.Mapping
                 .ForMember(dest => dest.DocumentType, opts => opts.MapFrom(x => x.Document.DocumentType))
                 .ForPath(dest => dest.BillingAddress, opts => opts.MapFrom(x => x.BillingAddress))
                 .ForPath(dest => dest.DeliveryAddess, opts => opts.MapFrom(x => x.DeliveryAddess));
+
+            CreateMap<Order, OrderModel>()
+                .ForMember(dest => dest.Id, opts => opts.MapFrom(x => x.Identifier));
 
             #endregion
         }

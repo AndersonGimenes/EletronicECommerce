@@ -20,5 +20,7 @@ namespace EletronicECommerce.Repository.Models
                 
             return this;
         }
+
+        internal void SetStock(StockModel stock) => this.Stock = stock;
     }
 }

@@ -59,15 +59,19 @@ namespace EletronicECommerce.Repository.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Orders",
+                name: "Order",
                 columns: table => new
                 {
-                    Id = table.Column<byte[]>(type: "varbinary(16)", nullable: false),
+                    Id = table.Column<string>(type: "char(36)", nullable: false),
+                    User = table.Column<string>(type: "char(36)", nullable: false),
+                    ProductId = table.Column<string>(type: "char(36)", nullable: false),
+                    StatusOrder = table.Column<string>(type: "varchar(20)", nullable: false),
+                    TypePayment = table.Column<string>(type: "varchar(20)", nullable: false),
                     CreateDate = table.Column<DateTime>(type: "datetime", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.PrimaryKey("Pk_Order", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -129,7 +133,7 @@ namespace EletronicECommerce.Repository.Migrations
                 name: "Customer");
 
             migrationBuilder.DropTable(
-                name: "Orders");
+                name: "Order");
 
             migrationBuilder.DropTable(
                 name: "Product");

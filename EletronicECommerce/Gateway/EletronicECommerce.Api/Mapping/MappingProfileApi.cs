@@ -10,6 +10,7 @@ using EletronicECommerce.Domain.Entities.Enums;
 using EletronicECommerce.Domain.Entities.Shared;
 using EletronicECommerce.Domain.Entities.Store;
 using VO = EletronicECommerce.Domain.Entities.ValeuObjects;
+using EletronicECommerce.Api.Models.Order;
 
 namespace EletronicECommerce.Api.Mapping
 {
@@ -41,6 +42,8 @@ namespace EletronicECommerce.Api.Mapping
 
             CreateMap<PaymentRequest, Payment>();
 
+            CreateMap<OrderRequest, Order>();
+
             #endregion
 
             #region [Domain to Api]
@@ -61,6 +64,8 @@ namespace EletronicECommerce.Api.Mapping
                 .ForPath(dest => dest.Document, opts => opts.MapFrom(x => x.Document))
                 .ForPath(dest => dest.BillingAddress, opts => opts.MapFrom(x => x.BillingAddress))
                 .ForPath(dest => dest.DeliveryAddess, opts => opts.MapFrom(x => x.DeliveryAddess));
+
+            CreateMap<Order, OrderResponse>();
 
             #endregion
         }

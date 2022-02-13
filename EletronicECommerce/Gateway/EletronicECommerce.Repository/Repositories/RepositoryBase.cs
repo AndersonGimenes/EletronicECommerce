@@ -27,7 +27,7 @@ namespace EletronicECommerce.Repository.Repositories
 
             model.SetCreateDate();
 
-            _context.SaveChanges();
+            this.SaveChanges();
 
             return entity;
         }
@@ -44,10 +44,11 @@ namespace EletronicECommerce.Repository.Repositories
         {
             _context.Add(model);
 
-            model.SetCreateDate();
-
-            _context.SaveChanges();
+            model.SetCreateDate();            
         }
+
+        public void SaveChanges() => _context.SaveChanges();
+
 
         public TEntity GetByIdentifier(Guid identifier, string paramName)
         {   

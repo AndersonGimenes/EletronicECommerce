@@ -72,16 +72,33 @@ namespace EletronicECommerce.Repository.Migrations
 
             modelBuilder.Entity("EletronicECommerce.Repository.Models.OrderModel", b =>
                 {
-                    b.Property<byte[]>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("varbinary(16)");
+                        .HasColumnType("char(36)");
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime");
 
-                    b.HasKey("Id");
+                    b.Property<string>("ProductId")
+                        .IsRequired()
+                        .HasColumnType("char(36)");
 
-                    b.ToTable("Orders");
+                    b.Property<string>("StatusOrder")
+                        .IsRequired()
+                        .HasColumnType("varchar(20)");
+
+                    b.Property<string>("TypePayment")
+                        .IsRequired()
+                        .HasColumnType("varchar(20)");
+
+                    b.Property<string>("User")
+                        .IsRequired()
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("Id")
+                        .HasName("Pk_Order");
+
+                    b.ToTable("Order");
                 });
 
             modelBuilder.Entity("EletronicECommerce.Repository.Models.ProductModel", b =>

@@ -1,4 +1,3 @@
-using EletronicECommerce.Infrastructure.Config;
 using EletronicECommerce.Repository.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;

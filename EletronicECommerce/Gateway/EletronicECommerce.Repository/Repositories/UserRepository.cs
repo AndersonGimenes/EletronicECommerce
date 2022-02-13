@@ -48,6 +48,8 @@ namespace EletronicECommerce.Repository.Repositories
 
             base.Create(model);
 
+            base.SaveChanges();
+
             return user;
         }
 
