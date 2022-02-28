@@ -1,7 +1,6 @@
 using AutoMapper;
 using EletronicECommerce.Api.Controllers.Base;
 using EletronicECommerce.Api.Models.User;
-using EletronicECommerce.Domain.Entities.Enums;
 using EletronicECommerce.Domain.Entities.Shared;
 using EletronicECommerce.UseCase.Interfaces.Proxies;
 using EletronicECommerce.UseCase.Interfaces.UseCase;

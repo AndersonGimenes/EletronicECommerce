@@ -41,10 +41,12 @@ namespace EletronicECommerce.Api
                     ValidIssuer = Settings.Issuer                
                 };
             }); 
+            services.SwaggerConfiguration();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseSwaggerConfiguration();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

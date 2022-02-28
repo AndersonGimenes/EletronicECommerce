@@ -28,6 +28,7 @@ namespace EletronicECommerce.Api.Controllers
             return base.Execute(() => 
             {
                 var user = _registerUserUseCase.CheckUser(_mapper.Map<User>(userRequest));
+                
                 if(user is null)
                     throw new UnauthorizedAccessException("Unauthorized Access");
 
