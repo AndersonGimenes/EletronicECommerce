@@ -5,6 +5,7 @@ namespace EletronicECommerce.Repository.Models
         public string Email { get; private set; }
         public string Password { get; private set; }
         public string Role { get; private set; }
+        public CustomerModel Customer { get; private set; }
 
         internal void SetPassword(string password)
         {

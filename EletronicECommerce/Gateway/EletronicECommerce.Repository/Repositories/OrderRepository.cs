@@ -8,14 +8,26 @@ namespace EletronicECommerce.Repository.Repositories
 {
     public class OrderRepository : RepositoryBase<Order, OrderModel>, IOrderRepository
     {
+        private readonly IMapper _mapper;
+
         public OrderRepository(EletronicECommerceContext context, IMapper mapper) 
             : base(context, mapper)
         {
+            _mapper = mapper;
         }
 
-        public Order GetByName(string name)
+        public override Order Create(Order order)
         {
-            throw new System.NotImplementedException();
+            var model = _mapper.Map<OrderModel>(order);
+
+            foreach(var product in model.Products)
+            {
+                model.SetProductId(product);
+
+               base.Create(model, null);
+            }
+
+            return order;
         }
     }
 }

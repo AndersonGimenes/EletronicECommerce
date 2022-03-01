@@ -43,21 +43,15 @@ namespace EletronicECommerce.Repository.Repositories
         
         public override User Create(User user)
         {       
-            var model = _mapper.Map<UserModel>(user);
-            model.SetPassword(PasswordHandler.EncryptPassword(model.Password));
+            var model = _mapper.Map<UserModel>(user);            
 
-            base.Create(model);
+            base.Create(model, () => model.SetPassword(PasswordHandler.EncryptPassword(model.Password)));
 
             return user;
         }
 
         public User GetByEmail(string email) => 
             _mapper.Map<User>(_context.Users.FirstOrDefault(x => x.Email == email));
-
-        public User GetByName(string name)
-        {
-            throw new NotImplementedException();
-        }
 
     }
 }

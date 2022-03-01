@@ -14,8 +14,8 @@
 *.vscode
 .vscode
 
-appsettings.Development.json
-appsettings.json
+.appsettings.Development.json
+.appsettings.json
 
 .sonarqube
 

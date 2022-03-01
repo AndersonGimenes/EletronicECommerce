@@ -1,11 +1,10 @@
-using EletronicECommerce.Infrastructure.Config;
 using EletronicECommerce.Repository.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
 namespace EletronicECommerce.Repository.Factory
 {
-    public class EletronicECommerceContextFactory : IDesignTimeDbContextFactory<EletronicECommerceContext>
+    internal class EletronicECommerceContextFactory : IDesignTimeDbContextFactory<EletronicECommerceContext>
     {
         public EletronicECommerceContext CreateDbContext(string[] args)
         {

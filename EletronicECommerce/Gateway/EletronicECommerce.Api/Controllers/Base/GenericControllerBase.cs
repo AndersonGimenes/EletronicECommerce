@@ -10,7 +10,7 @@ namespace EletronicECommerce.Api.Controllers.Base
     [Authorize]  
     public abstract class GenericControllerBase : ControllerBase
     {
-        public IActionResult Execute(Func<object> function, string objectName)
+        protected IActionResult Execute(Func<object> function, string objectName)
         { 
             try
             {       

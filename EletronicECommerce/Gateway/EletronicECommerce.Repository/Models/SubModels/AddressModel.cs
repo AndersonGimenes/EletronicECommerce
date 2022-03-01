@@ -1,5 +1,3 @@
-using System;
-
 namespace EletronicECommerce.Repository.Models.SubModels
 {
     public class AddressModel
@@ -11,17 +9,7 @@ namespace EletronicECommerce.Repository.Models.SubModels
         public string City { get; private set; }
         public string State { get; private set; }     
         public string Country { get; private set; }
-        public string AddressType { get; set; }
-        public Guid Customer { get; private set; }
-
-        internal void SetCustumer(Guid customer)
-        {
-            this.Customer = customer;
-        }
-
-        internal void SetAddressType(string addressType)
-        {
-            this.AddressType = addressType;
-        }
+        public string AddressType { get; private set; }
+        public CustomerModel Customer { get; private set; }
     }
 }

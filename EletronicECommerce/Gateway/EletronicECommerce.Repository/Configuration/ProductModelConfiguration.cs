@@ -12,7 +12,7 @@ namespace EletronicECommerce.Repository.Configuration
                 .ToTable("Product");
 
             builder
-                .HasKey(x  => x.Id)
+                .HasKey(x => x.Id)
                 .HasName("Pk_Product");
 
             builder
@@ -35,14 +35,15 @@ namespace EletronicECommerce.Repository.Configuration
                 .IsRequired();
 
             builder
-                .Property(x => x.Category)
-                .HasColumnType("char(36)")
-                .IsRequired();
-
-            builder
                 .Property(x => x.CreateDate)
                 .HasColumnType("datetime")
                 .IsRequired();
+
+            builder
+                .HasOne(x => x.Category)
+                .WithMany(x => x.Products)
+                .HasConstraintName("Fk_Category_Product")
+                .HasForeignKey("CategoryId");
         }
     }
 }

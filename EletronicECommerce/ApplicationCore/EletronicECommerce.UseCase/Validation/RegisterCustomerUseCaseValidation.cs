@@ -8,12 +8,12 @@ namespace EletronicECommerce.UseCase.Validation
     {
         internal static void Validate(Customer customer, ICustomerRepository customerRepository, IUserRepository userRepository)
         {
-            var userCustomer = customerRepository.GetByUserIdentifier(customer.User);
+            var userCustomer = customerRepository.GetByUserIdentifier(customer.UserIdentifier);
 
             if(userCustomer != null)
                 throw new UseCaseException($"There is already a record linked to this user.");
 
-            var user = userRepository.GetByIdentifier(customer.User, "Users");
+            var user = userRepository.GetByIdentifier(customer.UserIdentifier, "Users");
 
             if(user is null)
                 throw new UseCaseException($"Must enter a valid user.");

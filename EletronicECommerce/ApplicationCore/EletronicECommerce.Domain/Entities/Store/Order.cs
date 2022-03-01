@@ -15,6 +15,5 @@ namespace EletronicECommerce.Domain.Entities.Store
         public IEnumerable<Guid> Products { get; private set; }
         public StatusOrder StatusOrder{get; private set;}
         public TypePayment TypePayment { get; private set; }
-        public string StatusComment { get; private set; }
     }
 }

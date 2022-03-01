@@ -22,12 +22,8 @@ namespace EletronicECommerce.Repository.Repositories
         public virtual TEntity Create(TEntity entity)
         {       
             var model = _mapper.Map<TModel>(entity);
-            
-            _context.Add(model);
 
-            model.SetCreateDate();
-
-            _context.SaveChanges();
+            Create(model);
 
             return entity;
         }
@@ -37,16 +33,7 @@ namespace EletronicECommerce.Repository.Repositories
             if(action != null)
                 action.Invoke();
                 
-            this.Create(model);
-        }
-
-        public void Create(TModel model)
-        {
-            _context.Add(model);
-
-            model.SetCreateDate();
-
-            _context.SaveChanges();
+            Create(model);
         }
 
         public TEntity GetByIdentifier(Guid identifier, string paramName)
@@ -55,6 +42,15 @@ namespace EletronicECommerce.Repository.Repositories
 
             return _mapper.Map<TEntity>(users.FirstOrDefault(x => x.Id == identifier));
         }
-        
+
+        private void Create(TModel model)
+        {
+            _context.Add(model);
+
+            model.SetCreateDate();
+
+            _context.SaveChanges();
+        }
+
     }
 }

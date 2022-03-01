@@ -8,5 +8,6 @@ namespace EletronicECommerce.Api.Models.Customer
         public string City { get; set; }
         public string State { get; set; }     
         public string Country { get; set; }
+        public string AddressType { get; set; }
     }
 }

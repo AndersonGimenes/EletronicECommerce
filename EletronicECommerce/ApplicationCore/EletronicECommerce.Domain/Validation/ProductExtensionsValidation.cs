@@ -11,8 +11,13 @@ namespace EletronicECommerce.Domain.Validation
             if(product.SalePrice <= 0)
                 throw new DomainException($"The {nameof(Product.SalePrice)} must be bigger than zero.");
 
-            if(product.Stock != null)
-                product.Stock.Validate();
+            if(product.Stocks != null)
+            {
+                foreach (var stock in product.Stocks)
+                {
+                    stock.Validate();
+                }
+            }                
         }
     }
 }
