@@ -21,28 +21,7 @@ namespace EletronicECommerce.Repository.Repositories
             _context = context;
             _mapper = mapper;
         }
-        public override Product Create(Product product)
-        {       
-            var model = _mapper.Map<ProductModel>(product).CompleteMapper();
-           
-            if(model.Stock != null)
-            {
-                base.Create(model, () => 
-                    _context.Stocks.Add(model.Stock)
-                );
-
-                base.SaveChanges();
-
-                return product;
-            }
-
-            base.Create(model);
-
-            base.SaveChanges();
-            
-            return product;
-        }
-
+       
         public Product GetByCode(string code)
         {
             var productDto = _context.Products.AsNoTracking().FirstOrDefault(x => x.Code == code);
@@ -59,14 +38,7 @@ namespace EletronicECommerce.Repository.Repositories
 
         public IEnumerable<Product> GetProductsByIds(IEnumerable<Guid> guids)
         {
-            var products = _context.Products.AsNoTracking().Where(x => guids.Contains(x.Id)).ToList();
-            var stocks = _context.Stocks.AsNoTracking().Where(x => guids.Contains(x.Product)).ToList();
-
-            if(stocks.Any()) 
-                foreach(var product in products)
-                {
-                    product.SetStock(stocks.FirstOrDefault(x => product.Id == x.Product));
-                }
+            var products = _context.Products.AsNoTracking().Include(x => x.Stocks).Where(x => guids.Contains(x.Id));
 
             return _mapper.Map<IEnumerable<Product>>(products);
         }

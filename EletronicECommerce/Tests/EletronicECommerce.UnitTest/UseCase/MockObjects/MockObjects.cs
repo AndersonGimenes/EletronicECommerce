@@ -33,9 +33,8 @@ namespace EletronicECommerce.UnitTest.UseCase.MockObjects
                 new Dictionary<string, dynamic>{
                     {nameof(Customer.FullName), NewNameInstance()},
                     {nameof(Customer.Document), NewDocumentInstance(document)},
-                    {nameof(Customer.BillingAddress), NewAddressInstance()},
-                    {nameof(Customer.DeliveryAddess), NewAddressInstance()},
-                    {nameof(Customer.User), user}
+                    {nameof(Customer.Addresses), NewAddressesInstance()},
+                    {nameof(Customer.UserIdentifier), user}
                 }
             );
 
@@ -57,8 +56,8 @@ namespace EletronicECommerce.UnitTest.UseCase.MockObjects
         }
 
         internal static Document NewDocumentInstance(string documentNumber)
-        {    
-            var document = new Document(); 
+        {
+            var document = new Document();
 
             document.SetValuesProperties(
                 new Dictionary<string, dynamic>{
@@ -70,7 +69,7 @@ namespace EletronicECommerce.UnitTest.UseCase.MockObjects
             return document;
         }
 
-        internal static Address NewAddressInstance()
+        internal static List<Address> NewAddressesInstance()
         {
             var address = new Address();
 
@@ -81,13 +80,14 @@ namespace EletronicECommerce.UnitTest.UseCase.MockObjects
                     {nameof(Address.Neighborhood), "New Life"},
                     {nameof(Address.City), "Campinas"},
                     {nameof(Address.State), "SP"},
-                    {nameof(Address.Country), "Brazil"}
+                    {nameof(Address.Country), "Brazil"},
+                    {nameof(Address.AddressType), Enum.Parse(typeof(AddressType), "BillingAddress")}
                 }
             );
 
-            return address;
+            return new List<Address> { address };
         }
-        
+
         internal static User NewUserInstance(string email, string password)
         {
             var user = new User();
@@ -103,7 +103,7 @@ namespace EletronicECommerce.UnitTest.UseCase.MockObjects
             return user;
         }
 
-        internal static Payment NewPaymentObject()
+        internal static Payment NewPaymentInstance()
         {
             var payment = new Payment();
 
@@ -111,11 +111,11 @@ namespace EletronicECommerce.UnitTest.UseCase.MockObjects
             (
                 new Dictionary<string, dynamic>
                 {
-                    {nameof(Payment.MerchantOrderId), "bbc7a54a-bd0d-4383-b5ce-16ef73fe5786"}, 
+                    {nameof(Payment.MerchantOrderId), "bbc7a54a-bd0d-4383-b5ce-16ef73fe5786"},
                     {nameof(Payment.CardNumber), "1234123412341231"},
-                    {nameof(Payment.Holder), "Nome Do Cartao"}, 
-                    {nameof(Payment.ExpirationDate), "12/2030"}, 
-                    {nameof(Payment.SecurityCode), "123"}, 
+                    {nameof(Payment.Holder), "Nome Do Cartao"},
+                    {nameof(Payment.ExpirationDate), "12/2030"},
+                    {nameof(Payment.SecurityCode), "123"},
                     {nameof(Payment.Brand), "Visa"},
                     {nameof(Payment.Amount), 15700},
                     {nameof(Payment.Installments), 1},
@@ -126,7 +126,7 @@ namespace EletronicECommerce.UnitTest.UseCase.MockObjects
             return payment;
         }
 
-        internal static Product NewProductObject(Stock stock, decimal salePrice)
+        internal static Product NewProductInstance(List<Stock> stocks, decimal salePrice)
         {
             var product = new Product();
 
@@ -137,8 +137,8 @@ namespace EletronicECommerce.UnitTest.UseCase.MockObjects
                     {nameof(Product.Name), "Playstation 5"},
                     {nameof(Product.Code), "PS5"},
                     {nameof(Product.SalePrice), salePrice},
-                    {nameof(Product.Stock), stock},
-                    {nameof(Product.Category), Guid.NewGuid()}
+                    {nameof(Product.Stocks), stocks},
+                    {nameof(Product.CategoryIdentifier), Guid.NewGuid()}
                 }
             );
 
@@ -161,7 +161,23 @@ namespace EletronicECommerce.UnitTest.UseCase.MockObjects
             return stock;
         }
 
-        internal static Order NewOrderObject(params Guid[] productIds)
+        internal static List<Stock> NewStoksInstance(decimal purchasePrice, int quantity)
+        {
+            var stock = new Stock();
+
+            stock.SetValuesProperties
+            (
+                new Dictionary<string, dynamic>
+                {
+                    {nameof(Stock.PurchasePrice), purchasePrice},
+                    {nameof(Stock.Quantity), quantity}
+                }
+            );
+
+            return new List<Stock> { stock };
+        }
+
+        internal static Order NewOrderInstance(params Guid[] productIds)
         {
             var order = new Order();
 
@@ -171,7 +187,7 @@ namespace EletronicECommerce.UnitTest.UseCase.MockObjects
                 {
                     {nameof(order.Products), productIds},
                     {nameof(order.StatusOrder), StatusOrder.Selected},
-                    {nameof(order.TypePayment), TypePayment.CreditCard}                    
+                    {nameof(order.TypePayment), TypePayment.CreditCard}
                 }
             );
 

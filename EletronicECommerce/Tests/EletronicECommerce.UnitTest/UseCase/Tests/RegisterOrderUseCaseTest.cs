@@ -23,7 +23,7 @@ namespace EletronicECommerce.UnitTest.UseCase.MockObjects.Tests
             var orderRepository = new Mock<IOrderRepository>();
             _productRepository = new Mock<IProductRepository>();
 
-            orderRepository.Setup(x => x.Create(It.IsAny<Order>())).Returns(MockObjects.NewOrderObject(new Guid[]{Guid.NewGuid()}));
+            orderRepository.Setup(x => x.Create(It.IsAny<Order>())).Returns(MockObjects.NewOrderInstance(new Guid[]{Guid.NewGuid()}));
 
             _useCase = new RegisterOrderUseCase(new CreateOrderBuilder(orderRepository.Object, _productRepository.Object));
         }
@@ -35,7 +35,7 @@ namespace EletronicECommerce.UnitTest.UseCase.MockObjects.Tests
                 .Setup(x => x.GetProductsByIds(It.IsAny<Guid[]>()))
                 .Returns(Products(new int[]{5, 5}));
 
-            var order = MockObjects.NewOrderObject(new Guid[]{Guid.NewGuid(), Guid.NewGuid()});
+            var order = MockObjects.NewOrderInstance(new Guid[]{Guid.NewGuid(), Guid.NewGuid()});
 
             var result = _useCase.Create(order);
 
@@ -46,7 +46,7 @@ namespace EletronicECommerce.UnitTest.UseCase.MockObjects.Tests
         [Fact]
         public void IfProductIsNullInOrderListMustThrowDomainException()
         {
-            var order = MockObjects.NewOrderObject(null);
+            var order = MockObjects.NewOrderInstance(null);
 
             var result = Assert.Throws<DomainException>(() => _useCase.Create(order));
 
@@ -56,7 +56,7 @@ namespace EletronicECommerce.UnitTest.UseCase.MockObjects.Tests
         [Fact]
         public void IfThereArentAnyProductInOrderListMustThrowDomainException()
         {
-            var order = MockObjects.NewOrderObject(new Guid[] { });
+            var order = MockObjects.NewOrderInstance(new Guid[] { });
 
             var result = Assert.Throws<DomainException>(() => _useCase.Create(order));
 
@@ -66,7 +66,7 @@ namespace EletronicECommerce.UnitTest.UseCase.MockObjects.Tests
         [Fact]
         public void IfThereArentAnyProductInDataBaseMustThrowUseCaseException()
         {
-            var order = MockObjects.NewOrderObject(new Guid[] { Guid.NewGuid() });
+            var order = MockObjects.NewOrderInstance(new Guid[] { Guid.NewGuid() });
 
             var result = Assert.Throws<UseCaseException>(() => _useCase.Create(order));
 
@@ -80,18 +80,18 @@ namespace EletronicECommerce.UnitTest.UseCase.MockObjects.Tests
                 .Setup(x => x.GetProductsByIds(It.IsAny<Guid[]>()))
                 .Returns(Products(new int[]{0, 5}));
 
-            var order = MockObjects.NewOrderObject(new Guid[] { Guid.NewGuid() });
+            var order = MockObjects.NewOrderInstance(new Guid[] { Guid.NewGuid() });
 
             var result = Assert.Throws<UseCaseException>(() => _useCase.Create(order));
 
-            Assert.Equal("There aren't Products Stock the selection. Please select the products again.", result.Message);
+            Assert.Equal("There aren't Products Stocks the selection. Please select the products again.", result.Message);
         }
 
         private List<Product> Products(params int[] quantities) =>
             new List<Product> 
             {
-                MockObjects.NewProductObject(MockObjects.NewStokObject(100, quantities[0]), 499.99m),
-                MockObjects.NewProductObject(MockObjects.NewStokObject(100, quantities[1]), 499.99m) 
+                MockObjects.NewProductInstance(MockObjects.NewStoksInstance(100, quantities[0]), 499.99m),
+                MockObjects.NewProductInstance(MockObjects.NewStoksInstance(100, quantities[1]), 499.99m) 
             };
     }
 }

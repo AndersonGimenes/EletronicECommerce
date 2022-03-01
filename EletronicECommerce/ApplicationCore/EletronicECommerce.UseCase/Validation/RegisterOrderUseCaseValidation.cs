@@ -15,8 +15,8 @@ namespace EletronicECommerce.UseCase.Validation
             if(products.Count() == 0)
                 throw new UseCaseException($"Some {nameof(Order.Products)} there aren't in the selection. Please select the products again.");
 
-            if(!products.All(x => x.Stock.Quantity != default))
-                throw new UseCaseException($"There aren't {nameof(Order.Products)} {nameof(Product.Stock)} the selection. Please select the products again.");
+            if(!products.All(x => x.Stocks.Sum(x => x.Quantity) != default))
+                throw new UseCaseException($"There aren't {nameof(Order.Products)} {nameof(Product.Stocks)} the selection. Please select the products again.");
         }
     }
 }

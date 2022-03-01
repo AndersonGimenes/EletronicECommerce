@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace EletronicECommerce.Api.Models.Customer
 {
@@ -6,8 +7,7 @@ namespace EletronicECommerce.Api.Models.Customer
     {
         public Name FullName { get; set; }
         public Document Document { get; set; }
-        public Address BillingAddress { get; set; }
-        public Address DeliveryAddess { get; set; }
-        public Guid User { get; set; }        
+        public IEnumerable<Address> Addresses { get; set; }
+        public Guid UserIdentifier { get; set; }        
     }
 }

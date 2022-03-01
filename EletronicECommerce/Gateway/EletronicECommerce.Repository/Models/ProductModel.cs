@@ -1,6 +1,6 @@
-using System;
-using System.ComponentModel.DataAnnotations.Schema;
 using EletronicECommerce.Repository.Models.SubModels;
+using System;
+using System.Collections.Generic;
 
 namespace EletronicECommerce.Repository.Models
 {
@@ -9,18 +9,8 @@ namespace EletronicECommerce.Repository.Models
         public string Name { get; private set; }
         public string Code { get; private set; }
         public decimal SalePrice { get; private set; }
-        public Guid Category { get; private set; }
-        [NotMapped]
-        public StockModel Stock { get; private set; }
-
-        internal ProductModel CompleteMapper()
-        {
-            if(Stock != null)
-                Stock.SetProduct(this.Id);
-                
-            return this;
-        }
-
-        internal void SetStock(StockModel stock) => this.Stock = stock;
+        public Guid CategoryId { get; private set; }
+        public CategoryModel Category { get; private set; }
+        public IEnumerable<StockModel> Stocks { get; private set; }       
     }
 }

@@ -27,7 +27,7 @@ namespace EletronicECommerce.Api.Mapping
 
             CreateMap<Stock, VO.Stock>();
             CreateMap<ProductRequest, Product>()
-                .ForPath(dest => dest.Stock, opts => opts.MapFrom(x => x.Stock));
+                .ForPath(dest => dest.Stocks, opts => opts.MapFrom(x => x.Stocks));
      
             CreateMap<Name, VO.Name>();
             CreateMap<Address, VO.Address>();
@@ -36,9 +36,7 @@ namespace EletronicECommerce.Api.Mapping
 
             CreateMap<CustomerRequest, Customer>()
                 .ForPath(dest => dest.FullName, opts => opts.MapFrom(x => x.FullName))
-                .ForPath(dest => dest.Document, opts => opts.MapFrom(x => x.Document))
-                .ForPath(dest => dest.BillingAddress, opts => opts.MapFrom(x => x.BillingAddress))
-                .ForPath(dest => dest.DeliveryAddess, opts => opts.MapFrom(x => x.DeliveryAddess));
+                .ForPath(dest => dest.Document, opts => opts.MapFrom(x => x.Document));
 
             CreateMap<PaymentRequest, Payment>();
 
@@ -52,7 +50,7 @@ namespace EletronicECommerce.Api.Mapping
 
             CreateMap<VO.Stock, Stock>();
             CreateMap<Product, ProductResponse>()
-                .ForPath(dest => dest.Stock, opts => opts.MapFrom(x => x.Stock));
+                .ForPath(dest => dest.Stocks, opts => opts.MapFrom(x => x.Stocks));
 
             CreateMap<VO.Name, Name>();
             CreateMap<VO.Address, Address>();
@@ -61,9 +59,7 @@ namespace EletronicECommerce.Api.Mapping
 
             CreateMap<Customer, CustomerResponse>()
                 .ForPath(dest => dest.FullName, opts => opts.MapFrom(x => x.FullName))
-                .ForPath(dest => dest.Document, opts => opts.MapFrom(x => x.Document))
-                .ForPath(dest => dest.BillingAddress, opts => opts.MapFrom(x => x.BillingAddress))
-                .ForPath(dest => dest.DeliveryAddess, opts => opts.MapFrom(x => x.DeliveryAddess));
+                .ForPath(dest => dest.Document, opts => opts.MapFrom(x => x.Document));
 
             CreateMap<Order, OrderResponse>();
 

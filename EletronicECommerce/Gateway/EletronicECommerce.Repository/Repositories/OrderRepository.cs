@@ -24,17 +24,10 @@ namespace EletronicECommerce.Repository.Repositories
             {
                 model.SetProductId(product);
 
-               base.Create(model);
+               base.Create(model, null);
             }
-            
-            base.SaveChanges();
 
-            return _mapper.Map<Order>(model);
-        }
-
-        public Order GetByName(string name)
-        {
-            throw new System.NotImplementedException();
+            return order;
         }
     }
 }

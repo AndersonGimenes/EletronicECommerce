@@ -8,5 +8,6 @@ namespace EletronicECommerce.UseCase.Interfaces.Repositories
     {
         Product GetByCode(string code);
         IEnumerable<Product> GetProductsByIds(IEnumerable<Guid> guids);
+        Product GetByName(string name);
     }
 }

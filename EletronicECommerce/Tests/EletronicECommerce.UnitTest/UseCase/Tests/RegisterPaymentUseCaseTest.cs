@@ -35,7 +35,7 @@ namespace EletronicECommerce.UnitTest.UseCase.Tests
             _repository.Setup(x => x.GetByUserIdentifier(It.IsAny<Guid>())).Returns( () => Mock.NewCustomerInstance("11111111111", user.Identifier));
             _proxy.Setup(x => x.SendPayment(It.IsAny<Payment>())).Returns(() => Task.Run(() => new object()));
 
-            var result = _useCase.SendPayment(Mock.NewPaymentObject());
+            var result = _useCase.SendPayment(Mock.NewPaymentInstance());
 
             Assert.NotNull(result);
         }
@@ -45,7 +45,7 @@ namespace EletronicECommerce.UnitTest.UseCase.Tests
         {
             _repository.Setup(x => x.GetByUserIdentifier(It.IsAny<Guid>())).Returns( () => null);
             
-            var ex = Assert.Throws<UseCaseException>(() => _useCase.SendPayment(Mock.NewPaymentObject()));
+            var ex = Assert.Throws<UseCaseException>(() => _useCase.SendPayment(Mock.NewPaymentInstance()));
             Assert.Equal("Invalid customer", ex.Message);
         }
         
@@ -59,7 +59,7 @@ namespace EletronicECommerce.UnitTest.UseCase.Tests
         [InlineData(nameof(Payment.Installments), 0, "Please fill the field Installments.")]
         public void MustGetSomeExceptionWhenValidateTheFields(string fieldName, dynamic value, string message)
         {
-            var payment = Mock.NewPaymentObject();
+            var payment = Mock.NewPaymentInstance();
             payment.GetType().GetProperty(fieldName).SetValue(payment, value);            
             
             var ex = Assert.Throws<DomainException>(() => _useCase.SendPayment(payment));

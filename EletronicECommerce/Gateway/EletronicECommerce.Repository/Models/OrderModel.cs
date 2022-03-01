@@ -12,8 +12,8 @@ namespace EletronicECommerce.Repository.Models
         public Guid ProductId { get; private set; }
         public string StatusOrder{get; private set;}
         public string TypePayment { get; private set; }
-
-        public void SetProductId(Guid productId)
+        
+        internal void SetProductId(Guid productId)
         {
             this.ProductId = productId;
         }

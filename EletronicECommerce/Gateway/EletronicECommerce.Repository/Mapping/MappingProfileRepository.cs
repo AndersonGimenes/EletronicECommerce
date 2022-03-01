@@ -17,15 +17,15 @@ namespace EletronicECommerce.Repository.Mapping
                 .ForMember(dest => dest.Identifier, opts => opts.MapFrom(x => x.Id));
 
             CreateMap<CategoryModel, Category>()
-                .ForMember(dest => dest.Identifier, opts => opts.MapFrom(x => x.Id)); 
+                .ForMember(dest => dest.Identifier, opts => opts.MapFrom(x => x.Id));
 
             CreateMap<StockModel, Stock>();
 
             CreateMap<ProductModel, Product>()
                 .ForMember(dest => dest.Identifier, opts => opts.MapFrom(x => x.Id))
-                .ForPath(dest => dest.Stock, opts => opts.MapFrom(x => x.Stock));
+                .ForPath(dest => dest.Stocks, opts => opts.MapFrom(x => x.Stocks));
 
-            CreateMap<AddressModel, Address>(); 
+            CreateMap<AddressModel, Address>();
 
             CreateMap<CustomerModel, Name>()
                 .ForMember(dest => dest.FirstName, opts => opts.MapFrom(x => x.FirstName))
@@ -37,11 +37,10 @@ namespace EletronicECommerce.Repository.Mapping
 
             CreateMap<CustomerModel, Customer>()
                 .ForMember(dest => dest.Identifier, opts => opts.MapFrom(x => x.Id))
-                .ForPath(dest => dest.BillingAddress, opts => opts.MapFrom(x => x.BillingAddress))
-                .ForPath(dest => dest.DeliveryAddess, opts => opts.MapFrom(x => x.DeliveryAddess));   
+                .ForMember(dest => dest.UserIdentifier, opts => opts.MapFrom(x => x.UserId));
 
             CreateMap<OrderModel, Order>()
-                .ForMember(dest => dest.Identifier, opts => opts.MapFrom(x => x.Id));   
+                .ForMember(dest => dest.Identifier, opts => opts.MapFrom(x => x.Id));
 
             #endregion
 
@@ -56,9 +55,10 @@ namespace EletronicECommerce.Repository.Mapping
 
             CreateMap<Product, ProductModel>()
                 .ForMember(dest => dest.Id, opts => opts.MapFrom(x => x.Identifier))
-                .ForPath(dest => dest.Stock, opts => opts.MapFrom(x => x.Stock));
+                .ForMember(dest => dest.CategoryId, opts => opts.MapFrom(x => x.CategoryIdentifier))
+                .ForPath(dest => dest.Stocks, opts => opts.MapFrom(x => x.Stocks));
 
-            CreateMap<Address, AddressModel>(); 
+            CreateMap<Address, AddressModel>();
 
             CreateMap<Customer, CustomerModel>()
                 .ForMember(dest => dest.Id, opts => opts.MapFrom(x => x.Identifier))
@@ -66,8 +66,8 @@ namespace EletronicECommerce.Repository.Mapping
                 .ForMember(dest => dest.Surname, opts => opts.MapFrom(x => x.FullName.Surname))
                 .ForMember(dest => dest.DocumentNumber, opts => opts.MapFrom(x => x.Document.Number))
                 .ForMember(dest => dest.DocumentType, opts => opts.MapFrom(x => x.Document.DocumentType))
-                .ForPath(dest => dest.BillingAddress, opts => opts.MapFrom(x => x.BillingAddress))
-                .ForPath(dest => dest.DeliveryAddess, opts => opts.MapFrom(x => x.DeliveryAddess));
+                .ForMember(dest => dest.UserId, opts => opts.MapFrom(x => x.UserIdentifier))
+                .ForPath(dest => dest.Addresses, opts => opts.MapFrom(x => x.Addresses));
 
             CreateMap<Order, OrderModel>()
                 .ForMember(dest => dest.Id, opts => opts.MapFrom(x => x.Identifier));

@@ -26,9 +26,10 @@ namespace EletronicECommerce.Repository.Configuration
                 .IsRequired();
 
             builder
-                .Property(x => x.Product)
-                .HasColumnType("char(36)")
-                .IsRequired();
+               .HasOne(x => x.Product)
+               .WithMany(x => x.Stocks)
+               .HasConstraintName("Fk_Product_Stock")
+               .HasForeignKey("ProductId");
         }
     }
 }

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EletronicECommerce.Repository.Migrations
 {
     [DbContext(typeof(EletronicECommerceContext))]
-    [Migration("20220207005014_InitialCreate")]
+    [Migration("20220301023137_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -62,12 +62,14 @@ namespace EletronicECommerce.Repository.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(200)");
 
-                    b.Property<string>("User")
-                        .IsRequired()
+                    b.Property<string>("UserId")
                         .HasColumnType("char(36)");
 
                     b.HasKey("Id")
                         .HasName("Pk_User");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Customer");
                 });
@@ -109,7 +111,7 @@ namespace EletronicECommerce.Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<string>("Category")
+                    b.Property<string>("CategoryId")
                         .IsRequired()
                         .HasColumnType("char(36)");
 
@@ -129,6 +131,8 @@ namespace EletronicECommerce.Repository.Migrations
 
                     b.HasKey("Id")
                         .HasName("Pk_Product");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Product");
                 });
@@ -151,8 +155,7 @@ namespace EletronicECommerce.Repository.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(50)");
 
-                    b.Property<string>("Customer")
-                        .IsRequired()
+                    b.Property<string>("CustomerId")
                         .HasColumnType("char(36)");
 
                     b.Property<string>("Neighborhood")
@@ -174,6 +177,8 @@ namespace EletronicECommerce.Repository.Migrations
                     b.HasKey("Id")
                         .HasName("Pk_Address");
 
+                    b.HasIndex("CustomerId");
+
                     b.ToTable("Address");
                 });
 
@@ -183,8 +188,7 @@ namespace EletronicECommerce.Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Product")
-                        .IsRequired()
+                    b.Property<string>("ProductId")
                         .HasColumnType("char(36)");
 
                     b.Property<decimal>("PurchasePrice")
@@ -195,6 +199,8 @@ namespace EletronicECommerce.Repository.Migrations
 
                     b.HasKey("Id")
                         .HasName("Pk_Stock");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("ProductStock");
                 });
@@ -224,6 +230,68 @@ namespace EletronicECommerce.Repository.Migrations
                         .HasName("Pk_User");
 
                     b.ToTable("User");
+                });
+
+            modelBuilder.Entity("EletronicECommerce.Repository.Models.CustomerModel", b =>
+                {
+                    b.HasOne("EletronicECommerce.Repository.Models.UserModel", "User")
+                        .WithOne("Customer")
+                        .HasForeignKey("EletronicECommerce.Repository.Models.CustomerModel", "UserId")
+                        .HasConstraintName("Fk_User_Costumer");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("EletronicECommerce.Repository.Models.ProductModel", b =>
+                {
+                    b.HasOne("EletronicECommerce.Repository.Models.CategoryModel", "Category")
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryId")
+                        .HasConstraintName("Fk_Category_Product")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("EletronicECommerce.Repository.Models.SubModels.AddressModel", b =>
+                {
+                    b.HasOne("EletronicECommerce.Repository.Models.CustomerModel", "Customer")
+                        .WithMany("Addresses")
+                        .HasForeignKey("CustomerId")
+                        .HasConstraintName("Fk_Customer_Address");
+
+                    b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("EletronicECommerce.Repository.Models.SubModels.StockModel", b =>
+                {
+                    b.HasOne("EletronicECommerce.Repository.Models.ProductModel", "Product")
+                        .WithMany("Stocks")
+                        .HasForeignKey("ProductId")
+                        .HasConstraintName("Fk_Product_Stock");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("EletronicECommerce.Repository.Models.CategoryModel", b =>
+                {
+                    b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("EletronicECommerce.Repository.Models.CustomerModel", b =>
+                {
+                    b.Navigation("Addresses");
+                });
+
+            modelBuilder.Entity("EletronicECommerce.Repository.Models.ProductModel", b =>
+                {
+                    b.Navigation("Stocks");
+                });
+
+            modelBuilder.Entity("EletronicECommerce.Repository.Models.UserModel", b =>
+                {
+                    b.Navigation("Customer");
                 });
 #pragma warning restore 612, 618
         }

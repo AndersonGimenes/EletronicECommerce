@@ -36,11 +36,6 @@ namespace EletronicECommerce.Repository.Configuration
                 .IsRequired();
 
             builder
-                .Property(x => x.Customer)
-                .HasColumnType("char(36)")
-                .IsRequired();
-
-            builder
                 .Property(x => x.Number)
                 .HasColumnType("varchar(10)")
                 .HasDefaultValue("S/N");
@@ -54,6 +49,12 @@ namespace EletronicECommerce.Repository.Configuration
                 .Property(x => x.State)
                 .HasColumnType("varchar(2)")
                 .IsRequired();
+
+            builder
+                .HasOne(x => x.Customer)
+                .WithMany(x => x.Addresses)
+                .HasConstraintName("Fk_Customer_Address")
+                .HasForeignKey("CustomerId");
         }
     }
 }

@@ -40,14 +40,15 @@ namespace EletronicECommerce.Repository.Configuration
                 .IsRequired();
 
             builder
-                .Property(x => x.User)
-                .HasColumnType("char(36)")
-                .IsRequired();
-
-            builder
                 .Property(x => x.CreateDate)
                 .HasColumnType("datetime")
                 .IsRequired();
+
+            builder
+                .HasOne(x => x.User)
+                .WithOne(x => x.Customer)
+                .HasConstraintName("Fk_User_Costumer")
+                .HasForeignKey(typeof(CustomerModel), "UserId");
         }
     }
 }

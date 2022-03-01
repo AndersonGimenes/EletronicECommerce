@@ -1,3 +1,5 @@
+using EletronicECommerce.Domain.Entities.Enums;
+
 namespace EletronicECommerce.Domain.Entities.ValeuObjects
 {
     public class Address
@@ -8,5 +10,6 @@ namespace EletronicECommerce.Domain.Entities.ValeuObjects
         public string City { get; private set; }
         public string State { get; private set; }     
         public string Country { get; private set; }
+        public AddressType AddressType { get; private set; }
     }
 }
