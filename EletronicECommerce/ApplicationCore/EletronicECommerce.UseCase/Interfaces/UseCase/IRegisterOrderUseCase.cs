@@ -4,6 +4,6 @@ namespace EletronicECommerce.UseCase.Interfaces.UseCase
 {
     public interface IRegisterOrderUseCase : IRegisterBaseUseCase<Order>
     {
-        
+
     }
 }

@@ -20,13 +20,8 @@ namespace EletronicECommerce.Repository.Configuration
                 .HasColumnType("char(36)");
 
             builder
-                .Property(x => x.User)
-                .HasColumnType("char(36)")
-                .IsRequired();
-
-            builder
-                .Property(x => x.ProductId)
-                .HasColumnType("char(36)")
+                .Property(x => x.TotalPrice)
+                .HasColumnType("decimal(15,2)")
                 .IsRequired();
 
             builder
@@ -43,6 +38,12 @@ namespace EletronicECommerce.Repository.Configuration
                 .Property(x => x.CreateDate)
                 .HasColumnType("datetime")
                 .IsRequired();
+
+            builder
+                .HasOne(x => x.User)
+                .WithMany(x => x.Orders)
+                .HasConstraintName("Fk_Order_User")
+                .HasForeignKey("UserId");
         }
     }
 }

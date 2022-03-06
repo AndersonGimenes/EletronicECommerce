@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EletronicECommerce.Repository.Migrations
 {
     [DbContext(typeof(EletronicECommerceContext))]
-    [Migration("20220301023137_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20220306181233_FirstMigration")]
+    partial class FirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -63,6 +63,7 @@ namespace EletronicECommerce.Repository.Migrations
                         .HasColumnType("varchar(200)");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("char(36)");
 
                     b.HasKey("Id")
@@ -83,24 +84,25 @@ namespace EletronicECommerce.Repository.Migrations
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime");
 
-                    b.Property<string>("ProductId")
-                        .IsRequired()
-                        .HasColumnType("char(36)");
-
                     b.Property<string>("StatusOrder")
                         .IsRequired()
                         .HasColumnType("varchar(20)");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(15,2)");
 
                     b.Property<string>("TypePayment")
                         .IsRequired()
                         .HasColumnType("varchar(20)");
 
-                    b.Property<string>("User")
+                    b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("char(36)");
 
                     b.HasKey("Id")
                         .HasName("Pk_Order");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Order");
                 });
@@ -182,6 +184,33 @@ namespace EletronicECommerce.Repository.Migrations
                     b.ToTable("Address");
                 });
 
+            modelBuilder.Entity("EletronicECommerce.Repository.Models.SubModels.OrderProductModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("OrderId")
+                        .IsRequired()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("ProductId")
+                        .IsRequired()
+                        .HasColumnType("char(36)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id")
+                        .HasName("Pk_OrderProduct");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("OrderProduct");
+                });
+
             modelBuilder.Entity("EletronicECommerce.Repository.Models.SubModels.StockModel", b =>
                 {
                     b.Property<int>("Id")
@@ -237,7 +266,21 @@ namespace EletronicECommerce.Repository.Migrations
                     b.HasOne("EletronicECommerce.Repository.Models.UserModel", "User")
                         .WithOne("Customer")
                         .HasForeignKey("EletronicECommerce.Repository.Models.CustomerModel", "UserId")
-                        .HasConstraintName("Fk_User_Costumer");
+                        .HasConstraintName("Fk_User_Costumer")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("EletronicECommerce.Repository.Models.OrderModel", b =>
+                {
+                    b.HasOne("EletronicECommerce.Repository.Models.UserModel", "User")
+                        .WithMany("Orders")
+                        .HasForeignKey("UserId")
+                        .HasConstraintName("Fk_Order_User")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });
@@ -264,6 +307,27 @@ namespace EletronicECommerce.Repository.Migrations
                     b.Navigation("Customer");
                 });
 
+            modelBuilder.Entity("EletronicECommerce.Repository.Models.SubModels.OrderProductModel", b =>
+                {
+                    b.HasOne("EletronicECommerce.Repository.Models.OrderModel", "Order")
+                        .WithMany("Products")
+                        .HasForeignKey("OrderId")
+                        .HasConstraintName("Fk_Order_Product")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EletronicECommerce.Repository.Models.ProductModel", "Product")
+                        .WithMany("Orders")
+                        .HasForeignKey("ProductId")
+                        .HasConstraintName("Fk_Product_Order")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("EletronicECommerce.Repository.Models.SubModels.StockModel", b =>
                 {
                     b.HasOne("EletronicECommerce.Repository.Models.ProductModel", "Product")
@@ -284,14 +348,23 @@ namespace EletronicECommerce.Repository.Migrations
                     b.Navigation("Addresses");
                 });
 
+            modelBuilder.Entity("EletronicECommerce.Repository.Models.OrderModel", b =>
+                {
+                    b.Navigation("Products");
+                });
+
             modelBuilder.Entity("EletronicECommerce.Repository.Models.ProductModel", b =>
                 {
+                    b.Navigation("Orders");
+
                     b.Navigation("Stocks");
                 });
 
             modelBuilder.Entity("EletronicECommerce.Repository.Models.UserModel", b =>
                 {
                     b.Navigation("Customer");
+
+                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

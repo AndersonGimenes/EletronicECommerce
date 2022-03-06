@@ -40,7 +40,10 @@ namespace EletronicECommerce.Api.Mapping
 
             CreateMap<PaymentRequest, Payment>();
 
-            CreateMap<OrderRequest, Order>();
+            CreateMap<OrderProduct, VO.OrderProduct>();
+
+            CreateMap<OrderRequest, Order>()
+                .ForPath(dest => dest.ProductsItems, opts => opts.MapFrom(x => x.ProductsItems));
 
             #endregion
 
@@ -61,7 +64,10 @@ namespace EletronicECommerce.Api.Mapping
                 .ForPath(dest => dest.FullName, opts => opts.MapFrom(x => x.FullName))
                 .ForPath(dest => dest.Document, opts => opts.MapFrom(x => x.Document));
 
-            CreateMap<Order, OrderResponse>();
+            CreateMap<VO.OrderProduct, OrderProduct>();
+
+            CreateMap<Order, OrderResponse>()
+                .ForPath(dest => dest.ProductsItems, opts => opts.MapFrom(x => x.ProductsItems));
 
             #endregion
         }

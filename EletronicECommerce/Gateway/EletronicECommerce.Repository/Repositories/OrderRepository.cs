@@ -15,19 +15,5 @@ namespace EletronicECommerce.Repository.Repositories
         {
             _mapper = mapper;
         }
-
-        public override Order Create(Order order)
-        {
-            var model = _mapper.Map<OrderModel>(order);
-
-            foreach(var product in model.Products)
-            {
-                model.SetProductId(product);
-
-               base.Create(model, null);
-            }
-
-            return order;
-        }
     }
 }

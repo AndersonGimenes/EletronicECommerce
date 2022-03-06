@@ -39,8 +39,13 @@ namespace EletronicECommerce.Repository.Mapping
                 .ForMember(dest => dest.Identifier, opts => opts.MapFrom(x => x.Id))
                 .ForMember(dest => dest.UserIdentifier, opts => opts.MapFrom(x => x.UserId));
 
+            CreateMap<OrderProductModel, OrderProduct>()
+                .ForMember(dest => dest.ProductIdentifier, opts => opts.MapFrom(x => x.ProductId));
+
             CreateMap<OrderModel, Order>()
-                .ForMember(dest => dest.Identifier, opts => opts.MapFrom(x => x.Id));
+                .ForMember(dest => dest.Identifier, opts => opts.MapFrom(x => x.Id))
+                .ForMember(dest => dest.UserIdentifier, opts => opts.MapFrom(x => x.UserId))
+                .ForPath(dest => dest.ProductsItems, opts => opts.MapFrom(x => x.Products));
 
             #endregion
 
@@ -69,8 +74,14 @@ namespace EletronicECommerce.Repository.Mapping
                 .ForMember(dest => dest.UserId, opts => opts.MapFrom(x => x.UserIdentifier))
                 .ForPath(dest => dest.Addresses, opts => opts.MapFrom(x => x.Addresses));
 
+            CreateMap<OrderProduct, OrderProductModel>()
+                .ForMember(dest => dest.ProductId, opts => opts.MapFrom(x => x.ProductIdentifier))
+                .ForMember(dest => dest.OrderId, opts => opts.MapFrom(x => x.OrderIdentifier));
+
             CreateMap<Order, OrderModel>()
-                .ForMember(dest => dest.Id, opts => opts.MapFrom(x => x.Identifier));
+                .ForMember(dest => dest.Id, opts => opts.MapFrom(x => x.Identifier))
+                .ForMember(dest => dest.UserId, opts => opts.MapFrom(x => x.UserIdentifier))
+                .ForPath(dest => dest.Products, opts => opts.MapFrom(x => x.ProductsItems));
 
             #endregion
         }

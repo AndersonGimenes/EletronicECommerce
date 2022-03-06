@@ -8,8 +8,8 @@ namespace EletronicECommerce.Domain.Validation
     {
         public static void Validate(this Order order)
         {
-            if(order.Products is null || order.Products.Count() == 0)
-                throw new DomainException($"The {nameof(Order.Products)} list must have at least one product.");
+            if(order.ProductsItems is null || order.ProductsItems.Count() == 0)
+                throw new DomainException($"The {nameof(Order.ProductsItems)} list must have at least one product.");
         }
     }
 }
