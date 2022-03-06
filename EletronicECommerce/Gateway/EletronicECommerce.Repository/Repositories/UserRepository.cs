@@ -6,6 +6,7 @@ using EletronicECommerce.Infrastructure.Security;
 using EletronicECommerce.Repository.Context;
 using EletronicECommerce.Repository.Models;
 using EletronicECommerce.UseCase.Interfaces.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace EletronicECommerce.Repository.Repositories
 {
@@ -29,7 +30,7 @@ namespace EletronicECommerce.Repository.Repositories
             
             userModel.SetPassword(PasswordHandler.EncryptPassword(userModel.Password));
             
-            var userDto = _context.Users.FirstOrDefault(x => x.Email == userModel.Email && x.Password == userModel.Password);
+            var userDto = _context.Users.AsNoTracking().FirstOrDefault(x => x.Email == userModel.Email && x.Password == userModel.Password);
             
             if(userDto != null)
             {
@@ -51,7 +52,7 @@ namespace EletronicECommerce.Repository.Repositories
         }
 
         public User GetByEmail(string email) => 
-            _mapper.Map<User>(_context.Users.FirstOrDefault(x => x.Email == email));
+            _mapper.Map<User>(_context.Users.AsNoTracking().FirstOrDefault(x => x.Email == email));
 
     }
 }

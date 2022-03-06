@@ -13,7 +13,7 @@ namespace EletronicECommerce.UseCase.Implementation.UseCase
         {
             _builder = builder;
         }
-        public T Create(T entity)
+        public virtual T Create(T entity)
         {
             var entityReady = _builder
                                 .Set(entity)

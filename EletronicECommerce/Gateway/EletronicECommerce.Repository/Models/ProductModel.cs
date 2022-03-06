@@ -11,6 +11,7 @@ namespace EletronicECommerce.Repository.Models
         public decimal SalePrice { get; private set; }
         public Guid CategoryId { get; private set; }
         public CategoryModel Category { get; private set; }
-        public IEnumerable<StockModel> Stocks { get; private set; }       
+        public IEnumerable<StockModel> Stocks { get; private set; }      
+        public IEnumerable<OrderProductModel> Orders { get; private set; }    
     }
 }

@@ -177,7 +177,7 @@ namespace EletronicECommerce.UnitTest.UseCase.MockObjects
             return new List<Stock> { stock };
         }
 
-        internal static Order NewOrderInstance(params Guid[] productIds)
+        internal static Order NewOrderInstance(IEnumerable<OrderProduct> items)
         {
             var order = new Order();
 
@@ -185,13 +185,29 @@ namespace EletronicECommerce.UnitTest.UseCase.MockObjects
             (
                 new Dictionary<string, dynamic>
                 {
-                    {nameof(order.Products), productIds},
+                    {nameof(order.ProductsItems), items},
                     {nameof(order.StatusOrder), StatusOrder.Selected},
                     {nameof(order.TypePayment), TypePayment.CreditCard}
                 }
             );
 
             return order;
+        }
+
+        internal static OrderProduct NewOrderProductInstance(Guid productIdentifier, int quantity)
+        {
+            var item = new OrderProduct();
+
+            item.SetValuesProperties
+            (
+                new Dictionary<string, dynamic>
+                {
+                    {nameof(OrderProduct.Quantity), quantity},
+                    {nameof(OrderProduct.ProductIdentifier), productIdentifier}
+                }
+            );
+
+            return item ;
         }
     }
 }

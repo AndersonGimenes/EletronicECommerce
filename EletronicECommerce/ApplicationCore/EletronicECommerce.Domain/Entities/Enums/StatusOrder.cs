@@ -4,7 +4,7 @@ namespace EletronicECommerce.Domain.Entities.Enums
     {
         Selected = 1,
         Canceled = 2,
-        Pending  = 3,
+        InProgress  = 3,
         Success = 4
     }
 }

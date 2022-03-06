@@ -3,6 +3,7 @@ using EletronicECommerce.Domain.Entities.Store;
 using EletronicECommerce.Repository.Context;
 using EletronicECommerce.Repository.Models;
 using EletronicECommerce.UseCase.Interfaces.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 
@@ -19,8 +20,8 @@ namespace EletronicECommerce.Repository.Repositories
             _context = context;
         }
 
-        public Customer GetByDocumentNumber(string number) => _mapper.Map<Customer>(_context.Customers.FirstOrDefault(x => x.DocumentNumber == number));
+        public Customer GetByDocumentNumber(string number) => _mapper.Map<Customer>(_context.Customers.AsNoTracking().FirstOrDefault(x => x.DocumentNumber == number));
         
-        public Customer GetByUserIdentifier(Guid user) => _mapper.Map<Customer>(_context.Customers.FirstOrDefault(x => x.Id == user));
+        public Customer GetByUserIdentifier(Guid user) => _mapper.Map<Customer>(_context.Customers.AsNoTracking().FirstOrDefault(x => x.Id == user));
     }
 }

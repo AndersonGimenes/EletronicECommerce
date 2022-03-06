@@ -40,7 +40,7 @@ namespace EletronicECommerce.Repository.Repositories
         {   
             var users = _context.GetType().GetProperty(paramName).GetValue(_context) as DbSet<TModel>; 
 
-            return _mapper.Map<TEntity>(users.FirstOrDefault(x => x.Id == identifier));
+            return _mapper.Map<TEntity>(users.AsNoTracking().FirstOrDefault(x => x.Id == identifier));
         }
 
         private void Create(TModel model)

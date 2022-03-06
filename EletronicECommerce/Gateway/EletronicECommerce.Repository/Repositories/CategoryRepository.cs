@@ -4,6 +4,7 @@ using EletronicECommerce.Domain.Entities.Admin;
 using EletronicECommerce.Repository.Context;
 using EletronicECommerce.Repository.Models;
 using EletronicECommerce.UseCase.Interfaces.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace EletronicECommerce.Repository.Repositories
 {
@@ -21,7 +22,7 @@ namespace EletronicECommerce.Repository.Repositories
 
         public Category GetByName(string name)
         {
-            var categoryDto = _context.Categories.FirstOrDefault(x => x.Name == name);
+            var categoryDto = _context.Categories.AsNoTracking().FirstOrDefault(x => x.Name == name);
             return _mapper.Map<Category>(categoryDto);
         }
     }

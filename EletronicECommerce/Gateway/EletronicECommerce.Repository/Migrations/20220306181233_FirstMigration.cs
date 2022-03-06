@@ -4,7 +4,7 @@ using MySql.EntityFrameworkCore.Metadata;
 
 namespace EletronicECommerce.Repository.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class FirstMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -19,22 +19,6 @@ namespace EletronicECommerce.Repository.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("Pk_Category", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Order",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "char(36)", nullable: false),
-                    User = table.Column<string>(type: "char(36)", nullable: false),
-                    ProductId = table.Column<string>(type: "char(36)", nullable: false),
-                    StatusOrder = table.Column<string>(type: "varchar(20)", nullable: false),
-                    TypePayment = table.Column<string>(type: "varchar(20)", nullable: false),
-                    CreateDate = table.Column<DateTime>(type: "datetime", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("Pk_Order", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -83,7 +67,7 @@ namespace EletronicECommerce.Repository.Migrations
                     Surname = table.Column<string>(type: "varchar(200)", nullable: false),
                     DocumentNumber = table.Column<string>(type: "varchar(14)", nullable: false),
                     DocumentType = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<string>(type: "char(36)", nullable: true),
+                    UserId = table.Column<string>(type: "char(36)", nullable: false),
                     CreateDate = table.Column<DateTime>(type: "datetime", nullable: false)
                 },
                 constraints: table =>
@@ -94,7 +78,29 @@ namespace EletronicECommerce.Repository.Migrations
                         column: x => x.UserId,
                         principalTable: "User",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Order",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "char(36)", nullable: false),
+                    TotalPrice = table.Column<decimal>(type: "decimal(15,2)", nullable: false),
+                    StatusOrder = table.Column<string>(type: "varchar(20)", nullable: false),
+                    TypePayment = table.Column<string>(type: "varchar(20)", nullable: false),
+                    UserId = table.Column<string>(type: "char(36)", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "datetime", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("Pk_Order", x => x.Id);
+                    table.ForeignKey(
+                        name: "Fk_Order_User",
+                        column: x => x.UserId,
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -144,6 +150,33 @@ namespace EletronicECommerce.Repository.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "OrderProduct",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<string>(type: "char(36)", nullable: false),
+                    OrderId = table.Column<string>(type: "char(36)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("Pk_OrderProduct", x => x.Id);
+                    table.ForeignKey(
+                        name: "Fk_Order_Product",
+                        column: x => x.OrderId,
+                        principalTable: "Order",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "Fk_Product_Order",
+                        column: x => x.ProductId,
+                        principalTable: "Product",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Address_CustomerId",
                 table: "Address",
@@ -154,6 +187,21 @@ namespace EletronicECommerce.Repository.Migrations
                 table: "Customer",
                 column: "UserId",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Order_UserId",
+                table: "Order",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderProduct_OrderId",
+                table: "OrderProduct",
+                column: "OrderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderProduct_ProductId",
+                table: "OrderProduct",
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Product_CategoryId",
@@ -172,13 +220,16 @@ namespace EletronicECommerce.Repository.Migrations
                 name: "Address");
 
             migrationBuilder.DropTable(
-                name: "Order");
+                name: "OrderProduct");
 
             migrationBuilder.DropTable(
                 name: "ProductStock");
 
             migrationBuilder.DropTable(
                 name: "Customer");
+
+            migrationBuilder.DropTable(
+                name: "Order");
 
             migrationBuilder.DropTable(
                 name: "Product");
